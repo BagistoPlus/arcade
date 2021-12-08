@@ -1,0 +1,72 @@
+{
+    "name": "eldomagan/bagisto-arcade",
+    "description": "Theme framework and theme editor for Bagisto e-commerce framework",
+    "keywords": [
+        "laravel",
+        "bagisto",
+        "e-commerce",
+        "bagisto extension",
+        "bagisto theme",
+        "bagisto theme editor",
+        "bagisto-arcade",
+        "arcade",
+        "arcade-theme",
+        "arcade-editor",
+        "theme-editor"
+    ],
+    "homepage": "https://github.com/eldomagan/bagisto-arcade",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eldo Magan",
+            "email": "magan.eldo@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.73"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.10",
+        "nunomaduro/larastan": "^1.0",
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "EldoMagan\\BagistoArcade\\": "src",
+            "EldoMagan\\Arcade\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EldoMagan\\BagistoArcade\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EldoMagan\\BagistoArcade\\Providers\\ArcadeServiceProvider"
+            ],
+            "aliases": {
+                "Arcade": "EldoMagan\\BagistoArcade\\Arcade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
