@@ -41,7 +41,7 @@
     "autoload": {
         "psr-4": {
             "EldoMagan\\BagistoArcade\\": "src",
-            "EldoMagan\\Arcade\\Database\\Factories\\": "database/factories"
+            "EldoMagan\\BagistoArcade\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {

@@ -1,5 +1,5 @@
 <?php
 
-use EldoMagan\Arcade\Tests\TestCase;
+use EldoMagan\BagistoArcade\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
