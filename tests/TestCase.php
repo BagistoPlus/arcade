@@ -2,8 +2,8 @@
 
 namespace EldoMagan\BagistoArcade\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use EldoMagan\BagistoArcade\Providers\ArcadeServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

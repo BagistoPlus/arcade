@@ -3,7 +3,6 @@
 namespace EldoMagan\BagistoArcade;
 
 use Illuminate\Support\Facades\Facade;
-use EldoMagan\BagistoArcade\ArcadeManager;
 
 class Arcade extends Facade
 {
