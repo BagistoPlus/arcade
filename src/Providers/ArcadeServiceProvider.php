@@ -2,20 +2,13 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
-use EldoMagan\BagistoArcade\ArcadeManager;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\AggregateServiceProvider;
 
-class ArcadeServiceProvider extends ServiceProvider
+class ArcadeServiceProvider extends AggregateServiceProvider
 {
-    public function boot()
-    {
-        //
-    }
-
-    public function register()
-    {
-        $this->app->bind(ArcadeManager::class, function () {
-            return new ArcadeManager();
-        });
-    }
+    protected $providers = [
+        CoreServiceProvider::class,
+        ViewServiceProvider::class,
+        ArcadeThemeServiceProvider::class,
+    ];
 }

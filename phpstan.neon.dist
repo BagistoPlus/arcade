@@ -10,3 +10,6 @@ parameters:
     checkOctaneCompatibility: true
     checkModelProperties: true
     checkMissingIterableValueType: false
+
+    ignoreErrors:
+        - '#Target class \[livewire\] does not exist#'

@@ -25,9 +25,13 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.73"
+        "artem_c/emmet": "^1.0",
+        "illuminate/contracts": "^8.71",
+        "livewire/livewire": "^2.8",
+        "symfony/yaml": "^5.4"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.3",
         "nunomaduro/collision": "^5.10",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.22",
@@ -39,6 +43,9 @@
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "EldoMagan\\BagistoArcade\\": "src",
             "EldoMagan\\BagistoArcade\\Database\\Factories\\": "database/factories"
@@ -52,7 +59,8 @@
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest coverage"
+        "test-coverage": "vendor/bin/pest coverage",
+        "phpcs": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist.php --allow-risky=yes"
     },
     "config": {
         "sort-packages": true
@@ -63,7 +71,8 @@
                 "EldoMagan\\BagistoArcade\\Providers\\ArcadeServiceProvider"
             ],
             "aliases": {
-                "Arcade": "EldoMagan\\BagistoArcade\\Arcade"
+                "Arcade": "EldoMagan\\BagistoArcade\\Facades\\Arcade",
+                "Sections": "EldoMagan\\BagistoArcade\\Facades\\Sections"
             }
         }
     },

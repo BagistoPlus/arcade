@@ -1,7 +1,8 @@
 <?php
 
-namespace EldoMagan\BagistoArcade;
+namespace EldoMagan\BagistoArcade\Facades;
 
+use EldoMagan\BagistoArcade\ArcadeManager;
 use Illuminate\Support\Facades\Facade;
 
 class Arcade extends Facade
