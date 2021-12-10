@@ -8,5 +8,8 @@ parameters:
         - config
     tmpDir: build/phpstan
 
+    excludes_analyse:
+        - vendor/artem_c/emmet/src/Data.php
+
     ignoreErrors:
         - '#Unsafe usage of new static#'
