@@ -121,9 +121,9 @@ final class Section implements Arrayable, JsonSerializable
      * Generate the section blade template
      *
      * @param string $id
-     * @return void
+     * @return string
      */
-    public function renderToBlade(string $id = null)
+    public function renderToBlade(string $id = null): string
     {
         if (! $id) {
             $id = Str::random(10);

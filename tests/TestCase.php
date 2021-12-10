@@ -3,6 +3,7 @@
 namespace EldoMagan\BagistoArcade\Tests;
 
 use EldoMagan\BagistoArcade\Providers\ArcadeServiceProvider;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -15,6 +16,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            LivewireServiceProvider::class,
             ArcadeServiceProvider::class,
         ];
     }

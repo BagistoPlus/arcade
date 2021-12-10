@@ -26,11 +26,15 @@ class SettingType implements Arrayable
     protected $default;
     protected string $info;
 
+    public function __construct(string $id, string $label = '')
+    {
+        $this->id = $id;
+        $this->label = $label;
+    }
+
     public static function make(string $id, string $label = '')
     {
-        return (new static())
-            ->id($id)
-            ->label($label ?: Str::title(str_replace('_', ' ', $id)))
+        return (new static($id, $label ?: Str::title(str_replace('_', ' ', $id))))
             ->type('text')
             ->default('')
             ->info('');

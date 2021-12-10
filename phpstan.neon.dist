@@ -2,14 +2,11 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
-    level: 4
+    level: 3
     paths:
         - src
         - config
     tmpDir: build/phpstan
-    checkOctaneCompatibility: true
-    checkModelProperties: true
-    checkMissingIterableValueType: false
 
     ignoreErrors:
-        - '#Target class \[livewire\] does not exist#'
+        - '#Unsafe usage of new static#'
