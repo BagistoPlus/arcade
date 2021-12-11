@@ -2,7 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use artem_c\emmet\Emmet;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
@@ -135,7 +134,7 @@ final class Section implements Arrayable, JsonSerializable
             $component = sprintf('<x-arcade-section-%s arcadeId="%s" />', $this->slug, $id);
         }
 
-        $template = (new Emmet($this->wrapper . '>{`content`}'))->create(['content' => $component]);
+        $template = str_replace('{section_content}', $component, $this->wrapper);
 
         $tagPosition = strpos($template, '>');
 

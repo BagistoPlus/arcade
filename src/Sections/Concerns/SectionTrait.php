@@ -50,7 +50,7 @@ trait SectionTrait
             return static::$wrapper;
         }
 
-        return 'section';
+        return '<div>{section_content}</div>';
     }
 
     public static function settings()

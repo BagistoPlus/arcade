@@ -25,7 +25,6 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "artem_c/emmet": "^1.0",
         "illuminate/contracts": "^8.71",
         "livewire/livewire": "^2.8",
         "symfony/yaml": "^5.4"
