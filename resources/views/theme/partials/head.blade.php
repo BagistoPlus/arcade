@@ -14,7 +14,7 @@
 
 @stack('head')
 
-<link rel="stylesheet" href="{{ asset('themes/arcade/theme.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/arcade/theme.css') }}">
 @stack('css')
 
 @livewireStyles
