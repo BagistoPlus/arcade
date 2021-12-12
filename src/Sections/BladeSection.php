@@ -2,9 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use Illuminate\View\Component;
 use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Sections\Concerns\SectionTrait;
+use Illuminate\View\Component;
 
 abstract class BladeSection extends Component implements SectionInterface
 {
