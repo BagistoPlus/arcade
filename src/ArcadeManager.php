@@ -18,6 +18,11 @@ class ArcadeManager
         $this->sectionDataCollector = $sectionDataCollector;
     }
 
+    public function sectionDataCollector(): SectionDataCollector
+    {
+        return $this->sectionDataCollector;
+    }
+
     public function collectSectionData($id, $path = null)
     {
         return $this->sectionDataCollector->collectSectionData($id, $path);

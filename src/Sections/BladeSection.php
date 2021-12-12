@@ -2,8 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use EldoMagan\BagistoArcade\Sections\Concerns\SectionTrait;
 use Illuminate\View\Component;
+use EldoMagan\BagistoArcade\Facades\Arcade;
+use EldoMagan\BagistoArcade\Sections\Concerns\SectionTrait;
 
 abstract class BladeSection extends Component implements SectionInterface
 {
@@ -63,6 +64,6 @@ abstract class BladeSection extends Component implements SectionInterface
 
     protected function getArcadeSectionData()
     {
-        return [];
+        return Arcade::sectionDataCollector()->getSectionData($this->arcadeId)->all();
     }
 }

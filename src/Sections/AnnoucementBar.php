@@ -13,21 +13,21 @@ class AnnoucementBar extends BladeSection
     public static function settings()
     {
         return [
-            CheckboxType::make('show_annoucement', 'Show Annoucement')
+            CheckboxType::make('show_announcement', 'Show Announcement')
                 ->default(true)
-                ->info('You can toggle the annoucement bar using this checkbox'),
+                ->info('You can toggle the announcement bar using this checkbox'),
 
-            TextType::make('annoucement', 'Annoucement')
-                ->default('Annoucement text')
-                ->info('The annoucement text'),
+            TextType::make('announcement', 'Announcement')
+                ->default('Announcement text')
+                ->info('The announcement text'),
 
             TextType::make('bg_color', 'Background Color')
                 ->default('blue')
-                ->info('The annoucement bar color'),
+                ->info('The announcement bar color'),
 
             TextType::make('text_color', 'Text Color')
                 ->default('white')
-                ->info('The annoucement text color'),
+                ->info('The announcement text color'),
 
             SelectType::make('position', 'Position')
                 ->options([
@@ -36,23 +36,23 @@ class AnnoucementBar extends BladeSection
                     ['label' => 'Right', 'value' => 'right'],
                 ])
                 ->default('center')
-                ->info('The annoucement bar position'),
+                ->info('The announcement bar position'),
         ];
     }
 
     public static function blocks()
     {
         return [
-            Block::make('annoucement', 'Annoucement')->settings([
-                TextType::make('text', 'Annoucement')
-                    ->default('Annoucement text')
-                    ->info('The annoucement text'),
+            Block::make('announcement', 'Announcement')->settings([
+                TextType::make('text', 'Announcement')
+                    ->default('Announcement text')
+                    ->info('The announcement text'),
             ]),
         ];
     }
 
     public function render()
     {
-        return view('shop::sections.annoucement-bar');
+        return view('shop::sections.announcement-bar');
     }
 }
