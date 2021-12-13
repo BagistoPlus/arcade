@@ -2,16 +2,16 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
-use Livewire\Livewire;
-use Illuminate\Support\Facades\Blade;
-use Webkul\Shop\Http\Middleware\Theme;
-use Illuminate\Support\ServiceProvider;
-use Webkul\Shop\Http\Middleware\Locale;
-use Webkul\Shop\Http\Middleware\Currency;
-use Illuminate\View\Engines\CompilerEngine;
+use EldoMagan\BagistoArcade\LivewireFeatures;
 use EldoMagan\BagistoArcade\View\BladeDirectives;
 use EldoMagan\BagistoArcade\View\JsonViewCompiler;
-use EldoMagan\BagistoArcade\LivewireFeatures;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Engines\CompilerEngine;
+use Livewire\Livewire;
+use Webkul\Shop\Http\Middleware\Currency;
+use Webkul\Shop\Http\Middleware\Locale;
+use Webkul\Shop\Http\Middleware\Theme;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -25,6 +25,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         $this->registerViewExtensions();
         $this->registerBladeDirectives();
+        $this->registerLivewireSectionFeatures();
         $this->registerMiddlewaresForLivewire();
     }
 
@@ -77,6 +78,7 @@ class ViewServiceProvider extends ServiceProvider
     public function registerLivewireSectionFeatures()
     {
         LivewireFeatures\SupportAttributes::init();
+        LivewireFeatures\SupportSectionData::init();
     }
 
     protected function registerMiddlewaresForLivewire()
