@@ -38,7 +38,7 @@ class SectionDataCollector
         }
 
         $data = [
-            'type' => $id
+            'type' => $id,
         ];
 
         if (null !== $path) {

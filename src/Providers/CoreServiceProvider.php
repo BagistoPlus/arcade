@@ -2,24 +2,24 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use EldoMagan\BagistoArcade\ArcadeManager;
-use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Sections\Header;
-use Illuminate\View\Compilers\BladeCompiler;
-use EldoMagan\BagistoArcade\Components\MiniCart;
 use EldoMagan\BagistoArcade\Components\AccountMenu;
-use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
-use EldoMagan\BagistoArcade\Sections\SectionRepository;
 use EldoMagan\BagistoArcade\Components\CurrencySwitcher;
+use EldoMagan\BagistoArcade\Components\MiniCart;
+use EldoMagan\BagistoArcade\Facades\Arcade;
+use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
+use EldoMagan\BagistoArcade\Sections\Header;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
+use EldoMagan\BagistoArcade\Sections\SectionRepository;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
 
 class CoreServiceProvider extends ServiceProvider
 {
     protected static $bladeComponents = [
         'account-menu' => AccountMenu::class,
-        'currency-switcher' => CurrencySwitcher::class
+        'currency-switcher' => CurrencySwitcher::class,
     ];
 
     protected static $livewireComponents = [
