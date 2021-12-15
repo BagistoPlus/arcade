@@ -2,9 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\LivewireFeatures;
 
-use EldoMagan\Bagisto\Arcade\Arcade;
-use EldoMagan\Bagisto\Arcade\SectionDefinition\SectionData;
-use EldoMagan\Bagisto\Arcade\Sections\LivewireSection;
+use EldoMagan\BagistoArcade\Facades\Arcade;
+use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
+use EldoMagan\BagistoArcade\Sections\LivewireSection;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -42,7 +42,7 @@ class SupportSectionData
                 return;
             }
 
-            $data = Arcade::dataCollector()
+            $data = Arcade::sectionDataCollector()
                 ->getSectionData($component->arcadeId)
                 ->except(['errors'])
                 ->toArray();

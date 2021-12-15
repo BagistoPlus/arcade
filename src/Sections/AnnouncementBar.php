@@ -6,7 +6,7 @@ use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
 use EldoMagan\BagistoArcade\SettingTypes\SelectType;
 use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
-class AnnoucementBar extends BladeSection
+class AnnouncementBar extends BladeSection
 {
     protected static $previewDescription = 'Vous pouvez annonces des choses ici';
 
@@ -21,13 +21,13 @@ class AnnoucementBar extends BladeSection
                 ->default('Announcement text')
                 ->info('The announcement text'),
 
-            TextType::make('bg_color', 'Background Color')
-                ->default('blue')
-                ->info('The announcement bar color'),
-
-            TextType::make('text_color', 'Text Color')
-                ->default('white')
-                ->info('The announcement text color'),
+            SelectType::make('style', 'Style')
+                ->default('secondary')
+                ->options([
+                    ['label' => 'Primary', 'value' => 'primary'],
+                    ['label' => 'Secondary', 'value' => 'secondary'],
+                    ['label' => 'Accent', 'value' => 'accent']
+                ]),
 
             SelectType::make('position', 'Position')
                 ->options([
@@ -37,17 +37,6 @@ class AnnoucementBar extends BladeSection
                 ])
                 ->default('center')
                 ->info('The announcement bar position'),
-        ];
-    }
-
-    public static function blocks()
-    {
-        return [
-            Block::make('announcement', 'Announcement')->settings([
-                TextType::make('text', 'Announcement')
-                    ->default('Announcement text')
-                    ->info('The announcement text'),
-            ]),
         ];
     }
 

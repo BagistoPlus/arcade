@@ -1,21 +1,22 @@
-@push('css')
-
-@endpush
-
 @php
   $positionValues = [
     'left' => 'justify-start',
     'center' => 'justify-center',
     'right' => 'justify-end'
   ];
+
+  $styles = [
+    'primary' => 'bg-primary text-on-primary dark:bg-primary-dark dark:text-on-primary-dark',
+    'secondary' => 'bg-secondary text-on-secondary dark:bg-secondary-dark dark:text-on-secondary-dark',
+    'accent' => 'bg-accent text-on-accent dark:bg-accent-dark dark:text-on-accent-dark',
+  ]
 @endphp
 
-@if ($section->settings->show_announcement)
+@if (true)
   <div class="
     flex py-1 px-4
-    bg-{{ $section->settings->bg_color }}-500
-    text-{{ $section->settings->text_color }}
+    {{ $styles[$section->settings->style] }}
     {{ $positionValues[$section->settings->position] }}">
-    {{ $section->settings->annoucement }}
+    {{ $section->settings->announcement }}
   </div>
 @endif

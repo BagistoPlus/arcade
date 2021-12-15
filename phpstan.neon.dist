@@ -6,6 +6,9 @@ parameters:
     paths:
         - src
         - config
+    bootstrapFiles:
+        - vendor/bagisto/bagisto/packages/Webkul/Core/src/Http/helpers.php
+
     tmpDir: build/phpstan
 
     excludePaths:

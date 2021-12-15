@@ -3,6 +3,7 @@
 namespace EldoMagan\BagistoArcade\Providers;
 
 use EldoMagan\BagistoArcade\LivewireFeatures;
+use EldoMagan\BagistoArcade\View\ArcadeTagsCompiler;
 use EldoMagan\BagistoArcade\View\BladeDirectives;
 use EldoMagan\BagistoArcade\View\JsonViewCompiler;
 use Illuminate\Support\Facades\Blade;
@@ -24,6 +25,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerViewExtensions();
+        $this->registerArcadeTagsCompiler();
         $this->registerBladeDirectives();
         $this->registerLivewireSectionFeatures();
         $this->registerMiddlewaresForLivewire();
@@ -72,7 +74,15 @@ class ViewServiceProvider extends ServiceProvider
         Blade::directive('arcade_dymanic_content', [BladeDirectives::class, 'arcadeDynamicContent']);
 
         Blade::directive('arcade_slot', [BladeDirectives::class, 'arcadeSlot']);
-        Blade::directive('arcade_section', [BladeDirectives::class, 'arcadeSection']);
+    }
+
+    protected function registerArcadeTagsCompiler()
+    {
+        if (method_exists($this->app['blade.compiler'], 'precompiler')) {
+            $this->app['blade.compiler']->precompiler(function ($string) {
+                return app(ArcadeTagsCompiler::class)->compile($string);
+            });
+        }
     }
 
     public function registerLivewireSectionFeatures()

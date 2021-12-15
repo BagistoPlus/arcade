@@ -58,36 +58,6 @@ class BladeDirectives
         return $compiled;
     }
 
-    public static function arcadeSection($expression)
-    {
-        $viewInfo = self::viewInfo();
-
-        if (! in_array($viewInfo['type'], ['templates', 'layouts'])) {
-            throw new \Exception('You should use @arcade_section only inside templates or layouts views');
-        }
-
-        $type = str_replace(["'", '"'], '', $expression);
-
-        if (! Sections::has($type)) {
-            throw new SectionNotFoundException(sprintf(
-                "Can not found section '%s'.",
-                $type
-            ));
-        }
-
-        $section = Sections::get($type);
-
-        $compiled = app('blade.compiler')->compileString(
-            $section->renderToBlade($section->slug)
-        );
-
-        return "<?php
-arcade()->collectSectionData('{$section->slug}');
-arcade()->collectSectionGlobals('{$section->slug}', collect(get_defined_vars()['__data'] ?: [])->except(['__env', 'app']));
-?>
-$compiled";
-    }
-
     public static function arcadeSlot($expression)
     {
         return sprintf("<?php echo view_render_event(%s); ?>", $expression);

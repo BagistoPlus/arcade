@@ -4,7 +4,8 @@ namespace EldoMagan\BagistoArcade\Providers;
 
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Sections\AnnoucementBar;
+use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
+use EldoMagan\BagistoArcade\Sections\Header;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
 use Illuminate\Support\ServiceProvider;
@@ -12,7 +13,8 @@ use Illuminate\Support\ServiceProvider;
 class CoreServiceProvider extends ServiceProvider
 {
     protected $sections = [
-        AnnoucementBar::class,
+        // Header::class,
+        AnnouncementBar::class,
     ];
 
     public function boot()

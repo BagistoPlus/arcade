@@ -37,13 +37,15 @@ class SectionDataCollector
             $this->sectionsData->put($id, collect());
         }
 
-        if (null === $path) {
-            return [];
+        $data = [
+            'type' => $id
+        ];
+
+        if (null !== $path) {
+            $data = $this->collectSectionDataFromPath($id, $path);
         }
 
-        $data = $this->collectSectionDataFromPath($id, $path);
         $data['settings'] = $data['settings'] ?? [];
-
         $section = Sections::get($data['type'] ?? $id);
 
         /**
