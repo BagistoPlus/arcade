@@ -2,9 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\View;
 
-use EldoMagan\BagistoArcade\Exceptions\SectionNotFoundException;
-use EldoMagan\BagistoArcade\Facades\Sections;
-
 class BladeDirectives
 {
     public static function viewInfo()

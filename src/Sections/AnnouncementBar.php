@@ -26,7 +26,7 @@ class AnnouncementBar extends BladeSection
                 ->options([
                     ['label' => 'Primary', 'value' => 'primary'],
                     ['label' => 'Secondary', 'value' => 'secondary'],
-                    ['label' => 'Accent', 'value' => 'accent']
+                    ['label' => 'Accent', 'value' => 'accent'],
                 ]),
 
             SelectType::make('position', 'Position')
