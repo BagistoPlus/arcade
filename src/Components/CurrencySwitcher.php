@@ -11,6 +11,7 @@ class CurrencySwitcher extends Component
 
     public function __construct()
     {
+        // @phpstan-ignore-next-line
         $this->currencies = core()->getCurrentChannel()->currencies;
         $this->currentCurrency = core()->getCurrentCurrency();
     }
