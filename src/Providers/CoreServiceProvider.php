@@ -2,18 +2,32 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
 use EldoMagan\BagistoArcade\Sections\Header;
-use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
+use Illuminate\View\Compilers\BladeCompiler;
+use EldoMagan\BagistoArcade\Components\MiniCart;
+use EldoMagan\BagistoArcade\Components\AccountMenu;
+use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
-use Illuminate\Support\ServiceProvider;
+use EldoMagan\BagistoArcade\Components\CurrencySwitcher;
+use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
+use Livewire\Livewire;
 
 class CoreServiceProvider extends ServiceProvider
 {
+    protected static $bladeComponents = [
+        'account-menu' => AccountMenu::class,
+        'currency-switcher' => CurrencySwitcher::class
+    ];
+
+    protected static $livewireComponents = [
+        'mini-cart' => MiniCart::class,
+    ];
+
     protected $sections = [
-        // Header::class,
+        Header::class,
         AnnouncementBar::class,
     ];
 
@@ -22,6 +36,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/shop.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'arcade');
 
+        $this->registerBladeComponents();
+        $this->registerLivewireComponents();
         Arcade::registerSections($this->sections, 'arcade');
 
         if ($this->app->runningInConsole()) {
@@ -57,5 +73,21 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/arcade.php', 'arcade');
         $this->mergeConfigFrom(__DIR__ . '/../../config/theme.php', 'themes.themes');
+    }
+
+    protected function registerBladeComponents()
+    {
+        $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
+            foreach (self::$bladeComponents as $name => $component) {
+                $blade->component($component, $name);
+            }
+        });
+    }
+
+    protected function registerLivewireComponents()
+    {
+        foreach (self::$livewireComponents as $name => $component) {
+            Livewire::component($name, $component);
+        }
     }
 }

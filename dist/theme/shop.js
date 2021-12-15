@@ -3384,6 +3384,33 @@ var module_default = src_default;
 
 /***/ }),
 
+/***/ "./resources/js/shop/components/dropdown.ts":
+/*!**************************************************!*\
+  !*** ./resources/js/shop/components/dropdown.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(options) {
+  return {
+    opened: false,
+    open: function open() {
+      this.opened = true;
+    },
+    close: function close() {
+      this.opened = false;
+    },
+    toggle: function toggle() {
+      this.opened = !this.opened;
+    }
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/shop/index.ts":
 /*!************************************!*\
   !*** ./resources/js/shop/index.ts ***!
@@ -3392,7 +3419,11 @@ var module_default = src_default;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/dropdown */ "./resources/js/shop/components/dropdown.ts");
 
+
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data("ArcadeDropdown", _components_dropdown__WEBPACK_IMPORTED_MODULE_1__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 
 /***/ }),

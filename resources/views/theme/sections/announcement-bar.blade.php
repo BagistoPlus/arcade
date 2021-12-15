@@ -6,9 +6,9 @@
   ];
 
   $styles = [
-    'primary' => 'bg-primary text-on-primary dark:bg-primary-dark dark:text-on-primary-dark',
-    'secondary' => 'bg-secondary text-on-secondary dark:bg-secondary-dark dark:text-on-secondary-dark',
-    'accent' => 'bg-accent text-on-accent dark:bg-accent-dark dark:text-on-accent-dark',
+    'primary' => 'bg-primary text-on-primary',
+    'secondary' => 'bg-secondary text-on-secondary',
+    'accent' => 'bg-accent text-on-accent',
   ]
 @endphp
 

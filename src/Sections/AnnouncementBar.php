@@ -22,7 +22,7 @@ class AnnouncementBar extends BladeSection
                 ->info('The announcement text'),
 
             SelectType::make('style', 'Style')
-                ->default('secondary')
+                ->default('primary')
                 ->options([
                     ['label' => 'Primary', 'value' => 'primary'],
                     ['label' => 'Secondary', 'value' => 'secondary'],

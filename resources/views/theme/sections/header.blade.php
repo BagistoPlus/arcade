@@ -340,7 +340,7 @@
     </div>
   </div>
 
-  <header class="relative bg-white">
+  <header class="relative bg-surface">
     <nav aria-label="Top" class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="h-16 flex items-center">
         <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
@@ -363,7 +363,7 @@
 
         <div class="hidden flex-1 h-full space-x-4 lg:flex lg:ml-6">
           @foreach($categories as $category)
-          <a href="{{ url()->to($category->translations[0]->url_path) }}" class="flex items-center px-4 text-gray-600 font-medium hover:text-gray-800 border-b-2 border-transparent hover:border-blue-500">
+          <a href="{{ url()->to($category->translations[0]->url_path) }}" class="flex items-center px-4 text-on-surface font-medium hover:font-semibold border-b-2 border-transparent hover:border-primary">
             {{ $category->name }}
           </a>
           @endforeach

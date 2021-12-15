@@ -10,10 +10,10 @@
   <head>
     @include('shop::partials.head')
   </head>
-  <body class="{{ $direction }} bg-default text-default dark:bg-default-dark dark:text-default-dark" style="scroll-behavior: smooth;">
+  <body class="{{ $direction }} bg-default text-default" style="scroll-behavior: smooth;">
 
     <arcade:section name="arcade-announcement-bar" />
-    {{-- @arcade_section('arcade-header') --}}
+    <arcade:section name="arcade-header" />
 
     <main role="main" tabindex="-1">
       Le président
