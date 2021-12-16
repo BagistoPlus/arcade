@@ -12,7 +12,7 @@ declare module "alpinejs" {
     [Key in keyof T]: T[Key] extends (...args: infer Args) => infer Return
       ? (this: T & AlpineInstance, ...args: Args) => Return
       : T[Key];
-  } & { init?: () => void | Promise<void> };
+  } & { init?: (this: T & AlpineInstance) => void | Promise<void> };
 
   const Alpine: {
     start(): void;

@@ -1,9 +1,11 @@
 /* ./resources/assets/css/theme.css */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "~@glidejs/glide/dist/css/glide.core.min.css";
 
 [x-cloak] {
     display: none !important;
 }
+
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";

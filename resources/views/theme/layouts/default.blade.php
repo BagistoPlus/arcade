@@ -16,7 +16,6 @@
     <arcade:section name="arcade-header" />
 
     <main role="main" tabindex="-1">
-      Le président
       @arcade_layout_content
       {{-- <arcade:layout-content />
       <arcade:slot name=""/> --}}

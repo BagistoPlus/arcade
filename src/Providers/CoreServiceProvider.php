@@ -11,6 +11,7 @@ use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
 use EldoMagan\BagistoArcade\Sections\Header;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
+use EldoMagan\BagistoArcade\Sections\Slideshow;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
@@ -29,6 +30,7 @@ class CoreServiceProvider extends ServiceProvider
     protected $sections = [
         Header::class,
         AnnouncementBar::class,
+        Slideshow::class,
     ];
 
     public function boot()
