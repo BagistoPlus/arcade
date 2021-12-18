@@ -2,9 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Components;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 use Webkul\Product\Contracts\Product;
-use Illuminate\Database\Eloquent\Collection;
 
 class ProductsGrid extends Component
 {
