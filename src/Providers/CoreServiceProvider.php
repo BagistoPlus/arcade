@@ -3,15 +3,11 @@
 namespace EldoMagan\BagistoArcade\Providers;
 
 use EldoMagan\BagistoArcade\ArcadeManager;
-use EldoMagan\BagistoArcade\Components\AccountMenu;
-use EldoMagan\BagistoArcade\Components\CurrencySwitcher;
-use EldoMagan\BagistoArcade\Components\MiniCart;
+use EldoMagan\BagistoArcade\Components;
 use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Sections\AnnouncementBar;
-use EldoMagan\BagistoArcade\Sections\Header;
+use EldoMagan\BagistoArcade\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
-use EldoMagan\BagistoArcade\Sections\Slideshow;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
@@ -19,18 +15,22 @@ use Livewire\Livewire;
 class CoreServiceProvider extends ServiceProvider
 {
     protected static $bladeComponents = [
-        'account-menu' => AccountMenu::class,
-        'currency-switcher' => CurrencySwitcher::class,
+        'account-menu' => Components\AccountMenu::class,
+        'currency-switcher' => Components\CurrencySwitcher::class,
+        'products-carousel' => Components\ProductsCarousel::class,
+        'products-grid' => Components\ProductsGrid::class,
+        'product' => Components\Product::class,
     ];
 
     protected static $livewireComponents = [
-        'mini-cart' => MiniCart::class,
+        'mini-cart' => Components\MiniCart::class,
     ];
 
     protected $sections = [
-        Header::class,
-        AnnouncementBar::class,
-        Slideshow::class,
+        Sections\Header::class,
+        Sections\AnnouncementBar::class,
+        Sections\Slideshow::class,
+        Sections\FeaturedCategory::class,
     ];
 
     public function boot()

@@ -13,7 +13,7 @@
     ->getArrayCopy()
 @endphp
 
-<div x-data='ArcadeCarousel(@json($options))'>
+<div x-data='ArcadeCarousel(@json($options))' {{ $attributes->except(['breakpoints']) }}>
   <div class="glide relative">
     <div class="glide__track" data-glide-el="track">
       <div class="glide__slides">

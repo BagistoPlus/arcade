@@ -25,15 +25,6 @@
   :rewind="false"
   :itemsCount="$slides->count()"
   class="">
-  {{-- <x-arcade::carousel.slide class="bg-gray-100 h-96">
-    Slide 1
-  </x-arcade::carousel.slide>
-  <x-arcade::carousel.slide class="bg-blue-100 h-96">
-    Slide 2
-  </x-arcade::carousel.slide>
-  <x-arcade::carousel.slide class="bg-green-100 h-96">
-    Slide 3
-  </x-arcade::carousel.slide> --}}
   @foreach($slides as $slide)
     <x-arcade::carousel.slide
       class="bg-cover bg-center"

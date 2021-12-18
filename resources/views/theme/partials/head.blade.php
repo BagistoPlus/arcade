@@ -44,7 +44,7 @@
 
   /** dark theme */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :roo {
       --color-bg-primary: #D0BCFF;
       --color-on-primary: #381E72;
       --color-bg-primary-container: #4F378B;
