@@ -1,6 +1,6 @@
 @if($layout === 'vertical')
 
-  <div class="group relative bg-surface text-on-surface rounded-md shadow">
+  <div class="group relative bg-on-surface bg-opacity-[0.05] text-on-surface-variant rounded-md shadow">
     <div class="w-full min-h-64 bg-gray-200 aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
       <img src="{{ $previewImageUrl }}" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover">
     </div>
@@ -19,7 +19,7 @@
 
 @else
 
-  <div class="group flex items-center p-4 relative bg-surface text-on-surface shadow rounded-md">
+  <div class="group flex items-center p-4 relative bg-on-surface bg-opacity-[0.05] text-on-surface-variant shadow rounded-md">
     <div class="w-24 flex-none bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
       <img src="{{ $previewImageUrl }}" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover">
     </div>

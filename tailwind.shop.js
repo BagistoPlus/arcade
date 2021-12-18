@@ -1,3 +1,12 @@
+function withOpacity(color) {
+  return ({ opacityValue }) => {
+    if (opacityValue) {
+      return `rgba(var(${color}), ${opacityValue})`;
+    }
+
+    return `rgba(var(${color}), 1)`;
+  };
+}
 module.exports = {
   mode: "jit",
   purge: {
@@ -11,25 +20,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-bg-primary)",
-        "primary-container": "var(--color-bg-primary-container)",
-        secondary: "var(--color-bg-secondary)",
-        "secondary-container": "var(--color-bg-secondary-container)",
-        accent: "var(--color-bg-accent)",
-        "accent-container": "var(--color-bg-accent-container)",
-        default: "var(--color-bg-default)",
-        surface: "var(--color-bg-surface)",
-        "surface-variant": "var(--color-bg-surface-variant)",
+        primary: withOpacity("--color-bg-primary"),
+        "primary-container": withOpacity("--color-bg-primary-container"),
+        secondary: withOpacity("--color-bg-secondary"),
+        "secondary-container": withOpacity("--color-bg-secondary-container"),
+        accent: withOpacity("--color-bg-accent"),
+        "accent-container": withOpacity("--color-bg-accent-container"),
+        default: withOpacity("--color-bg-default"),
+        surface: withOpacity("--color-bg-surface"),
+        "surface-variant": withOpacity("--color-bg-surface-variant"),
 
-        "on-primary": "var(--color-on-primary)",
-        "on-primary-container": "var(--color-on-primary-container)",
-        "on-secondary": "var(--color-on-secondary)",
-        "on-secondary-container": "var(--color-on-secondary-container)",
-        "on-accent": "var(--color-on-accent)",
-        "on-accent-container": "var(--color-on-accent-container)",
-        "on-default": "var(--color-on-default)",
-        "on-surface": "var(--color-on-surface)",
-        "on-surface-variant": "var(--color-on-surface-variant)",
+        "on-primary": withOpacity("--color-on-primary"),
+        "on-primary-container": withOpacity("--color-on-primary-container"),
+        "on-secondary": withOpacity("--color-on-secondary"),
+        "on-secondary-container": withOpacity("--color-on-secondary-container"),
+        "on-accent": withOpacity("--color-on-accent"),
+        "on-accent-container": withOpacity("--color-on-accent-container"),
+        "on-default": withOpacity("--color-on-default"),
+        "on-surface": withOpacity("--color-on-surface"),
+        "on-surface-variant": withOpacity("--color-on-surface-variant"),
       },
     },
     namedGroups: ["carousel", "product"],

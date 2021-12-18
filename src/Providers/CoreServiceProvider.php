@@ -31,6 +31,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\AnnouncementBar::class,
         Sections\Slideshow::class,
         Sections\FeaturedCategory::class,
+        Sections\Mosaic::class,
     ];
 
     public function boot()

@@ -22,7 +22,7 @@ class SectionData extends BlockData
 
         $this->blocks = collect($this->blocksOrder)
             ->map(function ($id) use ($blocks) {
-                return new BlockData($id, array_merge($blocks[$id], ['id' => $id]));
+                return new BlockData($id, $blocks[$id]);
             })->all();
     }
 

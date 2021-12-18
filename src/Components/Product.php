@@ -37,7 +37,10 @@ class Product extends Component
 
     public function getUrl()
     {
-        return route('shop.productOrCategory.index', $this->product->url_key);
+        return route(
+            'shop.productOrCategory.index',
+            $this->product->url_key // @phpstan-ignore-line
+        );
     }
 
     public function render()

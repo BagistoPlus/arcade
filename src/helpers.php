@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
 use EldoMagan\BagistoArcade\ArcadeManager;
+use Illuminate\Support\Facades\Storage;
 use Webkul\Category\Repositories\CategoryRepository;
 
 if (! function_exists('arcade')) {
