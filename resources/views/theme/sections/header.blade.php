@@ -10,7 +10,7 @@
   }
 @endphp
 
-<div x-data="{ mobileMenuOpen: false }" class="bg-white">
+<div x-data="{ mobileMenuOpen: false }">
   <!--
     Mobile menu
 
@@ -340,7 +340,7 @@
     </div>
   </div>
 
-  <header class="relative bg-surface">
+  <header class="relative bg-surface shadow">
     <nav aria-label="Top" class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="h-16 flex items-center">
         <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->

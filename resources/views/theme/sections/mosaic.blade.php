@@ -46,8 +46,8 @@
   ]
 @endphp
 
-<div class="container mx-auto my-12 px-4 sm:px-6 lg:px-8">
-  <div class="grid gap-6 md:grid-cols-7">
+<div class="container mx-auto my-16 px-4 sm:px-6 lg:px-8">
+  <div class="grid gap-y-6 md:gap-x-6 md:grid-cols-7">
 
     @foreach($section->blocks as $key => $item)
     <div
@@ -62,7 +62,7 @@
         @endif
 
         @if($item->settings->show_overlay)
-          <div class="absolute inset-0 w-full h-full bg-gradient-to-b from-black to-transparent opacity-5"></div>
+          <div class="absolute inset-0 w-full h-full bg-gradient-to-b from-black to-transparent opacity-20"></div>
         @endif
 
         <div class="relative p-6 flex h-full w-full {{ $contentPositions[$item->settings->content_position] }}">

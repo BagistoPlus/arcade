@@ -1,1 +1,1 @@
-Hello Arcade Theme
+Home page

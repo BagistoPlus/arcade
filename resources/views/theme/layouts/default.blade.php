@@ -16,9 +16,9 @@
     <arcade:section name="arcade-header" />
 
     <main role="main" tabindex="-1">
-      @arcade_layout_content
-      {{-- <arcade:layout-content />
-      <arcade:slot name=""/> --}}
+      @section('body')
+        @arcade_layout_content
+      @show
     </main>
 
     @include('shop::partials.scripts')

@@ -11,12 +11,14 @@ use Illuminate\Support\Str;
  *
  * @method $this type(string $type)
  * @method $this name(string $name)
+ * @method $this limit(int $limit)
  * @method $this settings(SettingType[] $settings)
  */
 class Block
 {
     protected string $type;
     protected string $name;
+    protected int $limit = 16;
     protected array $settings;
 
     public function __construct(string $type, string $name = '', array $settings = [])

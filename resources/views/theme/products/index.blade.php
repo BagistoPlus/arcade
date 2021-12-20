@@ -1,13 +1,15 @@
 @extends('shop::layouts.default')
 
 @section('page_title')
-    {{ trim($category->meta_title) != "" ? $category->meta_title : $category->name }}
+  {{ trim($category->meta_title) !== "" ? $category->meta_title : $category->name }}
 @endsection
 
-@section('content')
-    {!! view_render_event('bagisto.shop.products.index.before', ['category' => $category]) !!}
+@arcade_content
 
-    @include('shop::templates.list-products')
+  {!! view_render_event('bagisto.shop.products.index.before', ['category' => $category]) !!}
 
-    {!! view_render_event('bagisto.shop.products.index.after', ['category' => $category]) !!}
-@endsection
+  @include('shop::templates.category')
+
+  {!! view_render_event('bagisto.shop.products.index.after', ['category' => $category]) !!}
+
+@end_arcade_content
