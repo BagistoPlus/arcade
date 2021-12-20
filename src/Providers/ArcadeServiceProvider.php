@@ -9,6 +9,6 @@ class ArcadeServiceProvider extends AggregateServiceProvider
     protected $providers = [
         CoreServiceProvider::class,
         ViewServiceProvider::class,
-        ArcadeThemeServiceProvider::class,
+        AdminServiceProvider::class,
     ];
 }

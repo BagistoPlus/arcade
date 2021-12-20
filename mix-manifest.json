@@ -1,4 +1,6 @@
 {
     "/dist/theme/shop.js": "/dist/theme/shop.js",
-    "/dist/theme/theme.css": "/dist/theme/theme.css"
+    "/dist/theme/theme.css": "/dist/theme/theme.css",
+    "/dist/admin/style.css": "/dist/admin/style.css",
+    "/dist/admin/images/theme_preview.png": "/dist/admin/images/theme_preview.png"
 }
