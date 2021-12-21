@@ -28,7 +28,7 @@
 
   /** dark theme */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :roo {
       --color-bg-primary: 208,188,255;
       --color-on-primary: 56,30,114;
       --color-bg-primary-container: 79,55,139;

@@ -7,15 +7,15 @@
 <title>@yield('page_title')</title>
 
 @if ($favicon = core()->getCurrentChannel()->favicon_url)
-    <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
+  <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
 @else
-    <link rel="icon" sizes="16x16" href="{{ bagisto_asset('images/favicon.ico') }}" />
+  <link rel="icon" sizes="16x16" href="{{ bagisto_asset('images/favicon.ico') }}" />
 @endif
 
 @stack('head')
 
 @include('shop::partials.colors')
-<link rel="stylesheet" href="{{ asset('vendor/arcade/theme.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/arcade/shop/theme.css') }}">
 
 @stack('css')
 

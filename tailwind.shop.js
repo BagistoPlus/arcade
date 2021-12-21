@@ -9,14 +9,12 @@ function withOpacity(color) {
 }
 module.exports = {
   mode: "jit",
-  purge: {
-    content: [
-      "./resources/views/theme/**/*.blade.php",
-      "./resources/views/components/**/*.blade.php",
-      "./resources/js/shop/**/*.{js,ts}",
-    ],
-  },
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./resources/views/theme/**/*.blade.php",
+    "./resources/views/components/**/*.blade.php",
+    "./resources/js/shop/**/*.{js,ts}",
+  ],
+  darkMode: "media", // or 'media' or 'class'
   theme: {
     extend: {
       colors: {

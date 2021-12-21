@@ -14,4 +14,12 @@ class ThemeController extends Controller
 
         return view('arcade::admin.themes.index', ['themes' => $themes]);
     }
+
+    public function editor($code)
+    {
+        $theme = config('themes.themes')[$code];
+        $theme['code'] = $code;
+
+        return view('arcade::admin.themes.editor', ['theme' => $theme]);
+    }
 }

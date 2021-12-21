@@ -1,9 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: {
-    content: ["./resources/views/admin/**/*.blade.php"],
-  },
-  darkMode: false,
+  content: ["./resources/views/admin/**/*.blade.php"],
   theme: {
     extend: {},
   },
