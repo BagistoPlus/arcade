@@ -42,6 +42,9 @@ class ArcadeTagsCompiler extends ComponentTagCompiler
             return "<?php
 arcade()->collectSectionData('{$section->slug}');
 arcade()->collectSectionGlobals('{$section->slug}', collect(get_defined_vars()['__data'] ?: [])->except(['__env', 'app']));
+if (arcadeEditor()->active()) {
+    arcadeEditor()->collectRenderedSection('{$section->slug}', '{$viewInfos['type']}', '{$viewInfos['view']}');
+}
 ?>
 $template";
         }, $value);

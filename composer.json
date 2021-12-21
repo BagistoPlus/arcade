@@ -74,7 +74,8 @@
       ],
       "aliases": {
         "Arcade": "EldoMagan\\BagistoArcade\\Facades\\Arcade",
-        "Sections": "EldoMagan\\BagistoArcade\\Facades\\Sections"
+        "Sections": "EldoMagan\\BagistoArcade\\Facades\\Sections",
+        "ThemeEditor": "EldoMagan\\BagistoArcade\\Facades\\ThemeEditor"
       }
     }
   },

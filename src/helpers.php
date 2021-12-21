@@ -1,6 +1,7 @@
 <?php
 
 use EldoMagan\BagistoArcade\ArcadeManager;
+use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Category\Repositories\CategoryRepository;
 
@@ -8,6 +9,13 @@ if (! function_exists('arcade')) {
     function arcade()
     {
         return app(ArcadeManager::class);
+    }
+}
+
+if (! function_exists('arcadeEditor')) {
+    function arcadeEditor()
+    {
+        return app(ThemeEditor::class);
     }
 }
 

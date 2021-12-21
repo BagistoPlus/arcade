@@ -46,6 +46,7 @@ class JsonViewCompiler extends Compiler implements CompilerInterface
         $bladeTemplate = $this->compileToBlade($path);
 
         $compiled = $this->bladeCompiler->compileString($bladeTemplate);
+        $compiled = $this->injectThemeEditorMetadata($compiled);
         $compiled = $this->appendFilePath($compiled, $path);
 
         $this->ensureCompiledDirectoryExists(
@@ -78,10 +79,13 @@ class JsonViewCompiler extends Compiler implements CompilerInterface
 
                 list($templateName) = explode('.', basename($path));
 
-                return "@php
+                return "<?php
 arcade()->collectSectionData('$sectionId', '$path');
 arcade()->collectSectionGlobals('$sectionId', collect(get_defined_vars()['__data'] ?: [])->except(['__env', 'app']));
-@endphp
+if (arcadeEditor()->active()) {
+    arcadeEditor()->collectRenderedSection('{$section->slug}', 'templates', '$templateName', '$sectionId');
+}
+?>
 {$section->renderToBlade($sectionId)}";
             })
             ->join("\n");
@@ -96,6 +100,21 @@ arcade()->collectSectionGlobals('$sectionId', collect(get_defined_vars()['__data
         }
 
         return Yaml::parse($this->files->get($path));
+    }
+
+    protected function injectThemeEditorMetadata($content)
+    {
+        return "<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->startRenderingContent();
+}
+?>
+$content
+<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->stopRenderingContent();
+}
+?>";
     }
 
     /**

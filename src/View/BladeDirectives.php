@@ -27,7 +27,22 @@ class BladeDirectives
             throw new \Exception('You should use @arcade_layout_content only inside layout views');
         }
 
-        return '<?php echo $__env->yieldContent(\'layout_content\'); ?>';
+        $themeEditorBefore = "<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->renderingView('{$viewInfo['name']}');
+    arcadeEditor()->startRenderingTemplate();
+}
+?>";
+
+        $themeEditorAfter = "<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->stopRenderingTemplate();
+}
+?>";
+
+        return $themeEditorBefore . '
+<?php echo $__env->yieldContent(\'layout_content\'); ?>
+' . $themeEditorAfter;
     }
 
     public static function arcadeContent()
@@ -52,7 +67,17 @@ class BladeDirectives
             "@includeIf('shop::__dynamic.{$viewInfo['view']}')"
         );
 
-        return $compiled;
+        return "<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->startRenderingContent();
+}
+?>
+$compiled
+<?php
+if (arcadeEditor()->active()) {
+    arcadeEditor()->stopRenderingContent();
+}
+?>";
     }
 
     public static function arcadeSlot($expression)
