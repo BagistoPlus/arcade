@@ -21,7 +21,7 @@
 
             <div class="space-x-4">
               <a href="{{ route('arcade.admin.themes.editor', ['theme' => $code]) }}" class="btn btn-lg btn-primary">Customize</a>
-              <a href="#" class="btn btn-secondary btn-lg">Preview</a>
+              <a href="{{ route('shop.home.index', ['previewMode' => $code]) }}" target="_blank" class="btn btn-secondary btn-lg">Preview</a>
             </div>
           </div>
         </div>

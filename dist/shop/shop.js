@@ -7297,9 +7297,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       container.setAttribute("data-glide-carousel-initialized", "");
       this.glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"](container, _objectSpread({}, options)).mount();
-      console.log(this.glide.on);
       this.glide.on("run", function () {
-        console.log("--> on run");
         _this.activeIndex = _this.glide.index;
       });
     },

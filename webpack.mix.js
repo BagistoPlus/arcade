@@ -20,6 +20,7 @@ mix.copyDirectory("resources/img/admin", "dist/admin/images");
 
 mix
   .ts("resources/js/theme-editor/app.ts", "dist/theme-editor")
+  .ts("resources/js/theme-editor/injected.ts", "dist/theme-editor")
   .postCss("resources/css/theme-editor.css", "dist/theme-editor/style.css", [
     require("tailwindcss")("./tailwind.editor.js"),
   ])

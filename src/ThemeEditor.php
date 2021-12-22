@@ -16,22 +16,40 @@ class ThemeEditor
 
     public function active()
     {
-        return request()->query->has('designMode');
+        return self::inDesignMode();
     }
 
-    public function inDesignMode()
+    public static function inDesignMode()
     {
-        return $this->active();
+        return request()->query->has('designMode') || request()->headers->has('x-arcade-editor-theme');
     }
 
-    public function isPreviewMode()
+    public static function inPreviewMode()
     {
-        return request()->query->has('previewMode');
+        return request()->query->has('previewMode') || request()->headers->has('x-arcade-preview-theme');
     }
 
-    public function registerTemplateForRoute($routeName, $template)
+    public static function editorTheme()
+    {
+        if (self::inDesignMode()) {
+            return request()->query->get('designMode', request()->headers->get('x-arcade-editor-theme'));
+        }
+
+        return request()->query->get('previewMode', request()->headers->get('x-arcade-preview-theme'));
+    }
+
+    public function registerTemplateForRoute($routeName, array $template)
     {
         $this->templates[$routeName] = $template;
+    }
+
+    public function getTemplateForRoute($routeName)
+    {
+        if (isset($this->templates[$routeName])) {
+            return $this->templates[$routeName]['template'];
+        }
+
+        return 'index';
     }
 
     public function renderingView($view)

@@ -3,19 +3,18 @@
 namespace EldoMagan\BagistoArcade\Middlewares;
 
 use Closure;
+use Webkul\Shop\Http\Middleware\Theme;
 
-class AllowSameOriginIframe
+class StorefrontTheme extends Theme
 {
     public function handle($request, Closure $next)
     {
         if ($request->inDesignMode() || $request->inPreviewMode()) {
-            $response = $next($request);
+            themes()->set(arcadeEditor()->editorTheme());
 
-            $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
-
-            return $response;
+            return $next($request);
         }
 
-        return $next($request);
+        return parent::handle($request, $next);
     }
 }

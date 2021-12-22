@@ -9,6 +9,7 @@ parameters:
     bootstrapFiles:
         - vendor/bagisto/bagisto/packages/Webkul/Core/src/Http/helpers.php
         - vendor/bagisto/bagisto/packages/Webkul/Product/src/Http/helpers.php
+        - vendor/bagisto/bagisto/packages/Webkul/Theme/src/Http/helpers.php
 
     tmpDir: build/phpstan
 

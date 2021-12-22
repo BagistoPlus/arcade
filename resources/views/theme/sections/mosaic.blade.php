@@ -46,7 +46,7 @@
   ]
 @endphp
 
-<div class="container mx-auto my-16 px-4 sm:px-6 lg:px-8">
+<div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
   <div class="grid gap-y-6 md:gap-x-6 md:grid-cols-7">
 
     @foreach($section->blocks as $key => $item)

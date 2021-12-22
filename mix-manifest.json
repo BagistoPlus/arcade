@@ -1,6 +1,7 @@
 {
     "/dist/shop/shop.js": "/dist/shop/shop.js",
     "/dist/theme-editor/app.js": "/dist/theme-editor/app.js",
+    "/dist/theme-editor/injected.js": "/dist/theme-editor/injected.js",
     "/dist/shop/theme.css": "/dist/shop/theme.css",
     "/dist/theme-editor/style.css": "/dist/theme-editor/style.css",
     "/dist/admin/style.css": "/dist/admin/style.css",

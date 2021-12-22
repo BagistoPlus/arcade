@@ -28,12 +28,13 @@ class SectionData extends BlockData
 
     public function toArray()
     {
-        return [
-            'id' => $this->id,
-            'blocks' => collect($this->blocks)->keyBy('id')->map(function ($block) {
-                return $block->toArray();
-            })->toArray(),
+        return array_merge(parent::toArray(), [
+            'blocks' => collect($this->blocks)->groupBy(function ($block) {
+                return $block->id;
+            })->map(function ($blocks) {
+                return $blocks[0];
+            }),
             'blocks_order' => $this->blocksOrder,
-        ];
+        ]);
     }
 }

@@ -21,7 +21,8 @@
       const Arcade = {
         theme: {
           code: "{{ $theme['code'] }}",
-          name: "{{ $theme['name'] }}"
+          name: "{{ $theme['name'] }}",
+          storefrontUrl: "{{ $storefrontUrl }}",
         },
         themesIndex: "{{ route('arcade.admin.themes.index') }}",
       }

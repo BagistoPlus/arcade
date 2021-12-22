@@ -155,7 +155,7 @@ final class Section implements Arrayable, JsonSerializable
         return sprintf("<div class='arcade-section' data-section-type='%s' data-section-id='%s'>%s</div>", $this->slug, $id, $component);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'slug' => $this->slug,
@@ -171,7 +171,7 @@ final class Section implements Arrayable, JsonSerializable
         ];
     }
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

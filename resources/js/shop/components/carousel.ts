@@ -30,9 +30,7 @@ export default function (
         ...options,
       }).mount();
 
-      console.log(this.glide.on);
       this.glide.on("run", () => {
-        console.log("--> on run");
         this.activeIndex = this.glide.index;
       });
     },

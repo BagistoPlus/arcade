@@ -5,12 +5,16 @@ namespace EldoMagan\BagistoArcade\Providers;
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\Components;
 use EldoMagan\BagistoArcade\Facades\Arcade;
+use EldoMagan\BagistoArcade\Facades\ThemeEditor;
+use EldoMagan\BagistoArcade\Middlewares\StorefrontTheme;
 use EldoMagan\BagistoArcade\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
+use Webkul\Shop\Http\Middleware\Currency;
+use Webkul\Shop\Http\Middleware\Locale;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -35,6 +39,10 @@ class CoreServiceProvider extends ServiceProvider
         Sections\Hero::class,
     ];
 
+    protected $templates = [
+        'shop.home.index' => ['icon' => 'home', 'label' => 'Home page', 'template' => 'index'],
+    ];
+
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__ . '/../../routes/shop.php');
@@ -42,7 +50,13 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
+        $this->registerMiddlewaresForLivewire();
+
         Arcade::registerSections($this->sections, 'arcade');
+
+        foreach ($this->templates as $route => $template) {
+            ThemeEditor::registerTemplateForRoute($route, $template);
+        }
 
         if ($this->app->runningInConsole()) {
             $this->publishViews();
@@ -93,5 +107,14 @@ class CoreServiceProvider extends ServiceProvider
         foreach (self::$livewireComponents as $name => $component) {
             Livewire::component($name, $component);
         }
+    }
+
+    protected function registerMiddlewaresForLivewire()
+    {
+        Livewire::addPersistentMiddleware([
+            Locale::class,
+            StorefrontTheme::class,
+            Currency::class,
+        ]);
     }
 }
