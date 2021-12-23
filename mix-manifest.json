@@ -5,5 +5,6 @@
     "/dist/shop/theme.css": "/dist/shop/theme.css",
     "/dist/theme-editor/style.css": "/dist/theme-editor/style.css",
     "/dist/admin/style.css": "/dist/admin/style.css",
+    "/dist/admin/images/arcade_logo.svg": "/dist/admin/images/arcade_logo.svg",
     "/dist/admin/images/theme_preview.png": "/dist/admin/images/theme_preview.png"
 }

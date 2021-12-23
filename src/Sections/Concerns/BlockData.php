@@ -19,7 +19,7 @@ class BlockData implements Arrayable, JsonSerializable
     public function __construct(string $id, array $data)
     {
         $this->id = $id;
-        $this->type = $data['type'];
+        $this->type = $data['type'] ?? $id;
         $this->settings = new SettingValues($data['settings'] ?? []);
     }
 

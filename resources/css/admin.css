@@ -16,3 +16,11 @@
 
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.arcade-icon {
+    width: 48px;
+    height: 48px;
+    background-color: currentColor;
+    mask-image: url(/vendor/arcade/admin/images/arcade_logo.svg);
+    margin-bottom: 4px;
+}

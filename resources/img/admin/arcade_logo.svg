@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 425 424">
+    <path fill="none" stroke="currentColor" stroke-width="5" d="M2.5 2.5h406v406H2.5z" />
+    <path fill="none" stroke="currentColor" stroke-width="5" d="M16.5 15.5h406v406h-406z" />
+    <rect width="361" height="94" x="39" y="37" fill="none" stroke="currentColor" stroke-width="2" rx="2" />
+    <rect width="361" height="94" x="39" y="168" fill="none" stroke="currentColor" stroke-width="2" rx="2" />
+    <rect width="361" height="94" x="39" y="300" fill="" stroke="currentColor" stroke-width="2" rx="2" />
+</svg>

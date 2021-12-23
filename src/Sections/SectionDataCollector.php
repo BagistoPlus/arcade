@@ -2,7 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
+use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Facades\Sections;
+use EldoMagan\BagistoArcade\Facades\ThemeEditor;
 use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -37,14 +39,16 @@ class SectionDataCollector
             $this->sectionsData->put($id, collect());
         }
 
-        $data = [
-            'type' => $id,
-        ];
-
-        if (null !== $path) {
-            $data = $this->collectSectionDataFromPath($id, $path);
+        if (null === $path) {
+            if (ThemeEditor::active()) {
+                $path = sprintf("%s/themes/%s/editor/theme.json", config('arcade.data_path'), themes()->current()->code);
+            } else {
+                $path = sprintf("%s/themes/%s/live/theme.json", config('arcade.data_path'), themes()->current()->code);
+            }
         }
 
+
+        $data = $this->collectSectionDataFromPath($id, $path);
         $data['settings'] = $data['settings'] ?? [];
         $section = Sections::get($data['type'] ?? $id);
 

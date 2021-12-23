@@ -19,7 +19,7 @@ class ArcadeTagsCompiler extends ComponentTagCompiler
     public function compileSelftClosingSectionTag($value)
     {
         $viewInfos = BladeDirectives::viewInfo();
-        $pattern = '<\s*arcade:section\s*name="(?<name>[^\'"]+)"\s*\/>';
+        $pattern = '(<\s*arcade:section\s*name="(?<name>[^\'"]+)"\s*\/>)';
 
         return preg_replace_callback($pattern, function (array $matches) use ($viewInfos) {
             if (! in_array($viewInfos['type'], ['templates', 'layouts'])) {
@@ -27,7 +27,6 @@ class ArcadeTagsCompiler extends ComponentTagCompiler
             }
 
             $sectionName = $matches['name'];
-
             if (! Sections::has($sectionName)) {
                 throw new SectionNotFoundException(sprintf(
                     "Can not found section '%s'.",
@@ -37,7 +36,7 @@ class ArcadeTagsCompiler extends ComponentTagCompiler
 
             $section = Sections::get($sectionName);
 
-            $template = trim($section->renderToBlade($section->slug), '<>');
+            $template = $section->renderToBlade($section->slug);
 
             return "<?php
 arcade()->collectSectionData('{$section->slug}');
