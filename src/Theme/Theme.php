@@ -4,13 +4,14 @@ namespace EldoMagan\BagistoArcade\Theme;
 
 use Illuminate\Support\Str;
 use Webkul\Theme\Theme as BagistoTheme;
+
 /**
  * @property-read string $code
  * @property-read string $name
  * @property-read string $viewsPath
  * @property-read string $assetsPath
  * @property-read Theme parent
- * @property-read boolean isArcadeTheme
+ * @property-read bool isArcadeTheme
  */
 class Theme extends BagistoTheme
 {

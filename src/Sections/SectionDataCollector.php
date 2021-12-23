@@ -2,7 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Facades\ThemeEditor;
 use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;

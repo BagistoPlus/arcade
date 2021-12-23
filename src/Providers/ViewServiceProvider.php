@@ -31,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
         $this->registerLivewireSectionFeatures();
         $this->registerMiddlewaresForLivewire();
 
-        $this->app->booted(function() {
+        $this->app->booted(function () {
             // We do it in the boot method to make sur we override
             // the bagisto one
             $this->app->singleton('themes', function () {
