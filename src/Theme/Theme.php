@@ -36,7 +36,7 @@ class Theme extends BagistoTheme
 
         if (isset($this->attributes[$attr])) {
             return $this->attributes[$attr];
-        } else if (isset($this->attributes[$snakeCasedAttr])) {
+        } elseif (isset($this->attributes[$snakeCasedAttr])) {
             return $this->attributes[$snakeCasedAttr];
         }
     }
