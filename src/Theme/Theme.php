@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Theme;
 
+use Illuminate\Support\Str;
 use Webkul\Theme\Theme as BagistoTheme;
 /**
  * @property-read string $code
@@ -19,19 +20,23 @@ class Theme extends BagistoTheme
     {
         parent::__construct(
             $attributes['code'],
-            $attributes['name'],
-            $attributes['assets_path'],
-            $attributes['views_path']
+            $attributes['name'] ?? $attributes['code'],
+            $attributes['assets_path'] ?? $attributes['code'],
+            $attributes['views_path'] ?? $attributes['code']
         );
 
         $this->attributes = $attributes;
         $this->attributes['isArcadeTheme'] = $attributes['arcade_theme'] ?? false;
     }
 
-    public function __get($name)
+    public function __get($attr)
     {
-        if (isset($this->attributes[$name])) {
-            return $this->attributes[$name];
+        $snakeCasedAttr = Str::snake($attr);
+
+        if (isset($this->attributes[$attr])) {
+            return $this->attributes[$attr];
+        } else if (isset($this->attributes[$snakeCasedAttr])) {
+            return $this->attributes[$snakeCasedAttr];
         }
     }
 
@@ -45,10 +50,10 @@ class Theme extends BagistoTheme
         $paths = [];
 
         if (arcadeEditor()->active()) {
-            $paths[] = substr(storage_path('bagisto-arcade/themes/' . $this->code . '/editor'), strlen(base_path('')) + 1);
+            $paths[] = substr(config('arcade.data_path') . '/themes/' . $this->code . '/editor', strlen(base_path('')) + 1);
         }
 
-        $paths[] = substr(storage_path('bagisto-arcade/themes/' . $this->code . '/live'), strlen(base_path('')) + 1);
+        $paths[] = substr(config('arcade.data_path') . '/themes/' . $this->code . '/live', strlen(base_path('')) + 1);
 
         $theme = $this;
 

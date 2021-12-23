@@ -47,6 +47,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../../routes/shop.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'arcade');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views/theme', 'shop');
 
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
@@ -90,7 +91,6 @@ class CoreServiceProvider extends ServiceProvider
     protected function registerConfigs()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/arcade.php', 'arcade');
-        $this->mergeConfigFrom(__DIR__ . '/../../config/theme.php', 'themes.themes');
     }
 
     protected function registerBladeComponents()
