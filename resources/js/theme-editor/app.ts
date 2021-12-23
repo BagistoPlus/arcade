@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueCompositionAPI from "@vue/composition-api";
 import { createPinia, PiniaVuePlugin } from "pinia";
+import NProgress from "nprogress";
 
 import mdiVue from "mdi-vue/v2";
 import * as mdijs from "@mdi/js";
@@ -23,3 +24,5 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");
+
+NProgress.configure({ parent: "#nprogress-container" });

@@ -7,7 +7,7 @@
       @exit="onExit"
       @view-mode="onViewModeChanged"
     />
-
+    <div id="nprogress-container" class="flex-none" />
     <div class="flex-1 flex overflow-hidden mt-px">
       <div
         v-if="activeViewMode !== 'fullscreen'"
@@ -37,6 +37,8 @@ import {
   ref,
 } from "@vue/composition-api";
 import { useStore } from "./store";
+import NProgress from "nprogress";
+
 import Header from "./components/Header.vue";
 import { ViewMode } from "./types";
 
@@ -61,6 +63,7 @@ export default defineComponent({
       init(data: any) {
         store.setThemeData(data.themeData);
         store.setAvailableSections(data.availableSections);
+        NProgress.done();
       },
 
       activateSection: store.activateSection,
@@ -76,6 +79,7 @@ export default defineComponent({
 
     onMounted(() => {
       store.setPreviewIframe(iframe.value as HTMLIFrameElement);
+      NProgress.start();
     });
 
     function onExit() {

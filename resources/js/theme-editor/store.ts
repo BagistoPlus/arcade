@@ -1,6 +1,8 @@
 import setValue from "lodash/set";
 import getValue from "lodash/get";
 import debounce from "lodash/debounce";
+import NProgress from "nprogress";
+
 import { Section } from "./types.d";
 import { defineStore } from "pinia";
 import { ThemeData } from "./types";
@@ -34,6 +36,8 @@ const persistThemeData = debounce((themeCode, themeData) => {
     ) as string
   );
 
+  NProgress.start();
+
   fetch(`/admin/arcade/themes/editor/${themeCode}/persist`, {
     headers,
     method: "POST",
@@ -42,6 +46,10 @@ const persistThemeData = debounce((themeCode, themeData) => {
     .then((res) => res.text())
     .then((html) => {
       refreshPreviewer(html);
+      NProgress.done();
+    })
+    .catch((e) => {
+      NProgress.done();
     });
 }, 500);
 
