@@ -95,6 +95,10 @@ export const useStore = defineStore("main", {
         return state.themeData?.sections[slug];
       });
     },
+
+    canRemoveSection: (state) => (sectionId: string) => {
+      return state.themeData?.sectionsOrder.includes(sectionId);
+    },
   },
 
   actions: {

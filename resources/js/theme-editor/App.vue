@@ -9,7 +9,7 @@
       @view-mode="onViewModeChanged"
       @publish="onPublishTheme"
     />
-    <div id="nprogress-container" class="flex-none" />
+
     <div class="flex-1 flex overflow-hidden mt-px">
       <div
         v-if="activeViewMode !== 'fullscreen'"

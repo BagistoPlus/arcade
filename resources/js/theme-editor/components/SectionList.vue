@@ -12,7 +12,7 @@
         :label="sectionLabel(sectionData)"
         @activate="$emit('activateSection', sectionData.id)"
         @deactivate="$emit('deactivateSection', sectionData.id)"
-        @click="onSectionClick(section)"
+        @click.native="$emit('editSection', sectionData.id)"
       />
     </div>
 
@@ -84,7 +84,7 @@ export default defineComponent({
       });
     });
 
-    function sectionLabel(sectionData) {
+    function sectionLabel(sectionData: SectionData) {
       const section = (props.getSectionByType as Function)(sectionData.type);
       return sectionData.settings.heading || section.label;
     }

@@ -1,8 +1,8 @@
 @php
   $positionValues = [
-    'left' => 'justify-start',
-    'center' => 'justify-center',
-    'right' => 'justify-end'
+    'left' => 'text-left',
+    'center' => 'text-center',
+    'right' => 'text-right'
   ];
 
   $styles = [
@@ -12,9 +12,9 @@
   ]
 @endphp
 
-@if (true)
+@if ($section->settings->show_announcement)
   <div class="
-    flex py-1 px-4
+    py-1 px-4
     {{ $styles[$section->settings->style] }}
     {{ $positionValues[$section->settings->position] }}">
     {{ $section->settings->announcement }}

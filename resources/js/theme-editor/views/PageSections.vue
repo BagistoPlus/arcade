@@ -21,6 +21,7 @@
           :getSectionByType="getSectionByType"
           @activateSection="activateSection"
           @deactivateSection="deactivateSection"
+          @editSection="onEditSection"
         />
 
         <section-list
@@ -33,6 +34,8 @@
           @reorder="onSectionReorder"
           @activateSection="activateSection"
           @deactivateSection="deactivateSection"
+          @editSection="onEditSection"
+          @add-section="$emit('add-section')"
         />
 
         <section-list
@@ -43,6 +46,7 @@
           :getSectionByType="getSectionByType"
           @activateSection="activateSection"
           @deactivateSection="deactivateSection"
+          @editSection="onEditSection"
         />
       </template>
     </div>
@@ -53,6 +57,7 @@
 import { computed, defineComponent, ref } from "@vue/composition-api";
 import SectionList from "../components/SectionList.vue";
 import { useStore } from "../store";
+import { useRouter } from "vue2-helpers/vue-router";
 
 export default defineComponent({
   components: {
@@ -63,6 +68,7 @@ export default defineComponent({
     const tabs = ["Page", "Theme Settings"];
     const activeTab = ref(tabs[0]);
     const store = useStore();
+    const router = useRouter();
 
     function activateSection(id: string) {
       store.activateSection(id, true);
@@ -74,6 +80,10 @@ export default defineComponent({
 
     function onSectionReorder(sectionIds: string[]) {
       store.updateThemeDataValue("sectionsOrder", sectionIds);
+    }
+
+    function onEditSection(sectionId: string) {
+      router.push({ name: "edit_section", params: { sectionId } });
     }
 
     return {
@@ -90,6 +100,7 @@ export default defineComponent({
       activateSection,
       deactivateSection,
       onSectionReorder,
+      onEditSection,
 
       getSectionByType(type: string) {
         return store.sectionByType(type);

@@ -8,7 +8,7 @@ use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class AnnouncementBar extends BladeSection
 {
-    protected static $previewDescription = 'Vous pouvez annonces des choses ici';
+    protected static $description = 'You can show your announcements here';
 
     public static function settings()
     {

@@ -4,6 +4,7 @@ namespace EldoMagan\BagistoArcade\SettingTypes;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
+use JsonSerializable;
 
 /**
  * @method $this id(string $id)
@@ -20,7 +21,7 @@ use Illuminate\Support\Str;
  * @property-read mixed $default
  * @property-read string $info
  */
-class SettingType implements Arrayable
+class SettingType implements Arrayable, JsonSerializable
 {
     protected string $id;
     protected string $label;
@@ -74,5 +75,10 @@ class SettingType implements Arrayable
             'info' => $this->info,
             'group' => $this->group,
         ];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }

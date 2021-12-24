@@ -1,3 +1,6 @@
+/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
+ * @license MIT */
+
 /*!
   * pinia v2.0.8
   * (c) 2021 Eduardo San Martin Morote
@@ -31,4 +34,11 @@ PERFORMANCE OF THIS SOFTWARE.
  * @author Ambit Tsai <ambit_tsai@qq.com>
  * @license Apache-2.0
  * @see {@link https://github.com/ambit-tsai/vue2-helpers#readme}
+ */
+
+/**!
+ * Sortable 1.14.0
+ * @author	RubaXa   <trash@rubaxa.org>
+ * @author	owenm    <owen23355@gmail.com>
+ * @license MIT
  */

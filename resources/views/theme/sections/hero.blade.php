@@ -39,7 +39,7 @@
     <div class="absolute inset-0 w-full h-full bg-black" style="opacity: {{ $section->settings->overlay_opacity }}%"></div>
   @endif
 
-  <div class="relative h-full flex justify-center {{ $contentPositionMap[$section->settings->content_position] }}">
+  <div class="z-5 relative h-full py-6 flex justify-center {{ $contentPositionMap[$section->settings->content_position] }}">
     <div class="
       relative max-w-xl px-8 py-8
       @if($section->settings->show_content_bg)

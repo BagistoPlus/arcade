@@ -1,4 +1,3 @@
-import "./injected"; // eslint-disable-line no-duplicate-imports
 import morphdom from "morphdom";
 
 declare global {
