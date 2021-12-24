@@ -11,6 +11,7 @@
         {{ tab }}
       </button>
     </div>
+
     <div class="flex-1 p-3 overflow-y-auto">
       <template v-if="activeTab === 'Page'">
         <section-list

@@ -2,10 +2,10 @@ import setValue from "lodash/set";
 import getValue from "lodash/get";
 import debounce from "lodash/debounce";
 import NProgress from "nprogress";
+import { v4 as uuidv4 } from "uuid";
 
-import { Section } from "./types.d";
 import { defineStore } from "pinia";
-import { ThemeData } from "./types";
+import { ThemeData, Setting, Section } from "./types";
 
 interface State {
   theme: { code: string; name: string; storefrontUrl: string };
@@ -139,6 +139,27 @@ export const useStore = defineStore("main", {
     updateThemeDataValue(path: string, value: any) {
       setValue(this.themeData as object, path, value);
       this.canPublishTheme = true;
+      this.persistThemeData();
+    },
+
+    addNewSection(section: Section) {
+      const settings: Record<string, unknown> = {};
+      const id = uuidv4();
+
+      section.settings.forEach((setting: Setting) => {
+        settings[setting.id] = setting.default;
+      });
+
+      this.themeData!.sections[id] = {
+        id,
+        settings,
+        type: section.slug,
+        blocks: {},
+        blocks_order: [],
+      };
+
+      this.themeData!.sectionsOrder.push(id);
+
       this.persistThemeData();
     },
 

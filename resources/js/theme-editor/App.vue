@@ -15,7 +15,7 @@
         v-if="activeViewMode !== 'fullscreen'"
         class="w-80 flex-none shadow bg-white h-full"
       >
-        <router-view />
+        <router-view @add-section="sectionModalActive = true" />
       </div>
 
       <div class="flex-1 h-full flex justify-center items-center p-4">
@@ -28,6 +28,12 @@
         />
       </div>
     </div>
+
+    <add-section-modal
+      :active.sync="sectionModalActive"
+      :sections="sections"
+      @click-section="onAddSection"
+    />
   </div>
 </template>
 
@@ -42,17 +48,20 @@ import { useStore } from "./store";
 import NProgress from "nprogress";
 
 import Header from "./components/Header.vue";
-import { ViewMode } from "./types";
+import AddSectionModal from "./components/AddSectionModal.vue";
+import { Section, ViewMode } from "./types";
 
 export default defineComponent({
   components: {
     Header,
+    AddSectionModal,
   },
 
   setup() {
     const store = useStore();
     const url = store.theme.storefrontUrl;
     const iframe = ref<HTMLIFrameElement | null>(null);
+    const sectionModalActive = ref(false);
     const iframeStyle = computed(() => {
       if (store.activeViewMode !== "mobile") {
         return "width: 100%; height: 100%";
@@ -96,15 +105,23 @@ export default defineComponent({
       store.publishTheme();
     }
 
+    function onAddSection(section: Section) {
+      store.addNewSection(section);
+      sectionModalActive.value = false;
+    }
+
     return {
       url,
       iframe,
       iframeStyle,
+      sectionModalActive,
       themeName: store.theme.name,
       activeViewMode: computed(() => store.activeViewMode),
       canPublishTheme: computed(() => store.canPublishTheme),
+      sections: computed(() => Object.values(store.availableSections)),
 
       onExit,
+      onAddSection,
       onViewModeChanged,
       onPublishTheme,
     };
