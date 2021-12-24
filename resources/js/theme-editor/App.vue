@@ -3,9 +3,11 @@
     <Header
       :theme-name="themeName"
       :active-view-mode="activeViewMode"
+      :can-publish-theme="canPublishTheme"
       class="flex-none"
       @exit="onExit"
       @view-mode="onViewModeChanged"
+      @publish="onPublishTheme"
     />
     <div id="nprogress-container" class="flex-none" />
     <div class="flex-1 flex overflow-hidden mt-px">
@@ -90,15 +92,21 @@ export default defineComponent({
       store.setViewMode(mode);
     }
 
+    function onPublishTheme() {
+      store.publishTheme();
+    }
+
     return {
       url,
       iframe,
       iframeStyle,
       themeName: store.theme.name,
       activeViewMode: computed(() => store.activeViewMode),
+      canPublishTheme: computed(() => store.canPublishTheme),
 
       onExit,
       onViewModeChanged,
+      onPublishTheme,
     };
   },
 });

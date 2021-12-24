@@ -13477,6 +13477,10 @@ __webpack_require__.r(__webpack_exports__);
       store.setViewMode(mode);
     }
 
+    function onPublishTheme() {
+      store.publishTheme();
+    }
+
     return {
       url: url,
       iframe: iframe,
@@ -13485,8 +13489,12 @@ __webpack_require__.r(__webpack_exports__);
       activeViewMode: (0,_vue_composition_api__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
         return store.activeViewMode;
       }),
+      canPublishTheme: (0,_vue_composition_api__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
+        return store.canPublishTheme;
+      }),
       onExit: onExit,
-      onViewModeChanged: onViewModeChanged
+      onViewModeChanged: onViewModeChanged,
+      onPublishTheme: onPublishTheme
     };
   }
 }));
@@ -13515,6 +13523,10 @@ __webpack_require__.r(__webpack_exports__);
     activeViewMode: {
       type: String,
       "default": "desktop"
+    },
+    canPublishTheme: {
+      type: Boolean,
+      "default": false
     }
   },
   setup: function setup() {
@@ -13619,8 +13631,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
     });
+
+    function sectionLabel(sectionData) {
+      var section = props.getSectionByType(sectionData.type);
+      return sectionData.settings.heading || section.label;
+    }
+
     return {
-      sortable: sortable
+      sortable: sortable,
+      sectionLabel: sectionLabel
     };
   }
 }));
@@ -13646,8 +13665,8 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    section: {
-      type: Object,
+    label: {
+      type: String,
       required: true
     },
     fixed: {
@@ -13831,7 +13850,8 @@ var useStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)("main", {
       activeViewMode: "desktop",
       themeData: null,
       activeSectionId: null,
-      availableSections: {}
+      availableSections: {},
+      canPublishTheme: false
     };
   },
   getters: {
@@ -13907,7 +13927,25 @@ var useStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)("main", {
     },
     updateThemeDataValue: function updateThemeDataValue(path, value) {
       lodash_set__WEBPACK_IMPORTED_MODULE_0___default()(this.themeData, path, value);
+      this.canPublishTheme = true;
       this.persistThemeData();
+    },
+    publishTheme: function publishTheme() {
+      var _this = this;
+
+      var headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      headers.append("X-CSRF-Token", document.querySelector('meta[name="csrf-token"]').getAttribute("content"));
+      nprogress__WEBPACK_IMPORTED_MODULE_3___default().start();
+      fetch("/admin/arcade/themes/editor/".concat(this.theme.code, "/publish"), {
+        headers: headers,
+        method: "POST"
+      }).then(function (res) {
+        _this.canPublishTheme = false;
+        nprogress__WEBPACK_IMPORTED_MODULE_3___default().done();
+      })["catch"](function (e) {
+        nprogress__WEBPACK_IMPORTED_MODULE_3___default().done();
+      });
     }
   }
 });
@@ -23450,8 +23488,13 @@ var render = function () {
         attrs: {
           "theme-name": _vm.themeName,
           "active-view-mode": _vm.activeViewMode,
+          "can-publish-theme": _vm.canPublishTheme,
         },
-        on: { exit: _vm.onExit, "view-mode": _vm.onViewModeChanged },
+        on: {
+          exit: _vm.onExit,
+          "view-mode": _vm.onViewModeChanged,
+          publish: _vm.onPublishTheme,
+        },
       }),
       _vm._v(" "),
       _c("div", {
@@ -23574,7 +23617,23 @@ var render = function () {
         0
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "flex-1 items-center justify-end flex px-4" }),
+      _c("div", { staticClass: "flex-1 items-center justify-end flex px-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "px-4 py-2 rounded cursor-pointer hover:bg-opacity-90",
+            class: _vm.canPublishTheme
+              ? "bg-primary text-white"
+              : "bg-gray-200 text-gray-700 cursor-not-allowed",
+            on: {
+              click: function ($event) {
+                return _vm.$emit("publish")
+              },
+            },
+          },
+          [_vm._v("\n        Publish\n      ")]
+        ),
+      ]),
     ]),
   ])
 }
@@ -23618,7 +23677,7 @@ var render = function () {
             id: sectionData.id,
             fixed: _vm.fixed,
             active: _vm.activeSectionId === sectionData.id,
-            section: _vm.getSectionByType(sectionData.type),
+            label: _vm.sectionLabel(sectionData),
           },
           on: {
             activate: function ($event) {
@@ -23710,7 +23769,7 @@ var render = function () {
             1
           )
         : _vm._e(),
-      _vm._v("\n  " + _vm._s(_vm.section.label) + "\n"),
+      _vm._v("\n  " + _vm._s(_vm.label) + "\n"),
     ]
   )
 }

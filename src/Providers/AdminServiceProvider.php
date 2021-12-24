@@ -70,8 +70,8 @@ class AdminServiceProvider extends ServiceProvider
 
     protected function bootRequestMacros()
     {
-        Request::macro('inDesignMode', [ThemeEditor::class, 'inDesignMode']);
-        Request::macro('inPreviewMode', [ThemeEditor::class, 'inPreviewMode']);
+        Request::macro('inDesignMode', function() { return ThemeEditor::inDesignMode(); });
+        Request::macro('inPreviewMode', function() { return ThemeEditor::inPreviewMode(); });
     }
 
     protected function bootMiddlewares()

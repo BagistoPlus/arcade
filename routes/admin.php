@@ -11,6 +11,7 @@ Route::group(['middleware' => ['web', 'admin_locale', 'admin']], function () {
             ->name('arcade.admin.themes.index');
 
         Route::post('/themes/editor/{theme}/persist', [ThemeController::class, 'persistTheme']);
+        Route::post('/themes/editor/{theme}/publish', [ThemeController::class, 'publishTheme']);
 
         Route::get('/themes/editor/{theme}/{path?}', [ThemeController::class, 'editor'])
             ->where('path', '.*')

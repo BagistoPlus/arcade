@@ -544,6 +544,9 @@ select {
 .cursor-move {
   cursor: move;
 }
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -620,6 +623,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
 .p-4 {
   padding: 1rem;
 }
@@ -674,6 +681,17 @@ select {
 .text-primary {
   --tw-text-opacity: 1;
   color: rgb(0 65 255 / var(--tw-text-opacity));
+}
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+.opacity-50 {
+  opacity: 0.5;
 }
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);

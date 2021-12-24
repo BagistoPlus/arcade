@@ -16,7 +16,7 @@
     >
       <mdicon name="drag-vertical" />
     </button>
-    {{ section.label }}
+    {{ label }}
   </div>
 </template>
 
@@ -31,8 +31,8 @@ export default defineComponent({
       required: true,
     },
 
-    section: {
-      type: Object as () => Section,
+    label: {
+      type: String,
       required: true,
     },
 

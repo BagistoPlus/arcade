@@ -14,6 +14,7 @@ interface State {
   themeData: ThemeData | null;
   activeSectionId: string | null;
   availableSections: Record<string, Section>;
+  canPublishTheme: boolean;
 }
 
 let previewIframe: HTMLIFrameElement | null = null;
@@ -65,6 +66,7 @@ export const useStore = defineStore("main", {
     themeData: null,
     activeSectionId: null,
     availableSections: {},
+    canPublishTheme: false,
   }),
 
   getters: {
@@ -132,7 +134,33 @@ export const useStore = defineStore("main", {
 
     updateThemeDataValue(path: string, value: any) {
       setValue(this.themeData as object, path, value);
+      this.canPublishTheme = true;
       this.persistThemeData();
+    },
+
+    publishTheme() {
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      headers.append(
+        "X-CSRF-Token",
+        (
+          document.querySelector('meta[name="csrf-token"]') as Element
+        ).getAttribute("content") as string
+      );
+
+      NProgress.start();
+
+      fetch(`/admin/arcade/themes/editor/${this.theme.code}/publish`, {
+        headers,
+        method: "POST",
+      })
+        .then((res) => {
+          this.canPublishTheme = false;
+          NProgress.done();
+        })
+        .catch((e) => {
+          NProgress.done();
+        });
     },
   },
 });

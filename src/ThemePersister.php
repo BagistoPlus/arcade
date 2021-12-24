@@ -57,6 +57,50 @@ class ThemePersister
         return Http::get($themeData['url']);
     }
 
+    /**
+     * We publish a versioned copy of the theme customization.
+     * We should implement later a possibility to rollback the changes.
+     *
+     * @param string $themeCode
+     * @return void
+     */
+    public function publish(string $themeCode)
+    {
+        $editorThemePath = sprintf(
+            "%s/themes/%s/editor",
+            config('arcade.data_path'),
+            $themeCode
+        );
+
+        $newVersionPath = sprintf(
+            "%s/themes/%s/%s",
+            config('arcade.data_path'),
+            $themeCode,
+            'V' . time()
+        );
+
+        $livePath = sprintf(
+            "%s/themes/%s/%s",
+            config('arcade.data_path'),
+            $themeCode,
+            'live'
+        );
+
+        $files = $this->files->allFiles($editorThemePath);
+
+        foreach ($files as $file) {
+            $newVersionFilePath = $newVersionPath . '/' . $file->getRelativePathname();
+            $this->files->ensureDirectoryExists($this->files->dirname($newVersionFilePath));
+            $this->files->put($newVersionFilePath, $this->files->get($file->getPathname()));
+        }
+
+        if ($this->files->exists($livePath)) {
+            $this->files->delete($livePath);
+        }
+
+        $this->files->link($newVersionPath, $livePath);
+    }
+
     protected function persistThemeData($themeCode, $themeData)
     {
         $content = [

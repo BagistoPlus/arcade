@@ -39,4 +39,9 @@ class ThemeController extends Controller
     {
         return $this->themePersister->persist($theme, $request->toArray());
     }
+
+    public function publishTheme(Request $request, $theme)
+    {
+        return $this->themePersister->publish($theme);
+    }
 }

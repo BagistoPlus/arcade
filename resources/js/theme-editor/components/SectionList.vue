@@ -9,7 +9,7 @@
         :id="sectionData.id"
         :fixed="fixed"
         :active="activeSectionId === sectionData.id"
-        :section="getSectionByType(sectionData.type)"
+        :label="sectionLabel(sectionData)"
         @activate="$emit('activateSection', sectionData.id)"
         @deactivate="$emit('deactivateSection', sectionData.id)"
         @click="onSectionClick(section)"
@@ -84,8 +84,14 @@ export default defineComponent({
       });
     });
 
+    function sectionLabel(sectionData) {
+      const section = (props.getSectionByType as Function)(sectionData.type);
+      return sectionData.settings.heading || section.label;
+    }
+
     return {
       sortable,
+      sectionLabel,
     };
   },
 });

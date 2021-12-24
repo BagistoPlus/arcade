@@ -28,7 +28,19 @@
           {{ text }}
         </button>
       </div>
-      <div class="flex-1 items-center justify-end flex px-4"></div>
+      <div class="flex-1 items-center justify-end flex px-4">
+        <button
+          class="px-4 py-2 rounded cursor-pointer hover:bg-opacity-90"
+          :class="
+            canPublishTheme
+              ? 'bg-primary text-white'
+              : 'bg-gray-200 text-gray-700 cursor-not-allowed'
+          "
+          @click="$emit('publish')"
+        >
+          Publish
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +58,11 @@ export default defineComponent({
     activeViewMode: {
       type: String,
       default: "desktop",
+    },
+
+    canPublishTheme: {
+      type: Boolean,
+      default: false,
     },
   },
 

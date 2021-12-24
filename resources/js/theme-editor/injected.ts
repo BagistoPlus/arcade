@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
         ) as HTMLElement;
 
         editor.activateSection(section);
-        section.scrollIntoView();
+        section.scrollIntoView({ behavior: "smooth" });
         break;
 
       case "clearActiveSection":

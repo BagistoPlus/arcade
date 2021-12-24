@@ -8,9 +8,16 @@ use Webkul\Theme\Themes;
 class ThemeManager extends Themes
 {
     /**
+     * Contains all themes
+     *
+     * @var Theme[]
+     */
+    protected $themes = [];
+
+    /**
      * Prepare all themes.
      *
-     * @return \Webkul\Theme\Theme
+     * @return Theme[]
      */
     public function loadThemes()
     {

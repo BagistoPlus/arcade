@@ -10,8 +10,8 @@ use Webkul\Theme\Theme as BagistoTheme;
  * @property-read string $name
  * @property-read string $viewsPath
  * @property-read string $assetsPath
- * @property-read Theme parent
- * @property-read bool isArcadeTheme
+ * @property-read Theme $parent
+ * @property-read bool $isArcadeTheme
  */
 class Theme extends BagistoTheme
 {

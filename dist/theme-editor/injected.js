@@ -33,7 +33,9 @@ window.addEventListener("DOMContentLoaded", function () {
       case "activateSection":
         var section = document.querySelector("[data-section-id=\"".concat(event.data.data, "\"]"));
         editor.activateSection(section);
-        section.scrollIntoView();
+        section.scrollIntoView({
+          behavior: "smooth"
+        });
         break;
 
       case "clearActiveSection":
