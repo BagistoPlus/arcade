@@ -2,7 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
+use JsonSerializable;
 
 /**
  * @property-read string $type
@@ -14,7 +16,7 @@ use Illuminate\Support\Str;
  * @method $this limit(int $limit)
  * @method $this settings(SettingType[] $settings)
  */
-class Block
+class Block implements Arrayable, JsonSerializable
 {
     protected string $type;
     protected string $name;
@@ -45,5 +47,20 @@ class Block
         }
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return [
+            'type' => $this->type,
+            'name' => $this->name,
+            'limit' => $this->limit,
+            'settings' => $this->settings,
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

@@ -42,6 +42,34 @@
           </template>
         </template>
       </section>
+
+      <template v-if="section.blocks.length > 0">
+        <hr class="-mx-3 my-4 border-gray-300" />
+        <section class="">
+          <h3 class="font-semibold">Blocks</h3>
+
+          <block-list
+            class="mt-2"
+            :blocks="blocks"
+            :order="sectionData.blocks_order"
+            :getBlockByType="getBlockByType"
+            @reorder="onReorderBlocks"
+            @editBlock="onEditBlock"
+          />
+
+          <div class="mt-2" v-if="blocks.length < section.maxBlocks">
+            <button
+              v-if="section.blocks.length === 1"
+              class="block w-full border bg-primary bg-opacity-75 text-white p-2 rounded hover:bg-opacity-90 focus:outline-none"
+            >
+              Add {{ section.blocks[0].name }} ({{ blocks.length }}/{{
+                section.maxBlocks
+              }})
+            </button>
+            <div v-else>drop down</div>
+          </div>
+        </section>
+      </template>
     </div>
 
     <footer v-if="isRemovable" class="flex-none border-t border-gray-300">
@@ -59,9 +87,10 @@ import { groupSettings } from "../utils";
 import { useStore } from "../store";
 
 import SettingsGroup from "../components/SettingsGroup.vue";
+import BlockList from "../components/BlockList.vue";
 
 export default defineComponent({
-  components: { SettingsGroup },
+  components: { SettingsGroup, BlockList },
 
   setup(_, { root }) {
     const store = useStore();
@@ -90,6 +119,20 @@ export default defineComponent({
       return groupSettings(section.value.settings);
     });
 
+    const blocks = computed(() =>
+      sectionData.value
+        ? sectionData.value.blocks_order.map(
+            (id: string) => sectionData.value.blocks[id]
+          )
+        : []
+    );
+
+    const getBlockByType = (type: string) => {
+      return section.value
+        ? section.value.blocks?.find((block) => block.type === type)
+        : {};
+    };
+
     function getSettingValue(settingId: string) {
       return store.themeDataValue(`${valuePath.value}.${settingId}`);
     }
@@ -98,15 +141,30 @@ export default defineComponent({
       store.updateThemeDataValue(`${valuePath.value}.${settingId}`, value);
     }
 
+    function onReorderBlocks(order: string[]) {
+      store.updateThemeDataValue(
+        `sections.${sectionData.value.id}.blocks_order`,
+        order
+      );
+    }
+
+    function onEditBlock(blockId: string) {
+      root.$router.push({ name: "edit_block", params: { blockId } });
+    }
+
     return {
       section,
       sectionData,
       isRemovable,
       valuePath,
       groupedSettings,
+      blocks,
 
       getSettingValue,
+      getBlockByType,
       onUpdateSetting,
+      onReorderBlocks,
+      onEditBlock,
     };
   },
 });

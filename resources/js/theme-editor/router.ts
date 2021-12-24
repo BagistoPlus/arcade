@@ -1,6 +1,7 @@
 import { createRouter } from "vue2-helpers/vue-router";
 import PageSections from "./views/PageSections.vue";
 import EditSection from "./views/EditSection.vue";
+import EditBlock from "./views/EditBlock.vue";
 
 const router = createRouter({
   base: "/admin/arcade/themes/editor/",
@@ -15,6 +16,11 @@ const router = createRouter({
       path: "/:theme/sections/:sectionId",
       name: "edit_section",
       component: EditSection,
+    },
+    {
+      path: "/:theme/sections/:sectionId/blocks/:blockId",
+      name: "edit_block",
+      component: EditBlock,
     },
   ],
 });

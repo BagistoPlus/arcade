@@ -26,8 +26,8 @@
       <textarea
         class="block w-full rounded border-gray-300"
         :rows="setting.rows"
-        :model-value="value"
-        @input="$emit('input', $event)"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
       ></textarea>
     </div>
 

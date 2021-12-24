@@ -35,14 +35,14 @@
 
   $contentPositions = [
     'top-left' => 'justify-start items-start',
-    'top-center' => 'justify-center items-start',
-    'top-right' => 'justify-end items-start',
+    'top-center' => 'justify-center items-start text-center',
+    'top-right' => 'justify-end items-start text-right',
     'middle-left' => 'justify-start items-center',
-    'middle-center' => 'justify-center items-center',
+    'middle-center' => 'justify-center items-center text-center',
     'middle-right' => 'justify-end items-center',
     'bottom-left' => 'justify-start items-end',
-    'bottom-center' => 'justify-center items-end',
-    'bottom-right' => 'justify-end items-end',
+    'bottom-center' => 'justify-center items-end text-center',
+    'bottom-right' => 'justify-end items-end text-right',
   ]
 @endphp
 
