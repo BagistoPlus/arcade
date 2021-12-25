@@ -20,7 +20,7 @@
     </header>
 
     <div class="flex-1 p-3 overflow-y-auto">
-      <section class="space-y-3">
+      <section v-if="Object.keys(groupedSettings).length > 0" class="space-y-3">
         <h3 class="font-semibold">Settings</h3>
 
         <template v-if="groupedSettings.default">
@@ -45,10 +45,14 @@
           </template>
         </template>
       </section>
+      <p v-else>This block has no configuration</p>
     </div>
 
     <footer class="flex-none border-t border-gray-300">
-      <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100">
+      <button
+        class="flex w-full text-left py-3 px-4 hover:bg-gray-100"
+        @click="onRemoveBlock"
+      >
         <mdicon name="trash-can-outline" class="inline mr-2" />
         Remove block
       </button>
@@ -111,6 +115,14 @@ export default defineComponent({
       store.updateThemeDataValue(`${valuePath.value}.${settingId}`, value);
     }
 
+    function onRemoveBlock() {
+      store.removeSectionBlock(
+        root.$route.params.sectionId,
+        root.$route.params.blockId
+      );
+      root.$router.back();
+    }
+
     return {
       block,
       blockData,
@@ -119,6 +131,7 @@ export default defineComponent({
 
       getSettingValue,
       onUpdateSetting,
+      onRemoveBlock,
     };
   },
 });

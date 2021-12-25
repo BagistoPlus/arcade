@@ -172,6 +172,17 @@ export const useStore = defineStore("main", {
       this.persistThemeData();
     },
 
+    removeSectionBlock(sectionId: string, blockId: string) {
+      const section = this.themeData!.sections[sectionId];
+
+      delete section.blocks[blockId];
+      section.blocks_order = section.blocks_order.filter(
+        (id) => id !== blockId
+      );
+
+      this.persistThemeData();
+    },
+
     publishTheme() {
       const headers = new Headers();
       headers.append("Content-Type", "application/json");
