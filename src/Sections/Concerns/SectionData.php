@@ -37,7 +37,7 @@ class SectionData extends BlockData
             });
 
         $this->blocks = $this->allBlocks->filter(function ($block) {
-            return !$block->disabled;
+            return ! $block->disabled;
         });
     }
 

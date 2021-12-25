@@ -35,7 +35,7 @@ class ArcadeManager
 
     public function isSectionEnabled($sectionId)
     {
-        return !$this->sectionDataCollector()->getSectionData($sectionId)->get('section')->disabled;
+        return ! $this->sectionDataCollector()->getSectionData($sectionId)->get('section')->disabled;
     }
 
     public function registerSection($sectionClass, $prefix)
