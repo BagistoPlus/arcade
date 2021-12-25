@@ -156,6 +156,7 @@ export const useStore = defineStore("main", {
         type: section.slug,
         blocks: {},
         blocks_order: [],
+        disabled: false,
       };
 
       this.themeData!.sectionsOrder.push(id);
@@ -178,6 +179,19 @@ export const useStore = defineStore("main", {
       delete section.blocks[blockId];
       section.blocks_order = section.blocks_order.filter(
         (id) => id !== blockId
+      );
+
+      this.persistThemeData();
+    },
+
+    toggleSectionBlock(sectionId: string, blockId: string) {
+      const currentState = this.themeDataValue(
+        `sections.${sectionId}.blocks.${blockId}.disabled`
+      );
+
+      this.updateThemeDataValue(
+        `sections.${sectionId}.blocks.${blockId}.disabled`,
+        !currentState
       );
 
       this.persistThemeData();

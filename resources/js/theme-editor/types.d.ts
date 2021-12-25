@@ -30,6 +30,7 @@ export interface Section {
 export interface BlockData {
   id: string;
   type: string;
+  disabled: boolean;
   settings: Record<string, unknown>;
 }
 export interface SectionData extends BlockData {

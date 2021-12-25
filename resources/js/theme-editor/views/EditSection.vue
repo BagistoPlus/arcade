@@ -56,6 +56,7 @@
             :getBlockByType="getBlockByType"
             @reorder="onReorderBlocks"
             @editBlock="onEditBlock"
+            @toggleBlock="onToggleBlock"
           />
 
           <div class="mt-2" v-if="blocks.length < section.maxBlocks">
@@ -156,6 +157,10 @@ export default defineComponent({
       root.$router.push({ name: "edit_block", params: { blockId } });
     }
 
+    function onToggleBlock(blockId: string) {
+      store.toggleSectionBlock(root.$route.params.sectionId, blockId);
+    }
+
     function onRemoveSection() {
       store.removeSection(root.$route.params.sectionId);
       root.$router.back();
@@ -175,6 +180,7 @@ export default defineComponent({
       onReorderBlocks,
       onEditBlock,
       onRemoveSection,
+      onToggleBlock,
     };
   },
 });

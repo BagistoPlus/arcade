@@ -5,6 +5,8 @@
       :key="blockData.id"
       :id="blockData.id"
       :name="blockName(blockData)"
+      :disabled="blockData.disabled"
+      @toggle="$emit('toggleBlock', blockData.id)"
       @click.native="$emit('editBlock', blockData.id)"
     />
   </div>

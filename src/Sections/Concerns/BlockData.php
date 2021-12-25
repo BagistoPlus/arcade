@@ -14,12 +14,14 @@ class BlockData implements Arrayable, JsonSerializable
 {
     protected string $id;
     protected string $type;
+    protected bool $disabled;
     protected SettingValues $settings;
 
     public function __construct(string $id, array $data)
     {
         $this->id = $id;
         $this->type = $data['type'] ?? $id;
+        $this->disabled = $data['disabled'] ?? false;
         $this->settings = new SettingValues($data['settings'] ?? []);
     }
 
@@ -33,6 +35,7 @@ class BlockData implements Arrayable, JsonSerializable
         return [
             'id' => $this->id,
             'type' => $this->type,
+            'disabled' => $this->disabled,
             'settings' => $this->settings->toArray(),
         ];
     }
