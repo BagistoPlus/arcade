@@ -9,9 +9,11 @@
         :id="sectionData.id"
         :fixed="fixed"
         :active="activeSectionId === sectionData.id"
+        :disabled="sectionData.disabled"
         :label="sectionLabel(sectionData)"
         @activate="$emit('activateSection', sectionData.id)"
         @deactivate="$emit('deactivateSection', sectionData.id)"
+        @toggle="$emit('toggleSection', sectionData.id)"
         @click.native="$emit('editSection', sectionData.id)"
       />
     </div>

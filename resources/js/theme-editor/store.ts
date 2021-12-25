@@ -173,6 +173,13 @@ export const useStore = defineStore("main", {
       this.persistThemeData();
     },
 
+    toggleSection(sectionId: string) {
+      this.themeData!.sections[sectionId].disabled =
+        !this.themeData!.sections[sectionId].disabled;
+
+      this.persistThemeData();
+    },
+
     removeSectionBlock(sectionId: string, blockId: string) {
       const section = this.themeData!.sections[sectionId];
 

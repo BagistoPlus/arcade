@@ -36,6 +36,7 @@
           @activateSection="activateSection"
           @deactivateSection="deactivateSection"
           @editSection="onEditSection"
+          @toggleSection="onToggleSection"
           @add-section="$emit('add-section')"
         />
 
@@ -87,6 +88,10 @@ export default defineComponent({
       router.push({ name: "edit_section", params: { sectionId } });
     }
 
+    function onToggleSection(sectionId: string) {
+      store.toggleSection(sectionId);
+    }
+
     return {
       tabs,
       activeTab,
@@ -102,6 +107,7 @@ export default defineComponent({
       deactivateSection,
       onSectionReorder,
       onEditSection,
+      onToggleSection,
 
       getSectionByType(type: string) {
         return store.sectionByType(type);

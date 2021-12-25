@@ -78,6 +78,8 @@ class SectionDataCollector
         });
 
         $this->sectionsData->get($id)->put('section', new SectionData($id, $data));
+
+        return $this->sectionsData->get($id);
     }
 
     public function collectSectionGlobals($id, Collection $globals)

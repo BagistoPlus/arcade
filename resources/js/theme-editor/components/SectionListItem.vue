@@ -16,13 +16,26 @@
     >
       <mdicon name="drag-vertical" />
     </button>
-    {{ label }}
+    <div class="flex-1">
+      {{ label }}
+    </div>
+    <button
+      v-if="!fixed"
+      class="-mr-1 py-1 px-1 rounded text-gray-600 hover:bg-gray-200"
+      :title="disabled ? 'Enable' : 'Disable'"
+      @click.stop="$emit('toggle')"
+    >
+      <mdicon
+        :name="disabled ? 'eye-outline' : 'eye-off-outline'"
+        width="20"
+        height="20"
+      />
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
-import { Section } from "../types";
 
 export default defineComponent({
   props: {
@@ -41,7 +54,13 @@ export default defineComponent({
       default: false,
     },
 
+    /** is this is the current section focused ? */
     active: {
+      type: Boolean,
+      default: false,
+    },
+
+    disabled: {
       type: Boolean,
       default: false,
     },

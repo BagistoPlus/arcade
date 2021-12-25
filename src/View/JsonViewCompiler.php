@@ -86,7 +86,10 @@ if (arcadeEditor()->active()) {
     arcadeEditor()->collectRenderedSection('{$section->slug}', 'templates', '$templateName', '$sectionId');
 }
 ?>
-{$section->renderToBlade($sectionId)}";
+
+@if(arcade()->isSectionEnabled('$sectionId'))
+{$section->renderToBlade($sectionId)}
+@endif";
             })
             ->join("\n");
     }

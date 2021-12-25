@@ -33,6 +33,11 @@ class ArcadeManager
         return $this->sectionDataCollector->collectSectionGlobals($id, $globals);
     }
 
+    public function isSectionEnabled($sectionId)
+    {
+        return !$this->sectionDataCollector()->getSectionData($sectionId)->get('section')->disabled;
+    }
+
     public function registerSection($sectionClass, $prefix)
     {
         $section = Section::createFromComponent($sectionClass);

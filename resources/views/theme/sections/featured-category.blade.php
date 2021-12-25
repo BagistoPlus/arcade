@@ -2,6 +2,7 @@
   $category = arcade_get_category($section->settings->category);
 @endphp
 
+@if ($category)
 <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
   <div class="flex justify-between">
     <h3 class="text-xl font-semibold text-on-surface-variant">
@@ -26,3 +27,4 @@
     @endif
   </div>
 </div>
+@endif
