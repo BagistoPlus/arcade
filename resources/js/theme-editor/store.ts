@@ -163,6 +163,15 @@ export const useStore = defineStore("main", {
       this.persistThemeData();
     },
 
+    removeSection(sectionId: string) {
+      delete this.themeData!.sections[sectionId];
+      this.themeData!.sectionsOrder = this.themeData!.sectionsOrder.filter(
+        (id) => id !== sectionId
+      );
+
+      this.persistThemeData();
+    },
+
     publishTheme() {
       const headers = new Headers();
       headers.append("Content-Type", "application/json");

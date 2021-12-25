@@ -18,7 +18,7 @@
     </header>
 
     <div class="flex-1 p-3 overflow-y-auto">
-      <section class="space-y-3">
+      <section v-if="Object.keys(groupedSettings).length > 0" class="space-y-3">
         <h3 class="font-medium">Settings</h3>
         <template v-if="groupedSettings.default">
           <settings-group
@@ -42,6 +42,7 @@
           </template>
         </template>
       </section>
+      <p v-else>This section has no configuration</p>
 
       <template v-if="section.blocks.length > 0">
         <hr class="-mx-3 my-4 border-gray-300" />
@@ -73,7 +74,10 @@
     </div>
 
     <footer v-if="isRemovable" class="flex-none border-t border-gray-300">
-      <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100">
+      <button
+        class="flex w-full text-left py-3 px-4 hover:bg-gray-100"
+        @click="onRemoveSection"
+      >
         <mdicon name="trash-can-outline" class="inline mr-2" />
         Remove section
       </button>
@@ -152,6 +156,11 @@ export default defineComponent({
       root.$router.push({ name: "edit_block", params: { blockId } });
     }
 
+    function onRemoveSection() {
+      store.removeSection(root.$route.params.sectionId);
+      root.$router.back();
+    }
+
     return {
       section,
       sectionData,
@@ -165,6 +174,7 @@ export default defineComponent({
       onUpdateSetting,
       onReorderBlocks,
       onEditBlock,
+      onRemoveSection,
     };
   },
 });
