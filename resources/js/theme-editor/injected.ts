@@ -11,6 +11,15 @@ declare global {
 window.addEventListener("DOMContentLoaded", () => {
   const editor = new Editor();
   editor.init();
+
+  Object.keys(window.themeData.sections).forEach((sectionId) => {
+    const section = window.themeData.sections[sectionId];
+    if (Array.isArray(section.blocks)) {
+      section.blocks = {};
+      section.blocks_order = [];
+    }
+  });
+
   editor.postMessage("init", {
     themeData: window.themeData,
     availableSections: window.availableSections,

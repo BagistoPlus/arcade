@@ -29,7 +29,9 @@
 
 <div class="relative" style="height: {{ $heightMap[$section->settings->height] }}">
   <div class="absolute inset-0 w-full h-full flex">
-    <div class="flex-1" class="bg-cover bg-center" style="background-image: url({{ arcade_image($section->settings->image1) }})"></div>
+    @if($section->settings->image1)
+      <div class="flex-1" class="bg-cover bg-center" style="background-image: url({{ arcade_image($section->settings->image1) }})"></div>
+    @endif
     @if($section->settings->image2)
       <div class="flex-1" class="bg-cover bg-center" style="background-image: url({{ arcade_image($section->settings->image2) }})"></div>
     @endif

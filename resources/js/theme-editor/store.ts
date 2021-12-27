@@ -5,7 +5,7 @@ import NProgress from "nprogress";
 import { v4 as uuidv4 } from "uuid";
 
 import { defineStore } from "pinia";
-import { ThemeData, Setting, Section } from "./types";
+import { ThemeData, Setting, Section, Block } from "./types";
 
 interface State {
   theme: { code: string; name: string; storefrontUrl: string };
@@ -134,11 +134,11 @@ export const useStore = defineStore("main", {
 
     persistThemeData() {
       persistThemeData(this.theme.code, this.themeData);
+      this.canPublishTheme = true;
     },
 
     updateThemeDataValue(path: string, value: any) {
       setValue(this.themeData as object, path, value);
-      this.canPublishTheme = true;
       this.persistThemeData();
     },
 
@@ -200,6 +200,26 @@ export const useStore = defineStore("main", {
         `sections.${sectionId}.blocks.${blockId}.disabled`,
         !currentState
       );
+
+      this.persistThemeData();
+    },
+
+    addSectionBlock(sectionId: string, block: Block) {
+      const section = this.themeData!.sections[sectionId];
+      const settings: Record<string, unknown> = {};
+      const id = uuidv4();
+
+      block.settings.forEach((setting: Setting) => {
+        settings[setting.id] = setting.default;
+      });
+
+      section.blocks[id] = {
+        id,
+        type: block.type,
+        disabled: false,
+        settings,
+      };
+      section.blocks_order.push(id);
 
       this.persistThemeData();
     },

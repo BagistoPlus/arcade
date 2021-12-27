@@ -51,7 +51,7 @@
 
           <block-list
             class="mt-2"
-            :blocks="blocks"
+            :blocks="blocksData"
             :order="sectionData.blocks_order"
             :getBlockByType="getBlockByType"
             @reorder="onReorderBlocks"
@@ -59,16 +59,46 @@
             @toggleBlock="onToggleBlock"
           />
 
-          <div class="mt-2" v-if="blocks.length < section.maxBlocks">
+          <div class="mt-2" v-if="blocksData.length < section.maxBlocks">
             <button
-              v-if="section.blocks.length === 1"
+              v-if="remainingBlocks.length === 1"
               class="block w-full border bg-primary bg-opacity-75 text-white p-2 rounded hover:bg-opacity-90 focus:outline-none"
+              @click="onAddBlock(remainingBlocks[0])"
             >
-              Add {{ section.blocks[0].name }} ({{ blocks.length }}/{{
-                section.maxBlocks
-              }})
+              Add {{ remainingBlocks[0].name }}
             </button>
-            <div v-else>drop down</div>
+            <div v-else>
+              <popover
+                content-class="w-[296px] ring-1 ring-black ring-opacity-5 rounded-md shadow-lg bg-white"
+                offset="1"
+              >
+                <template #trigger="{ on }">
+                  <button
+                    v-on="on"
+                    type="button"
+                    class="block w-full rounded px-3 py-2 bg-primary text-white"
+                  >
+                    Add a block
+                  </button>
+                </template>
+                <template v-slot="{ close }">
+                  <ul class="py-1">
+                    <li v-for="block in remainingBlocks" :key="block.type">
+                      <a
+                        href="#"
+                        class="block w-full text-gray-700 px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 hover:text-gray-900"
+                        @click.prevent="
+                          close();
+                          onAddBlock(block);
+                        "
+                      >
+                        {{ block.name }}
+                      </a>
+                    </li>
+                  </ul>
+                </template>
+              </popover>
+            </div>
           </div>
         </section>
       </template>
@@ -93,9 +123,12 @@ import { useStore } from "../store";
 
 import SettingsGroup from "../components/SettingsGroup.vue";
 import BlockList from "../components/BlockList.vue";
+import Popover from "../components/Popover.vue";
+
+import { Block, BlockData } from "../types";
 
 export default defineComponent({
-  components: { SettingsGroup, BlockList },
+  components: { SettingsGroup, BlockList, Popover },
 
   setup(_, { root }) {
     const store = useStore();
@@ -124,13 +157,22 @@ export default defineComponent({
       return groupSettings(section.value.settings);
     });
 
-    const blocks = computed(() =>
+    const blocksData = computed(() =>
       sectionData.value
         ? sectionData.value.blocks_order.map(
             (id: string) => sectionData.value.blocks[id]
           )
         : []
     );
+
+    const remainingBlocks = computed(() => {
+      return section.value!.blocks!.filter((block: Block) => {
+        return (
+          blocksData.value.filter((b: BlockData) => b.type === block.type)
+            .length < block.limit
+        );
+      });
+    });
 
     const getBlockByType = (type: string) => {
       return section.value
@@ -166,13 +208,18 @@ export default defineComponent({
       root.$router.back();
     }
 
+    function onAddBlock(block: Block) {
+      store.addSectionBlock(root.$route.params.sectionId, block);
+    }
+
     return {
       section,
       sectionData,
       isRemovable,
       valuePath,
       groupedSettings,
-      blocks,
+      blocksData,
+      remainingBlocks,
 
       getSettingValue,
       getBlockByType,
@@ -181,6 +228,7 @@ export default defineComponent({
       onEditBlock,
       onRemoveSection,
       onToggleBlock,
+      onAddBlock,
     };
   },
 });

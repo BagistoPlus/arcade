@@ -69,32 +69,36 @@ class Hero extends BladeSection
                 ->limit(1)
                 ->settings([
                     SettingType::make('heading', 'Heading')
-                        ->type('text'),
+                        ->type('text')
+                        ->default('Your heading'),
 
-                    SettingType::make('size', 'Heading size')
-                        ->type('select')
+                    SelectType::make('size', 'Heading size')
                         ->options([
                             ['label' => 'Small', 'value' => 'small'],
                             ['label' => 'Medium', 'value' => 'medium'],
                             ['label' => 'Large', 'value' => 'large'],
-                        ]),
+                        ])
+                        ->default('medium'),
                 ]),
 
             Block::make('text', 'Text')
                 ->limit(1)
                 ->settings([
                     SettingType::make('text', 'Text')
-                        ->type('textarea'),
+                        ->type('textarea')
+                        ->default('Nisi nulla consectetur fugiat consectetur laborum id.'),
                 ]),
 
             Block::make('button', 'Button')
                 ->limit(2)
                 ->settings([
                     SettingType::make('text', 'Text')
-                        ->type('text'),
+                        ->type('text')
+                        ->default('Button'),
 
                     SettingType::make('link', 'Link')
-                        ->type('text'),
+                        ->type('text')
+                        ->default('#'),
 
                     SettingType::make('style', 'Style')
                         ->type('select')

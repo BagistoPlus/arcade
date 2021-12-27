@@ -20,7 +20,7 @@ class Mosaic extends BladeSection
                     ['label' => 'Medium', 'value' => 'medium'],
                     ['label' => 'Large', 'value' => 'large'],
                 ])
-                ->default('vertical'),
+                ->default('medium'),
         ];
     }
 
