@@ -4,10 +4,14 @@
       :theme-name="themeName"
       :active-view-mode="activeViewMode"
       :can-publish-theme="canPublishTheme"
+      :has-undo="hasUndo"
+      :has-redo="hasRedo"
       class="flex-none"
       @exit="onExit"
       @view-mode="onViewModeChanged"
       @publish="onPublishTheme"
+      @undo="onUndoClick"
+      @redo="onRedoClick"
     />
 
     <div class="flex-1 flex overflow-hidden mt-px">
@@ -110,6 +114,14 @@ export default defineComponent({
       sectionModalActive.value = false;
     }
 
+    function onUndoClick() {
+      store.undo();
+    }
+
+    function onRedoClick() {
+      store.redo();
+    }
+
     return {
       url,
       iframe,
@@ -118,12 +130,16 @@ export default defineComponent({
       themeName: store.theme.name,
       activeViewMode: computed(() => store.activeViewMode),
       canPublishTheme: computed(() => store.canPublishTheme),
+      hasUndo: computed(() => store.hasUndo),
+      hasRedo: computed(() => store.hasRedo),
       sections: computed(() => Object.values(store.availableSections)),
 
       onExit,
       onAddSection,
       onViewModeChanged,
       onPublishTheme,
+      onUndoClick,
+      onRedoClick,
     };
   },
 });

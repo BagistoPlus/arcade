@@ -1,9 +1,10 @@
+import { ref } from "@vue/composition-api";
 import setValue from "lodash/set";
 import getValue from "lodash/get";
 import debounce from "lodash/debounce";
 import NProgress from "nprogress";
 import { v4 as uuidv4 } from "uuid";
-
+import { History } from "stateshot";
 import { defineStore } from "pinia";
 import { ThemeData, Setting, Section, Block } from "./types";
 
@@ -27,32 +28,40 @@ function refreshPreviewer(html: string) {
   notifyPreviewIframe("refresh", html);
 }
 
-const persistThemeData = debounce((themeCode, themeData) => {
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  headers.append(
-    "X-CSRF-Token",
-    (document.querySelector('meta[name="csrf-token"]') as Element).getAttribute(
-      "content"
-    ) as string
-  );
+const persistThemeData = debounce(
+  (themeCode, themeData, skipHistory = false) => {
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append(
+      "X-CSRF-Token",
+      (
+        document.querySelector('meta[name="csrf-token"]') as Element
+      ).getAttribute("content") as string
+    );
 
-  NProgress.start();
+    NProgress.start();
 
-  fetch(`/admin/arcade/themes/editor/${themeCode}/persist`, {
-    headers,
-    method: "POST",
-    body: JSON.stringify(themeData),
-  })
-    .then((res) => res.text())
-    .then((html) => {
-      refreshPreviewer(html);
-      NProgress.done();
+    fetch(`/admin/arcade/themes/editor/${themeCode}/persist`, {
+      headers,
+      method: "POST",
+      body: JSON.stringify(themeData),
     })
-    .catch((e) => {
-      NProgress.done();
-    });
-}, 500);
+      .then((res) => res.text())
+      .then((html) => {
+        refreshPreviewer(html);
+        NProgress.done();
+        if (!skipHistory) {
+          themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
+        }
+      })
+      .catch((e) => {
+        NProgress.done();
+      });
+  },
+  500
+);
+
+const themeDataStack = ref(new History());
 
 export const useStore = defineStore("main", {
   state: (): State => ({
@@ -99,6 +108,14 @@ export const useStore = defineStore("main", {
     canRemoveSection: (state) => (sectionId: string) => {
       return state.themeData?.sectionsOrder.includes(sectionId);
     },
+
+    hasUndo: (state) => {
+      return state.themeData && themeDataStack.value.hasUndo;
+    },
+
+    hasRedo: (state) => {
+      return state.themeData && themeDataStack.value.hasRedo;
+    },
   },
 
   actions: {
@@ -112,6 +129,7 @@ export const useStore = defineStore("main", {
 
     setThemeData(themeData: any) {
       this.themeData = themeData;
+      themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
     },
 
     activateSection(sectionId: string, notify = false) {
@@ -132,8 +150,8 @@ export const useStore = defineStore("main", {
       this.availableSections = availableSections;
     },
 
-    persistThemeData() {
-      persistThemeData(this.theme.code, this.themeData);
+    persistThemeData(skipHistory = false) {
+      persistThemeData(this.theme.code, this.themeData, skipHistory);
       this.canPublishTheme = true;
     },
 
@@ -204,6 +222,16 @@ export const useStore = defineStore("main", {
       this.persistThemeData();
     },
 
+    undo() {
+      this.themeData = themeDataStack.value.undo().get();
+      this.persistThemeData(true); // true to skip history
+    },
+
+    redo() {
+      this.themeData = themeDataStack.value.redo().get();
+      this.persistThemeData(true); // true to skip history
+    },
+
     addSectionBlock(sectionId: string, block: Block) {
       const section = this.themeData!.sections[sectionId];
       const settings: Record<string, unknown> = {};
@@ -243,6 +271,10 @@ export const useStore = defineStore("main", {
         .then((res) => {
           this.canPublishTheme = false;
           NProgress.done();
+          themeDataStack.value.reset();
+          themeDataStack.value.pushSync(
+            JSON.parse(JSON.stringify(this.themeData))
+          );
         })
         .catch((e) => {
           NProgress.done();

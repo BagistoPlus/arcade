@@ -28,7 +28,30 @@
           {{ text }}
         </button>
       </div>
+
       <div class="flex-1 items-center justify-end flex px-4">
+        <div
+          class="border-l border-r h-16 flex items-center mx-4 px-4 space-x-2"
+        >
+          <button
+            title="Undo"
+            class="p-2 rounded hover:bg-gray-100"
+            :class="{ 'pointer-events-none text-gray-300': !hasUndo }"
+            :disabled="!hasUndo"
+            @click="$emit('undo')"
+          >
+            <mdicon name="undo" />
+          </button>
+          <button
+            title="Redo"
+            class="p-2 rounded hover:bg-gray-100"
+            :class="{ 'pointer-events-none text-gray-300': !hasRedo }"
+            :disabled="!hasRedo"
+            @click="$emit('redo')"
+          >
+            <mdicon name="redo" />
+          </button>
+        </div>
         <button
           class="px-4 py-2 rounded cursor-pointer hover:bg-opacity-90"
           :class="
@@ -58,6 +81,16 @@ export default defineComponent({
     activeViewMode: {
       type: String,
       default: "desktop",
+    },
+
+    hasUndo: {
+      type: Boolean,
+      default: false,
+    },
+
+    hasRedo: {
+      type: Boolean,
+      default: false,
     },
 
     canPublishTheme: {
