@@ -1,3 +1,4 @@
+import { Template } from "./types.d";
 import { ref } from "@vue/composition-api";
 import setValue from "lodash/set";
 import getValue from "lodash/get";
@@ -16,6 +17,7 @@ interface State {
   activeSectionId: string | null;
   availableSections: Record<string, Section>;
   canPublishTheme: boolean;
+  templates: Template[];
 }
 
 let previewIframe: HTMLIFrameElement | null = null;
@@ -76,6 +78,7 @@ export const useStore = defineStore("main", {
     activeSectionId: null,
     availableSections: {},
     canPublishTheme: false,
+    templates: [],
   }),
 
   getters: {
@@ -130,6 +133,10 @@ export const useStore = defineStore("main", {
     setThemeData(themeData: any) {
       this.themeData = themeData;
       themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
+    },
+
+    setTemplates(templates: Template[]) {
+      this.templates = templates;
     },
 
     activateSection(sectionId: string, notify = false) {

@@ -3,6 +3,7 @@
     <span ref="triggerEl">
       <slot
         name="trigger"
+        :opened="opened"
         :on="{
           click: toggle,
         }"

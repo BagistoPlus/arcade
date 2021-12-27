@@ -8,6 +8,8 @@ use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Route;
+use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Product\Repositories\ProductRepository;
 
 class InjectThemeEditorScript
 {
@@ -15,10 +17,16 @@ class InjectThemeEditorScript
 
     protected $sectionDataCollector;
 
-    public function __construct(ThemeEditor $themeEditor, SectionDataCollector $sectionDataCollector)
+    protected $categoryRepository;
+
+    protected $productRepository;
+
+    public function __construct(ThemeEditor $themeEditor, SectionDataCollector $sectionDataCollector, CategoryRepository $categoryRepository, ProductRepository $productRepository)
     {
         $this->themeEditor = $themeEditor;
         $this->sectionDataCollector = $sectionDataCollector;
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function handle($request, Closure $next)
@@ -28,13 +36,14 @@ class InjectThemeEditorScript
         }
 
         $response = $next($request);
-
         if ($this->themeEditor->active()) {
             $renderedSections = collect($this->themeEditor->renderedSections());
 
             $themeData = [
                 'url' => $request->fullUrl(),
-                'template' => $this->themeEditor->getTemplateForRoute(Route::currentRouteName()),
+                'template' => $this->themeEditor->getTemplateForRoute(
+                    $this->fixCategoryOrProductRoute(Route::currentRouteName())
+                ),
 
                 'hasStaticContent' => $renderedSections->filter(function ($item) {
                     return in_array($item['group'], ['beforeContent', 'afterContent']);
@@ -67,6 +76,7 @@ class InjectThemeEditorScript
                 'theme' => $this->themeEditor->editorTheme(),
                 'themeData' => $themeData,
                 'sections' => Sections::all(),
+                'templates' => array_values($this->themeEditor->getTemplates()),
             ]);
         } else {
             $editorContent = "<script type='text/javascript'>
@@ -82,5 +92,22 @@ class InjectThemeEditorScript
         $response->setContent($content);
 
         return $response;
+    }
+
+    protected function fixCategoryOrProductRoute($routeName)
+    {
+        if ('shop.productOrCategory.index' === $routeName) {
+            $slug = request()->route('fallbackPlaceholder');
+
+            if (null !== $this->categoryRepository->findByPath($slug)) {
+                return 'shop.categories.index';
+            } elseif (null !== $this->productRepository->findBySlug($slug)) {
+                return 'shop.products.index';
+            } else {
+                return 'shop.home.index';
+            }
+        }
+
+        return $routeName;
     }
 }

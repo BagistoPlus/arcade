@@ -15,7 +15,14 @@
     </div>
 
     <div class="flex flex-1 items-center">
-      <div class="flex-1 justify-start pl-4">Page Selector</div>
+      <div class="flex-1 justify-start pl-4">
+        <template-selector
+          :templates="templates"
+          :current-template="currentTemplate"
+          @changeTemplate="$emit('changeTemplate', $event)"
+        />
+      </div>
+
       <div class="flex-none flex space-x-4">
         <button
           v-for="{ mode, icon, text } in viewModes"
@@ -70,8 +77,13 @@
 
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
+import TemplateSelector from "./TemplateSelector.vue";
 
 export default defineComponent({
+  components: {
+    TemplateSelector,
+  },
+
   props: {
     themeName: {
       type: String,
@@ -96,6 +108,16 @@ export default defineComponent({
     canPublishTheme: {
       type: Boolean,
       default: false,
+    },
+
+    templates: {
+      type: Array,
+      default: () => [],
+    },
+
+    currentTemplate: {
+      type: String,
+      default: "index",
     },
   },
 

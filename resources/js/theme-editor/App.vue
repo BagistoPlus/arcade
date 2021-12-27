@@ -6,12 +6,15 @@
       :can-publish-theme="canPublishTheme"
       :has-undo="hasUndo"
       :has-redo="hasRedo"
+      :templates="templates"
+      :current-template="currentTemplate"
       class="flex-none"
       @exit="onExit"
       @view-mode="onViewModeChanged"
       @publish="onPublishTheme"
       @undo="onUndoClick"
       @redo="onRedoClick"
+      @changeTemplate="onChangeTemplate"
     />
 
     <div class="flex-1 flex overflow-hidden mt-px">
@@ -78,6 +81,7 @@ export default defineComponent({
       init(data: any) {
         store.setThemeData(data.themeData);
         store.setAvailableSections(data.availableSections);
+        store.setTemplates(data.templates);
         NProgress.done();
       },
 
@@ -122,6 +126,11 @@ export default defineComponent({
       store.redo();
     }
 
+    function onChangeTemplate(url: string) {
+      iframe.value!.src = url;
+      NProgress.start();
+    }
+
     return {
       url,
       iframe,
@@ -133,6 +142,8 @@ export default defineComponent({
       hasUndo: computed(() => store.hasUndo),
       hasRedo: computed(() => store.hasRedo),
       sections: computed(() => Object.values(store.availableSections)),
+      templates: computed(() => store.templates),
+      currentTemplate: computed(() => store.themeData?.template),
 
       onExit,
       onAddSection,
@@ -140,6 +151,7 @@ export default defineComponent({
       onPublishTheme,
       onUndoClick,
       onRedoClick,
+      onChangeTemplate,
     };
   },
 });

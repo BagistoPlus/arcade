@@ -5,6 +5,7 @@ declare global {
     Livewire: any;
     themeData: any;
     availableSections: any;
+    templates: any;
   }
 }
 
@@ -23,6 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
   editor.postMessage("init", {
     themeData: window.themeData,
     availableSections: window.availableSections,
+    templates: window.templates,
   });
 
   window.addEventListener("message", (event) => {

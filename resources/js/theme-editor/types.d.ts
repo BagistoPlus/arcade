@@ -40,9 +40,17 @@ export interface SectionData extends BlockData {
 
 export interface ThemeData {
   url: string;
+  template: string;
   hasStaticContent: boolean;
   beforeContentSectionsOrder: string[];
   afterContentSectionsOrder: string[];
   sectionsOrder: string[];
   sections: Record<string, SectionData>;
+}
+
+export interface Template {
+  icon?: string;
+  label: string;
+  template: string;
+  url: string;
 }

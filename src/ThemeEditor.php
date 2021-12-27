@@ -43,6 +43,11 @@ class ThemeEditor
         $this->templates[$routeName] = $template;
     }
 
+    public function getTemplates()
+    {
+        return $this->templates;
+    }
+
     public function getTemplateForRoute($routeName)
     {
         if (isset($this->templates[$routeName])) {

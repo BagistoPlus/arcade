@@ -10,9 +10,12 @@ use EldoMagan\BagistoArcade\Middlewares\StorefrontTheme;
 use EldoMagan\BagistoArcade\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
+use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Middleware\Currency;
 use Webkul\Shop\Http\Middleware\Locale;
 
@@ -39,9 +42,72 @@ class CoreServiceProvider extends ServiceProvider
         Sections\Hero::class,
     ];
 
-    protected $templates = [
-        'shop.home.index' => ['icon' => 'home', 'label' => 'Home page', 'template' => 'index'],
-    ];
+    protected function templates()
+    {
+        $templates = [
+            'shop.home.index' => [
+                'icon' => 'home-outline',
+                'label' => 'Home page',
+                'template' => 'index',
+                'url' => url()->to('/'),
+            ],
+        ];
+
+        // add category template if any category exists
+        {
+            $category = app(CategoryRepository::class)
+                ->where('parent_id', core()->getCurrentChannel()->root_category_id)
+                ->first();
+
+            if (null !== $category) {
+                $templates['shop.categories.index'] = [
+                    'icon' => 'tag-multiple-outline',
+                    'label' => 'Category Page',
+                    'template' => 'category',
+                    'url' => url()->to($category->translations->first()->url_path),
+                ];
+            }
+        }
+
+        // add product template if any product exists
+        {
+            $product = app(ProductRepository::class)->first();
+            if (null !== $product) {
+                $templates['shop.products.index'] = [
+                    'icon' => 'tag-outline',
+                    'label' => 'Product Page',
+                    'template' => 'product',
+                    'url' => route(
+                        'shop.productOrCategory.index',
+                        $product->url_key // @phpstan-ignore-line
+                    ),
+                ];
+            }
+        }
+
+        $templates['shop.checkout.cart.index'] = [
+            'icon' => 'cart-outline',
+            'label' => 'Cart Page',
+            'template' => 'cart',
+            'url' => route('shop.checkout.cart.index'),
+        ];
+
+        $templates['shop.checkout.onepage.index'] = [
+            'icon' => 'cart-outline',
+            'label' => 'Checkout Page',
+            'template' => 'checkout',
+            'url' => route('shop.checkout.onepage.index'),
+        ];
+
+        $templates['shop.checkout.success'] = [
+            'icon' => 'cart-check',
+            'label' => 'Checkout success Page',
+            'template' => 'checkout',
+            'url' => route('shop.checkout.success'),
+        ];
+
+        return $templates;
+    }
 
     public function boot()
     {
@@ -55,9 +121,13 @@ class CoreServiceProvider extends ServiceProvider
 
         Arcade::registerSections($this->sections, 'arcade');
 
-        foreach ($this->templates as $route => $template) {
-            ThemeEditor::registerTemplateForRoute($route, $template);
-        }
+        $this->app->booted(function () {
+            Route::getRoutes()->refreshNameLookups();
+
+            foreach ($this->templates() as $route => $template) {
+                ThemeEditor::registerTemplateForRoute($route, $template);
+            }
+        });
 
         if ($this->app->runningInConsole()) {
             $this->publishViews();

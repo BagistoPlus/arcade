@@ -35,6 +35,7 @@
 <script type="text/javascript">
   window.themeData = @json($themeData);
   window.availableSections = @json($sections);
+  window.templates = @json($templates);
 
   if (window.Livewire) {
     window.Livewire.addHeaders({
