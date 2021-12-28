@@ -25,6 +25,7 @@
     "@glidejs/glide": "^3.5.2",
     "@mdi/js": "^6.5.95",
     "@vue/composition-api": "^1.4.2",
+    "@vueform/slider": "^2.0.8",
     "@vueuse/core": "^7.4.1",
     "alpinejs": "^3.7.0",
     "laravel-mix": "^6.0.39",
@@ -35,8 +36,8 @@
     "pinia": "^2.0.8",
     "sortablejs": "^1.14.0",
     "stateshot": "^1.3.3",
-    "vue2-helpers": "^1.1.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vue2-helpers": "^1.1.6"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",

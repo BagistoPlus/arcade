@@ -3,9 +3,9 @@
 namespace EldoMagan\BagistoArcade\Sections;
 
 use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
+use EldoMagan\BagistoArcade\SettingTypes\RangeType;
 use EldoMagan\BagistoArcade\SettingTypes\SelectType;
 use EldoMagan\BagistoArcade\SettingTypes\SettingType;
-use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class Hero extends BladeSection
 {
@@ -41,10 +41,13 @@ class Hero extends BladeSection
                 ->default(false)
                 ->group('content'),
 
-            TextType::make('overlay_opacity', 'Overlay opacity')
-                ->type('range')
-                ->default('25')
-                ->group('content'),
+            RangeType::make('overlay_opacity', 'Overlay opacity')
+                ->default(25)
+                ->min(0)
+                ->max(100)
+                ->unit('%')
+                ->group('content')
+                ->info('Only applicable when overlay is enabled.'),
 
             CheckboxType::make('show_content_bg', 'Show content background')
                 ->default(true)

@@ -5,3 +5,4 @@ declare const Arcade: {
 };
 
 declare module "sortablejs/modular/sortable.core.esm.js";
+declare module "@vueform/slider/dist/slider.vue2.js";

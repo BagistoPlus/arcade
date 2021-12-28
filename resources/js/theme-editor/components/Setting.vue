@@ -77,6 +77,24 @@
       @pickImage="$emit('pickImage')"
     />
 
+    <div v-else-if="setting.type === 'range'">
+      <label class="block font-medium mb-1">{{ setting.label }}</label>
+      <div class="flex items-center">
+        <slider
+          class="flex-1 slider-primary"
+          :label="setting.label"
+          :value="value"
+          :model-value="value"
+          :min="setting.min"
+          :max="setting.max"
+          :step="setting.step"
+          :show-tooltip="'drag'"
+          @input="$emit('input', $event)"
+        />
+        <span class="flex-none ml-2">{{ value }} {{ setting.unit }}</span>
+      </div>
+    </div>
+
     <p
       v-if="setting.info"
       v-html="setting.info"
@@ -88,6 +106,7 @@
 
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
+import Slider from "@vueform/slider/dist/slider.vue2.js";
 import TextType from "./Types/TextType.vue";
 import CheckboxType from "./Types/CheckboxType.vue";
 import RadioGroupType from "./Types/RadioGroupType.vue";
@@ -101,6 +120,7 @@ export default defineComponent({
     CheckboxType,
     RadioGroupType,
     ImageType,
+    Slider,
   },
 
   props: {
@@ -120,3 +140,12 @@ export default defineComponent({
   setup() {},
 });
 </script>
+
+<style src="@vueform/slider/themes/default.css"></style>
+<style scoped>
+.slider-primary {
+  --slider-connect-bg: #3b82f6;
+  --slider-tooltip-bg: #3b82f6;
+  --slider-handle-ring-color: #3b82f630;
+}
+</style>
