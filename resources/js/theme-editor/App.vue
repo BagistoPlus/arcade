@@ -20,9 +20,10 @@
     <div class="flex-1 flex overflow-hidden mt-px">
       <div
         v-if="activeViewMode !== 'fullscreen'"
-        class="w-80 flex-none shadow bg-white h-full"
+        class="relative w-80 flex-none shadow bg-white h-full"
       >
         <router-view @add-section="sectionModalActive = true" />
+        <image-picker v-if="imagePickerActive" />
       </div>
 
       <div class="flex-1 h-full flex justify-center items-center p-4">
@@ -56,12 +57,15 @@ import NProgress from "nprogress";
 
 import Header from "./components/Header.vue";
 import AddSectionModal from "./components/AddSectionModal.vue";
+import ImagePicker from "./views/ImagePicker.vue";
 import { Section, ViewMode } from "./types";
 
 export default defineComponent({
   components: {
     Header,
     AddSectionModal,
+
+    ImagePicker,
   },
 
   setup() {
@@ -144,6 +148,7 @@ export default defineComponent({
       sections: computed(() => Object.values(store.availableSections)),
       templates: computed(() => store.templates),
       currentTemplate: computed(() => store.themeData?.template),
+      imagePickerActive: computed(() => store.imagePickerActive),
 
       onExit,
       onAddSection,

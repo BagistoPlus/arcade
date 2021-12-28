@@ -26,6 +26,7 @@
             :value-path="valuePath"
             :getSettingValue="getSettingValue"
             @update-setting="onUpdateSetting"
+            @pickImage="onPickImage"
           />
         </template>
 
@@ -38,6 +39,7 @@
               :value-path="valuePath"
               :getSettingValue="getSettingValue"
               @update-setting="onUpdateSetting"
+              @pickImage="onPickImage"
             />
           </template>
         </template>
@@ -212,6 +214,10 @@ export default defineComponent({
       store.addSectionBlock(root.$route.params.sectionId, block);
     }
 
+    function onPickImage(path: string) {
+      store.openImagePicker(path);
+    }
+
     return {
       section,
       sectionData,
@@ -229,6 +235,7 @@ export default defineComponent({
       onRemoveSection,
       onToggleBlock,
       onAddBlock,
+      onPickImage,
     };
   },
 });

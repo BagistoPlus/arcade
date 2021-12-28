@@ -102,7 +102,7 @@ class CoreServiceProvider extends ServiceProvider
         $templates['shop.checkout.success'] = [
             'icon' => 'cart-check',
             'label' => 'Checkout success Page',
-            'template' => 'checkout',
+            'template' => 'checkout-success',
             'url' => route('shop.checkout.success'),
         ];
 

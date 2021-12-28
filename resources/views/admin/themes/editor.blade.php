@@ -25,6 +25,7 @@
           storefrontUrl: "{{ $storefrontUrl }}",
         },
         themesIndex: "{{ route('arcade.admin.themes.index') }}",
+        imagesBaseUrl: "{{ $imagesBaseUrl }}",
       }
     </script>
 

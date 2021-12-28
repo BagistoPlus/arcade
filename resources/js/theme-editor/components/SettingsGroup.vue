@@ -17,8 +17,8 @@
         :key="setting.id"
         :setting="setting"
         :value="getSettingValue(setting.id)"
-        :value-path="`${valuePath}.${setting.id}`"
         @input="(value) => $emit('update-setting', value, setting.id)"
+        @pickImage="$emit('pickImage', `${valuePath}.${setting.id}`)"
       />
     </div>
   </div>

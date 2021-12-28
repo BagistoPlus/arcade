@@ -18,6 +18,9 @@ interface State {
   availableSections: Record<string, Section>;
   canPublishTheme: boolean;
   templates: Template[];
+  imagePickerActive: boolean;
+  imagePickerValuePath: string;
+  imagePickerDefaultValue: any;
 }
 
 let previewIframe: HTMLIFrameElement | null = null;
@@ -79,6 +82,9 @@ export const useStore = defineStore("main", {
     availableSections: {},
     canPublishTheme: false,
     templates: [],
+    imagePickerActive: false,
+    imagePickerValuePath: "",
+    imagePickerDefaultValue: null,
   }),
 
   getters: {
@@ -155,6 +161,17 @@ export const useStore = defineStore("main", {
 
     setAvailableSections(availableSections: any) {
       this.availableSections = availableSections;
+    },
+
+    openImagePicker(valuePath: string) {
+      this.imagePickerActive = true;
+      this.imagePickerValuePath = valuePath;
+      this.imagePickerDefaultValue = this.themeDataValue(valuePath);
+    },
+
+    closeImagePicker() {
+      this.imagePickerActive = false;
+      this.imagePickerValuePath = "";
     },
 
     persistThemeData(skipHistory = false) {

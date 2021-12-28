@@ -67,14 +67,22 @@
           {{ option.label }}
         </option>
       </select>
-
-      <p
-        v-if="setting.info"
-        v-html="setting.info"
-        class="text-xs text-gray-600"
-        :class="{ 'ml-6': setting.type === 'checkbox' }"
-      />
     </div>
+
+    <image-type
+      v-else-if="setting.type === 'image'"
+      :label="setting.label"
+      :value="value"
+      @input="$emit('input', $event)"
+      @pickImage="$emit('pickImage')"
+    />
+
+    <p
+      v-if="setting.info"
+      v-html="setting.info"
+      class="text-xs text-gray-600"
+      :class="{ 'ml-6': setting.type === 'checkbox' }"
+    />
   </div>
 </template>
 
@@ -83,6 +91,7 @@ import { defineComponent } from "@vue/composition-api";
 import TextType from "./Types/TextType.vue";
 import CheckboxType from "./Types/CheckboxType.vue";
 import RadioGroupType from "./Types/RadioGroupType.vue";
+import ImageType from "./Types/ImageType.vue";
 
 import { Setting as SettingType } from "../types";
 
@@ -91,6 +100,7 @@ export default defineComponent({
     TextType,
     CheckboxType,
     RadioGroupType,
+    ImageType,
   },
 
   props: {
