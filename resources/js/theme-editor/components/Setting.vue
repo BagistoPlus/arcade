@@ -95,6 +95,18 @@
       </div>
     </div>
 
+    <div v-else-if="setting.type === 'color'" class="flex items-start">
+      <color-picker
+        class="flex-none rounded"
+        :value="value"
+        @input="$emit('input', $event)"
+      />
+      <div class="flex-1 ml-3 -mt-1">
+        <label class="block text-base font-medium">{{ setting.label }}</label>
+        <p class="text-xs">{{ value }}</p>
+      </div>
+    </div>
+
     <p
       v-if="setting.info"
       v-html="setting.info"

@@ -103,7 +103,7 @@ class Hero extends BladeSection
                         ->type('text')
                         ->default('#'),
 
-                    SettingType::make('style', 'Style')
+                    SelectType::make('style', 'Style')
                         ->type('select')
                         ->options([
                             ['label' => 'Primary', 'value' => 'primary'],

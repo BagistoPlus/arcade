@@ -33,6 +33,7 @@
     "mdi-vue": "^3.0.12",
     "morphdom": "^2.6.1",
     "nprogress": "^0.2.0",
+    "one-colorpicker": "^1.0.12",
     "pinia": "^2.0.8",
     "sortablejs": "^1.14.0",
     "stateshot": "^1.3.3",

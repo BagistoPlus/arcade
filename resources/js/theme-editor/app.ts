@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueCompositionAPI from "@vue/composition-api";
 import { createPinia, PiniaVuePlugin } from "pinia";
-import NProgress from "nprogress";
+import { ColorPicker, ColorPanel } from "one-colorpicker";
 
 import mdiVue from "mdi-vue/v2";
 import * as mdijs from "@mdi/js";
@@ -14,6 +14,8 @@ Vue.use(VueCompositionAPI);
 Vue.use(mdiVue, {
   icons: mdijs,
 });
+Vue.use(ColorPicker);
+Vue.use(ColorPanel);
 
 Vue.config.productionTip = false;
 
