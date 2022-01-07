@@ -1,4 +1,4 @@
-import { Template } from "./types.d";
+import { Template } from "./types";
 import { ref } from "@vue/composition-api";
 import setValue from "lodash/set";
 import getValue from "lodash/get";

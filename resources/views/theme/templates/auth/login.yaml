@@ -1,0 +1,6 @@
+sections:
+  login_form:
+    type: arcade-customer-login
+
+order:
+  - login_form

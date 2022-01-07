@@ -10,5 +10,6 @@ class ArcadeServiceProvider extends AggregateServiceProvider
         CoreServiceProvider::class,
         ViewServiceProvider::class,
         AdminServiceProvider::class,
+        EventServiceProvider::class
     ];
 }

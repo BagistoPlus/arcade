@@ -1,0 +1,6 @@
+sections:
+  registration_form:
+    type: arcade-customer-registration
+
+order:
+  - registration_form

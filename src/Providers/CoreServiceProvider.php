@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
+use EldoMagan\BagistoArcade\Actions\CreateCustomer;
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\Components;
 use EldoMagan\BagistoArcade\Facades\Arcade;
@@ -24,22 +25,23 @@ class CoreServiceProvider extends ServiceProvider
     protected static $bladeComponents = [
         'account-menu' => Components\AccountMenu::class,
         'currency-switcher' => Components\CurrencySwitcher::class,
-        'products-carousel' => Components\ProductsCarousel::class,
         'products-grid' => Components\ProductsGrid::class,
         'product' => Components\Product::class,
     ];
 
     protected static $livewireComponents = [
         'mini-cart' => Components\MiniCart::class,
+        'login-customer' => Components\LoginCustomer::class,
+        'register-customer' => Components\RegisterCustomer::class,
     ];
 
     protected $sections = [
         Sections\Header::class,
         Sections\AnnouncementBar::class,
-        Sections\Slideshow::class,
         Sections\FeaturedCategory::class,
-        Sections\Mosaic::class,
         Sections\Hero::class,
+        Sections\CustomerLogin::class,
+        Sections\CustomerRegistration::class
     ];
 
     protected function templates()
@@ -119,6 +121,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerLivewireComponents();
         $this->registerMiddlewaresForLivewire();
 
+        Arcade::createCustomerUsing(CreateCustomer::class);
         Arcade::registerSections($this->sections, 'arcade');
 
         $this->app->booted(function () {

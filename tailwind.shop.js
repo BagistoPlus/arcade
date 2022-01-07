@@ -1,12 +1,3 @@
-function withOpacity(color) {
-  return ({ opacityValue }) => {
-    if (opacityValue) {
-      return `rgba(var(${color}), ${opacityValue})`;
-    }
-
-    return `rgba(var(${color}), 1)`;
-  };
-}
 module.exports = {
   mode: "jit",
   content: [
@@ -14,35 +5,33 @@ module.exports = {
     "./resources/views/components/**/*.blade.php",
     "./resources/js/shop/**/*.{js,ts}",
   ],
-  darkMode: "media", // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        primary: withOpacity("--color-bg-primary"),
-        "primary-container": withOpacity("--color-bg-primary-container"),
-        secondary: withOpacity("--color-bg-secondary"),
-        "secondary-container": withOpacity("--color-bg-secondary-container"),
-        accent: withOpacity("--color-bg-accent"),
-        "accent-container": withOpacity("--color-bg-accent-container"),
-        default: withOpacity("--color-bg-default"),
-        surface: withOpacity("--color-bg-surface"),
-        "surface-variant": withOpacity("--color-bg-surface-variant"),
-
-        "on-primary": withOpacity("--color-on-primary"),
-        "on-primary-container": withOpacity("--color-on-primary-container"),
-        "on-secondary": withOpacity("--color-on-secondary"),
-        "on-secondary-container": withOpacity("--color-on-secondary-container"),
-        "on-accent": withOpacity("--color-on-accent"),
-        "on-accent-container": withOpacity("--color-on-accent-container"),
-        "on-default": withOpacity("--color-on-default"),
-        "on-surface": withOpacity("--color-on-surface"),
-        "on-surface-variant": withOpacity("--color-on-surface-variant"),
+        primary: "#0041FF",
+        "primary-dark": "#171E3C",
       },
     },
-    namedGroups: ["carousel", "product"],
+    screen: {
+      sm: "576px",
+      md: "768px",
+      lg: "992px",
+      xl: "1200px",
+      "2xl": "1400px",
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("tailwindcss-named-groups")],
+  plugins: [require("@tailwindcss/forms")],
 };

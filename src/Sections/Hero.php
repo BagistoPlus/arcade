@@ -14,10 +14,7 @@ class Hero extends BladeSection
     public static function settings()
     {
         return [
-            SettingType::make('image1', 'First image')
-                ->type('image'),
-
-            SettingType::make('image2', 'Second image')
+            SettingType::make('image', 'Background Image')
                 ->type('image'),
 
             SelectType::make('height', 'Height')
@@ -38,7 +35,7 @@ class Hero extends BladeSection
                 ->group('content'),
 
             CheckboxType::make('show_overlay', 'Show overlay')
-                ->default(false)
+                ->default(true)
                 ->group('content'),
 
             RangeType::make('overlay_opacity', 'Overlay opacity')
@@ -47,21 +44,7 @@ class Hero extends BladeSection
                 ->max(100)
                 ->unit('%')
                 ->group('content')
-                ->info('Only applicable when overlay is enabled.'),
-
-            CheckboxType::make('show_content_bg', 'Show content background')
-                ->default(true)
-                ->group('content'),
-
-            SelectType::make('content_bg_style', 'Content background style')
-                ->options([
-                    ['label' => 'Primary', 'value' => 'primary'],
-                    ['label' => 'Secondary', 'value' => 'secondary'],
-                    ['label' => 'Primary invert', 'value' => 'primary-invert'],
-                    ['label' => 'Secondary invert', 'value' => 'secondary-invert'],
-                ])
-                ->default('primary-invert')
-                ->group('content'),
+                ->info('Only applicable when overlay is enabled.')
         ];
     }
 
@@ -93,7 +76,7 @@ class Hero extends BladeSection
                 ]),
 
             Block::make('button', 'Button')
-                ->limit(2)
+                ->limit(1)
                 ->settings([
                     SettingType::make('text', 'Text')
                         ->type('text')
@@ -108,9 +91,8 @@ class Hero extends BladeSection
                         ->options([
                             ['label' => 'Primary', 'value' => 'primary'],
                             ['label' => 'Secondary', 'value' => 'secondary'],
-                            ['label' => 'Accent', 'value' => 'accent'],
                         ])
-                        ->default('accent'),
+                        ->default('primary'),
                 ]),
         ];
     }

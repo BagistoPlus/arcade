@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade;
 
+use EldoMagan\BagistoArcade\Contracts\CreateCustomer;
 use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Sections\Section;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
@@ -12,6 +13,8 @@ use Livewire\Livewire;
 class ArcadeManager
 {
     protected SectionDataCollector $sectionDataCollector;
+
+    protected $customerRegistrationValidationRules = [];
 
     public function __construct(SectionDataCollector $sectionDataCollector)
     {
@@ -57,5 +60,20 @@ class ArcadeManager
         collect($sections)->each(function ($section) use ($prefix) {
             $this->registerSection($section, $prefix);
         });
+    }
+
+    public function addCustomerRegistrationValidation(array $rules)
+    {
+        $this->customerRegistrationValidationRules = array_merge($this->customerRegistrationValidationRules, $rules);
+    }
+
+    public function customerRegistrationValidation()
+    {
+        return $this->customerRegistrationValidationRules;
+    }
+
+    public function createCustomerUsing($creator)
+    {
+        app()->bind(CreateCustomer::class, $creator);
     }
 }

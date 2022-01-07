@@ -21,14 +21,6 @@ class AnnouncementBar extends BladeSection
                 ->default('Announcement text')
                 ->info('The announcement text'),
 
-            SelectType::make('style', 'Style')
-                ->default('primary')
-                ->options([
-                    ['label' => 'Primary', 'value' => 'primary'],
-                    ['label' => 'Secondary', 'value' => 'secondary'],
-                    ['label' => 'Accent', 'value' => 'accent'],
-                ]),
-
             SelectType::make('position', 'Position')
                 ->options([
                     ['label' => 'Left', 'value' => 'left'],

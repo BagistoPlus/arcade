@@ -13,6 +13,6 @@
     "preserveConstEnums": true,
     "sourceMap": false
   },
-  "include": ["resources/js/**/*"],
+  "include": ["resources/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

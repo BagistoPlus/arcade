@@ -1,7 +1,6 @@
 /* ./resources/assets/css/theme.css */
 
 @import "tailwindcss/base";
-@import "~@glidejs/glide/dist/css/glide.core.min.css";
 
 [x-cloak] {
     display: none !important;
@@ -9,3 +8,7 @@
 
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.border-r-transparent {
+    border-right-color: transparent;
+}

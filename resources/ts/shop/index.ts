@@ -1,6 +1,5 @@
 import Alpine from "alpinejs";
 import Dropdown from "./components/dropdown";
-import Carousel from "./components/carousel";
 
 declare global {
   interface Window {
@@ -11,6 +10,5 @@ declare global {
 window.Alpine = Alpine;
 
 Alpine.data("ArcadeDropdown", Dropdown);
-Alpine.data("ArcadeCarousel", Carousel);
 
 Alpine.start();
