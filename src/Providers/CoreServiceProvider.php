@@ -41,7 +41,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\FeaturedCategory::class,
         Sections\Hero::class,
         Sections\CustomerLogin::class,
-        Sections\CustomerRegistration::class
+        Sections\CustomerRegistration::class,
     ];
 
     protected function templates()

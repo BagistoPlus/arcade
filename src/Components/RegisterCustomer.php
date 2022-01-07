@@ -3,7 +3,9 @@
 namespace EldoMagan\BagistoArcade\Components;
 
 use EldoMagan\BagistoArcade\Contracts\CreateCustomer;
-use Illuminate\Support\Facades\Validator;;
+use Illuminate\Support\Facades\Validator;
+
+;
 use Livewire\Component;
 
 class RegisterCustomer extends Component
@@ -14,9 +16,9 @@ class RegisterCustomer extends Component
     {
         return array_merge([
             'first_name' => 'string|required',
-            'last_name'  => 'string|required',
-            'email'      => 'email|required|unique:customers,email',
-            'password'   => 'confirmed|min:6|required',
+            'last_name' => 'string|required',
+            'email' => 'email|required|unique:customers,email',
+            'password' => 'confirmed|min:6|required',
         ], arcade()->customerRegistrationValidation());
     }
 

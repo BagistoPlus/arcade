@@ -3,9 +3,9 @@
 namespace EldoMagan\BagistoArcade\Components;
 
 use Cookie;
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use Livewire\Component;
 
 class LoginCustomer extends Component
 {
@@ -13,7 +13,7 @@ class LoginCustomer extends Component
     public $password = '';
 
     protected $rules = [
-        'email'    => 'required|email',
+        'email' => 'required|email',
         'password' => 'required',
     ];
 
@@ -22,12 +22,13 @@ class LoginCustomer extends Component
         $this->validate();
 
         $credentials = [
-            'email'    => $this->email,
+            'email' => $this->email,
             'password' => $this->password,
         ];
 
         if (! Auth::guard('customer')->attempt($credentials)) {
             session()->flash('error', trans('shop::app.customer.login-form.invalid-creds'));
+
             return;
         }
 
@@ -36,6 +37,7 @@ class LoginCustomer extends Component
         if ($customer->status == 0) {
             Auth::guard('customer')->logout();
             session()->flash('warning', trans('shop::app.customer.login-form.not-activated'));
+
             return;
         }
 

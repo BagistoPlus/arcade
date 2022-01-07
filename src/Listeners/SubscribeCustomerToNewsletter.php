@@ -4,7 +4,6 @@ namespace EldoMagan\BagistoArcade\Listeners;
 
 use Illuminate\Support\Facades\Mail;
 use Webkul\Core\Repositories\SubscribersListRepository;
-use Webkul\Customer\Contracts\Customer;
 use Webkul\Shop\Mail\SubscriptionEmail;
 
 class SubscribeCustomerToNewsletter
@@ -21,12 +20,12 @@ class SubscribeCustomerToNewsletter
 
     public function handle($customer)
     {
-        if (!$customer->subscribed_to_news_letter) {
+        if (! $customer->subscribed_to_news_letter) {
             return;
         }
 
         $subscription = $this->subscriptionRepository->findOneWhere([
-            'email' => $customer->email
+            'email' => $customer->email,
         ]);
 
         if ($subscription) {
@@ -36,11 +35,11 @@ class SubscribeCustomerToNewsletter
         }
 
         $this->subscriptionRepository->create([
-            'email'         => $customer->email,
-            'customer_id'   => $customer->id,
-            'channel_id'    => core()->getCurrentChannel()->id,
+            'email' => $customer->email,
+            'customer_id' => $customer->id,
+            'channel_id' => core()->getCurrentChannel()->id,
             'is_subscribed' => 1,
-            'token'         => $token = uniqid(),
+            'token' => $token = uniqid(),
         ]);
 
         try {
@@ -48,6 +47,7 @@ class SubscribeCustomerToNewsletter
                 'email' => $customer->email,
                 'token' => $token,
             ]));
-        } catch (\Exception $e) { }
+        } catch (\Exception $e) {
+        }
     }
 }

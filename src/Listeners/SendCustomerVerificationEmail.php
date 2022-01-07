@@ -9,7 +9,7 @@ class SendCustomerVerificationEmail
 {
     public function handle($customer)
     {
-        if (!core()->getConfigData('customer.settings.email.verification')) {
+        if (! core()->getConfigData('customer.settings.email.verification')) {
             return;
         }
 
@@ -17,7 +17,7 @@ class SendCustomerVerificationEmail
             if (core()->getConfigData('emails.general.notifications.emails.general.notifications.verification')) {
                 Mail::queue(new VerificationEmail([
                     'email' => $customer->email,
-                    'token' => $customer->token
+                    'token' => $customer->token,
                 ]));
             }
 

@@ -44,7 +44,7 @@ class Hero extends BladeSection
                 ->max(100)
                 ->unit('%')
                 ->group('content')
-                ->info('Only applicable when overlay is enabled.')
+                ->info('Only applicable when overlay is enabled.'),
         ];
     }
 

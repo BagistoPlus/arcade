@@ -6,7 +6,6 @@ use EldoMagan\BagistoArcade\Contracts\CreateCustomer as CreateCustomerContract;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Webkul\Core\Repositories\SubscribersListRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 
@@ -35,11 +34,11 @@ class CreateCustomer implements CreateCustomerContract
     public function create(array $data)
     {
         $data = array_merge($data, [
-            'password'                  => Hash::make($data['password']),
-            'api_token'                 => Str::random(80),
-            'is_verified'               => core()->getConfigData('customer.settings.email.verification') ? 0 : 1,
-            'customer_group_id'         => $this->customerGroupRepository->findOneWhere(['code' => 'general'])->id,
-            'token'                     => md5(uniqid(rand(), true))
+            'password' => Hash::make($data['password']),
+            'api_token' => Str::random(80),
+            'is_verified' => core()->getConfigData('customer.settings.email.verification') ? 0 : 1,
+            'customer_group_id' => $this->customerGroupRepository->findOneWhere(['code' => 'general'])->id,
+            'token' => md5(uniqid(rand(), true)),
         ]);
 
         Event::dispatch('customer.registration.before');
