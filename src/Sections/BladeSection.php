@@ -10,9 +10,20 @@ abstract class BladeSection extends Component implements SectionInterface
 {
     use SectionTrait;
 
+    private $sectionData;
+
+    /**
+     * Section data
+     *
+     * @var \EldoMagan\BagistoArcade\Sections\Concerns\SectionData
+     */
+    protected $section;
+
     public function __construct($arcadeId)
     {
         $this->arcadeId = $arcadeId;
+        $this->sectionData = Arcade::sectionDataCollector()->getSectionData($this->arcadeId);
+        $this->section = $this->sectionData->get('section');
     }
 
     /**
@@ -64,6 +75,6 @@ abstract class BladeSection extends Component implements SectionInterface
 
     protected function getArcadeSectionData()
     {
-        return Arcade::sectionDataCollector()->getSectionData($this->arcadeId)->all();
+        return $this->sectionData->all();
     }
 }

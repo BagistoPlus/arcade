@@ -4,6 +4,7 @@ use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Product\Repositories\ProductFlatRepository;
 
 if (! function_exists('arcade')) {
     function arcade()
@@ -30,5 +31,12 @@ if (! function_exists('arcade_get_category')) {
     function arcade_get_category($categoryId)
     {
         return app(CategoryRepository::class)->find($categoryId);
+    }
+}
+
+if (! function_exists('arcade_get_product')) {
+    function arcade_get_product($productId)
+    {
+        return app(ProductFlatRepository::class)->find($productId);
     }
 }

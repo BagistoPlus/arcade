@@ -3,7 +3,7 @@
 namespace EldoMagan\BagistoArcade\Components;
 
 use Illuminate\View\Component;
-use Webkul\Product\Contracts\Product as ProductModel;
+use Webkul\Product\Contracts\ProductFlat as ProductModel;
 
 class Product extends Component
 {

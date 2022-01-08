@@ -22,6 +22,20 @@ sections:
       - heading
       - text
       - button
+  featured_products:
+    type: arcade-featured-products
+    settings:
+      heading: Featured Products
+      product_type: featured
+      nb_product: 4
+  new_products:
+    type: arcade-featured-products
+    settings:
+      heading: New products
+      product_type: new
+      nb_product: 4
 
 order:
   - hero
+  - featured_products
+  - new_products

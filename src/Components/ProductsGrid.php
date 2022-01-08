@@ -13,12 +13,9 @@ class ProductsGrid extends Component
      */
     public $products;
 
-    public $layout;
-
-    public function __construct(Collection $products, $layout = 'vertical')
+    public function __construct(Collection $products)
     {
         $this->products = $products;
-        $this->layout = $layout;
     }
 
     public function render()
