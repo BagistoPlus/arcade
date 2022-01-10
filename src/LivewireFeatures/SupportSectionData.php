@@ -3,20 +3,20 @@
 namespace EldoMagan\BagistoArcade\LivewireFeatures;
 
 use DateTimeInterface;
-use Livewire\Livewire;
-use Livewire\Response;
-use Livewire\Component;
-use Illuminate\View\View;
+use EldoMagan\BagistoArcade\Facades\Arcade;
+use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
+use EldoMagan\BagistoArcade\Sections\LivewireSection;
+use Illuminate\Contracts\Database\ModelIdentifier;
+use Illuminate\Contracts\Queue\QueueableCollection;
+use Illuminate\Contracts\Queue\QueueableEntity;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
-use Illuminate\Database\Eloquent\Model;
-use EldoMagan\BagistoArcade\Facades\Arcade;
-use Illuminate\Contracts\Queue\QueueableEntity;
-use Illuminate\Contracts\Queue\QueueableCollection;
-use EldoMagan\BagistoArcade\Sections\LivewireSection;
-use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
-use Illuminate\Contracts\Database\ModelIdentifier;
-use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
+use Illuminate\View\View;
+use Livewire\Component;
+use Livewire\Livewire;
+use Livewire\Response;
 
 class SupportSectionData
 {
@@ -40,7 +40,7 @@ class SupportSectionData
             foreach ($component->getContext() as $key => $value) {
                 if (is_scalar($value) || is_null($value) || is_array($value) || $key === 'section') {
                     data_set($response, 'memo.arcadeData.'.$key, $value);
-                } else if ($value instanceof QueueableEntity) {
+                } elseif ($value instanceof QueueableEntity) {
                     static::dehydrateModel($value, $key, $response);
                 }
             }
@@ -59,7 +59,7 @@ class SupportSectionData
             foreach ($data as $key => $value) {
                 if ('section' === $key) {
                     $context[$key] = new SectionData($component->arcadeId, $value);
-                } else if ($serialized = data_get($models, $key)) {
+                } elseif ($serialized = data_get($models, $key)) {
                     $context[$key] = static::hydrateModel($serialized, $key, $request);
                 } else {
                     $context[$key] = $value;
@@ -107,7 +107,7 @@ class SupportSectionData
     {
         $serializedModel = $value instanceof QueueableEntity && ! $value->exists
             ? ['class' => get_class($value)]
-            : (array) (new static)->getSerializedPropertyValue($value);
+            : (array) (new static())->getSerializedPropertyValue($value);
 
         // Deserialize the models into the "meta" bag.
         data_set($response, 'memo.arcadeDataMeta.models.'.$key, $serializedModel);
@@ -118,11 +118,11 @@ class SupportSectionData
     protected static function hydrateModel($serialized, $key, $request)
     {
         if (isset($serialized['id'])) {
-            $model = (new static)->getRestoredPropertyValue(
+            $model = (new static())->getRestoredPropertyValue(
                 new ModelIdentifier($serialized['class'], $serialized['id'], $serialized['relations'], $serialized['connection'])
             );
         } else {
-            $model = new $serialized['class'];
+            $model = new $serialized['class']();
         }
 
         $dirtyModelData = $request->memo['arcadeData'][$key];
@@ -132,9 +132,10 @@ class SupportSectionData
         return $model;
     }
 
-    public static function setDirtyData($model, $data) {
+    public static function setDirtyData($model, $data)
+    {
         foreach ($data as $key => $value) {
-            if (is_array($value) && !empty($value)) {
+            if (is_array($value) && ! empty($value)) {
                 $existingData = data_get($model, $key);
 
                 if (is_array($existingData)) {

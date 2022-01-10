@@ -4,7 +4,6 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 use EldoMagan\BagistoArcade\Actions\AddProductToCart;
 use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
-use Webkul\Product\Models\ProductFlat;
 
 class ProductDetails extends LivewireSection
 {
