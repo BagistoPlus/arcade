@@ -1,0 +1,25 @@
+sections:
+  product_details:
+    type: arcade-product-details
+    blocks:
+      title:
+        type: title
+      price:
+        type: price
+      stock:
+        type: stock
+      short_description:
+        type: short_description
+      buy_buttons:
+        type: buy_buttons
+
+    blocks_order:
+      - title
+      - price
+      - stock
+      - short_description
+      - buy_buttons
+
+# sections order
+order:
+  - product_details

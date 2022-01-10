@@ -10,7 +10,7 @@ abstract class BladeSection extends Component implements SectionInterface
 {
     use SectionTrait;
 
-    private $sectionData;
+    private $context;
 
     /**
      * Section data
@@ -22,8 +22,8 @@ abstract class BladeSection extends Component implements SectionInterface
     public function __construct($arcadeId)
     {
         $this->arcadeId = $arcadeId;
-        $this->sectionData = Arcade::sectionDataCollector()->getSectionData($this->arcadeId);
-        $this->section = $this->sectionData->get('section');
+        $this->context = Arcade::sectionDataCollector()->getSectionData($this->arcadeId);
+        $this->section = $this->context->get('section');
     }
 
     /**
@@ -75,6 +75,6 @@ abstract class BladeSection extends Component implements SectionInterface
 
     protected function getArcadeSectionData()
     {
-        return $this->sectionData->all();
+        return $this->context->all();
     }
 }

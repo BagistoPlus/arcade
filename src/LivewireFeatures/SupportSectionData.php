@@ -2,17 +2,25 @@
 
 namespace EldoMagan\BagistoArcade\LivewireFeatures;
 
-use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
-use EldoMagan\BagistoArcade\Sections\LivewireSection;
-use Illuminate\View\View;
-use Livewire\Component;
+use DateTimeInterface;
 use Livewire\Livewire;
 use Livewire\Response;
+use Livewire\Component;
+use Illuminate\View\View;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Stringable;
+use Illuminate\Database\Eloquent\Model;
+use EldoMagan\BagistoArcade\Facades\Arcade;
+use Illuminate\Contracts\Queue\QueueableEntity;
+use Illuminate\Contracts\Queue\QueueableCollection;
+use EldoMagan\BagistoArcade\Sections\LivewireSection;
+use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
+use Illuminate\Contracts\Database\ModelIdentifier;
+use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 
 class SupportSectionData
 {
-    protected $arcadeDataByComponents = [];
+    use SerializesAndRestoresModelIdentifiers;
 
     public static function init()
     {
@@ -26,7 +34,16 @@ class SupportSectionData
                 return;
             }
 
-            $response->memo['arcadeData'] = $this->arcadeDataByComponents[$component->id] ?? [];
+            $response->memo['arcadeData'] = [];
+            $response->memo['arcadeDataMeta'] = [];
+
+            foreach ($component->getContext() as $key => $value) {
+                if (is_scalar($value) || is_null($value) || is_array($value) || $key === 'section') {
+                    data_set($response, 'memo.arcadeData.'.$key, $value);
+                } else if ($value instanceof QueueableEntity) {
+                    static::dehydrateModel($value, $key, $response);
+                }
+            }
         });
 
         Livewire::listen('component.hydrate.subsequent', function ($component, $request) {
@@ -34,7 +51,23 @@ class SupportSectionData
                 return;
             }
 
-            $this->arcadeDataByComponents[$component->id] = $request->memo['arcadeData'] ?? [];
+            $data = $request->memo['arcadeData'] ?? [];
+            $context = [];
+
+            $models = data_get($request, 'memo.arcadeDataMeta.models', []);
+
+            foreach ($data as $key => $value) {
+                if ('section' === $key) {
+                    $context[$key] = new SectionData($component->arcadeId, $value);
+                } else if ($serialized = data_get($models, $key)) {
+                    $context[$key] = static::hydrateModel($serialized, $key, $request);
+                } else {
+                    $context[$key] = $value;
+                }
+            }
+
+            $component->setContext($context);
+            $component->setSection($context['section']);
         });
 
         Livewire::listen('component.mount', function (Component $component, $params) {
@@ -44,10 +77,21 @@ class SupportSectionData
 
             $data = Arcade::sectionDataCollector()
                 ->getSectionData($component->arcadeId)
-                ->except(['errors'])
-                ->toArray();
+                ->filter(function ($value) {
+                    return is_scalar($value)
+                        || is_array($value)
+                        || is_null($value)
+                        || $value instanceof SectionData
+                        || $value instanceof QueueableEntity
+                        || $value instanceof QueueableCollection
+                        || $value instanceof Collection
+                        || $value instanceof DateTimeInterface
+                        || $value instanceof Stringable;
+                })
+                ->all();
 
-            $this->arcadeDataByComponents[$component->id] = $data;
+            $component->setContext($data);
+            $component->setSection($data['section']);
         });
 
         Livewire::listen('component.rendered', function (Component $component, View $view) {
@@ -55,13 +99,65 @@ class SupportSectionData
                 return;
             }
 
-            $data = $this->arcadeDataByComponents[$component->id] ?? [];
+            $view->with($component->getContext());
+        });
+    }
 
-            if (isset($data['section'])) {
-                $data['section'] = new SectionData($component->arcadeId, $data['section']);
+    protected static function dehydrateModel($value, $key, $response)
+    {
+        $serializedModel = $value instanceof QueueableEntity && ! $value->exists
+            ? ['class' => get_class($value)]
+            : (array) (new static)->getSerializedPropertyValue($value);
+
+        // Deserialize the models into the "meta" bag.
+        data_set($response, 'memo.arcadeDataMeta.models.'.$key, $serializedModel);
+
+        data_set($response, 'memo.arcadeData.'.$key, $value->toArray());
+    }
+
+    protected static function hydrateModel($serialized, $key, $request)
+    {
+        if (isset($serialized['id'])) {
+            $model = (new static)->getRestoredPropertyValue(
+                new ModelIdentifier($serialized['class'], $serialized['id'], $serialized['relations'], $serialized['connection'])
+            );
+        } else {
+            $model = new $serialized['class'];
+        }
+
+        $dirtyModelData = $request->memo['arcadeData'][$key];
+
+        static::setDirtyData($model, $dirtyModelData);
+
+        return $model;
+    }
+
+    public static function setDirtyData($model, $data) {
+        foreach ($data as $key => $value) {
+            if (is_array($value) && !empty($value)) {
+                $existingData = data_get($model, $key);
+
+                if (is_array($existingData)) {
+                    $updatedData = static::setDirtyData([], data_get($data, $key));
+                } else {
+                    $updatedData = static::setDirtyData($existingData, data_get($data, $key));
+                }
+            } else {
+                $updatedData = data_get($data, $key);
+
+                if (array_key_exists($key, $model->getRelations())) {
+                    $updatedData = collect($updatedData);
+                }
             }
 
-            $view->with($data);
-        });
+
+            if ($model instanceof Model && $model->relationLoaded($key)) {
+                $model->setRelation($key, $updatedData);
+            } else {
+                data_set($model, $key, $updatedData);
+            }
+        }
+
+        return $model;
     }
 }

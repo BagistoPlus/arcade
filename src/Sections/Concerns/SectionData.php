@@ -41,6 +41,41 @@ class SectionData extends BlockData
         });
     }
 
+    /**
+     * Check if section have blocks of given types
+     *
+     * @param string|string[] $type
+     * @return bool
+     */
+    public function hasBlockOfType($type)
+    {
+        $type = (array) $type;
+
+        return $this->blocks->some(function ($block) use ($type) {
+            return in_array($block->type, $type);
+        });
+    }
+
+    /**
+     * Get section blocks of given types
+     *
+     * @param string|string[] $type
+     * @return Collection<BlockData>
+     */
+    public function blocksOfType($type)
+    {
+        $type = (array) $type;
+
+        return $this->blocks->filter(function ($block) use ($type) {
+            return in_array($block->type, $type);
+        });
+    }
+
+    public function blockOfType(string $type)
+    {
+        return $this->blocksOfType($type)->first();
+    }
+
     public function toArray()
     {
         return array_merge(parent::toArray(), [

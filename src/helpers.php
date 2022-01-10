@@ -40,3 +40,11 @@ if (! function_exists('arcade_get_product')) {
         return app(ProductFlatRepository::class)->find($productId);
     }
 }
+
+
+if (! function_exists('arcade_clear_inline_styles')) {
+    function arcade_clear_inline_styles($html)
+    {
+        return preg_replace('#(<[a-z0-6 ]*)(style=("|\')(.*?)("|\'))([a-z ]*>)#', '\\1\\6', $html);
+    }
+}

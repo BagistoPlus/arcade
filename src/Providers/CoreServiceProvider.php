@@ -27,6 +27,9 @@ class CoreServiceProvider extends ServiceProvider
         'currency-switcher' => Components\CurrencySwitcher::class,
         'products-grid' => Components\ProductsGrid::class,
         'product' => Components\Product::class,
+        'product-gallery' => Components\ProductGallery::class,
+        'product-stock-status' => Components\ProductStockStatus::class,
+        'product-buy-buttons' => Components\ProductBuyButtons::class,
     ];
 
     protected static $livewireComponents = [
@@ -43,6 +46,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\FeaturedProducts::class,
         Sections\CustomerLogin::class,
         Sections\CustomerRegistration::class,
+        Sections\ProductDetails::class,
     ];
 
     protected function templates()

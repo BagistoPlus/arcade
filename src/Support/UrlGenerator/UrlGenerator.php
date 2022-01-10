@@ -44,6 +44,6 @@ class UrlGenerator extends RoutingUrlGenerator
             ];
         }
 
-        return [$path, '?' . $query];
+        return [$path, $query ? '?' . $query : ''];
     }
 }
