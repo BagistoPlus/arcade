@@ -2,15 +2,27 @@
 
 namespace EldoMagan\BagistoArcade\Actions;
 
-use Illuminate\Support\Facades\Http;
+use Webkul\Shop\Http\Controllers\CartController;
 
 class AddProductToCart
 {
+    /**
+     * @var \Webkul\Shop\Http\Controllers\CartController
+     */
+    protected $cartController;
+
+    public function __construct(CartController $cartController)
+    {
+        $this->cartController = $cartController;
+    }
+
     public function execute($product, $quantity)
     {
-        $this->response = Http::post(route('cart.add', $this->product->product_id), [
+        request()->merge([
             'product_id' => $product->product_id,
             'quantity' => $quantity,
         ]);
+
+        $this->cartController->add($product->product_id);
     }
 }

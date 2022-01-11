@@ -4,7 +4,6 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 use EldoMagan\BagistoArcade\Actions\AddProductToCart;
 use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
-use Webkul\Product\Models\ProductFlat;
 
 class ProductDetails extends LivewireSection
 {
@@ -13,6 +12,7 @@ class ProductDetails extends LivewireSection
     public function addToCart(AddProductToCart $addProductToCart)
     {
         $addProductToCart->execute($this->context['product'], $this->quantity);
+        $this->emit('cartItemAdded');
     }
 
     public function render()
