@@ -32,7 +32,7 @@ class ThemeController extends Controller
 
         return view('arcade::admin.themes.editor', [
             'theme' => $theme,
-            'storefrontUrl' => url('/') . http_build_query(['designMode' => $code]),
+            'storefrontUrl' => url('/') . '?' . http_build_query(['designMode' => $code]),
             'imagesBaseUrl' => Storage::disk(config('arcade.images_storage'))->url(''),
         ]);
     }

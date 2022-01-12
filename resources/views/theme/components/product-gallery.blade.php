@@ -12,7 +12,7 @@
       <a
         class="flex-none block w-16 border overflow-hidden cursor-pointer"
         :class="{ 'border-2 border-primary p-px': activeImage === {{ $index }} }"
-        x-on:click="activeImage = {{ $index }}"
+        x-on:click.prevent="activeImage = {{ $index }}"
       >
         <div class="relative w-full aspect-w-1 aspect-h-1 overflow-hidden">
           <img alt="" src="{{ $image['small_image_url'] }}" class="absolute object-cover w-full h-full">

@@ -16,13 +16,10 @@ class AddProductToCart
         $this->cartController = $cartController;
     }
 
-    public function execute($product, $quantity)
+    public function execute(array $data)
     {
-        request()->merge([
-            'product_id' => $product->product_id,
-            'quantity' => $quantity,
-        ]);
+        request()->merge($data);
 
-        $this->cartController->add($product->product_id);
+        return $this->cartController->add($data['product_id']);
     }
 }

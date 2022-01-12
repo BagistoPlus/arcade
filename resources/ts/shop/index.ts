@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import collapse from "@alpinejs/collapse";
 import Dropdown from "./components/dropdown";
 
 declare global {
@@ -9,6 +10,7 @@ declare global {
 
 window.Alpine = Alpine;
 
+Alpine.plugin(collapse);
 Alpine.data("ArcadeDropdown", Dropdown);
 
 Alpine.start();

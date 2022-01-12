@@ -1,3 +1,4 @@
+declare module "@alpinejs/collapse";
 declare module "alpinejs" {
   export interface AlpineElement extends HTMLElement {
     __x: AlpineInstance;
@@ -20,6 +21,7 @@ declare module "alpinejs" {
       componentName: string,
       callback: (params: any) => AlpineComponent<T>
     ): void;
+    plugin(plugin: any): void;
   };
 
   export default Alpine;

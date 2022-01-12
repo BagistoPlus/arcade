@@ -8,6 +8,7 @@
     pointer-events: none;
     text-align: center;
     padding-top: 4px;
+    z-index: 9999;
   }
 
   #section-overlay .btn {

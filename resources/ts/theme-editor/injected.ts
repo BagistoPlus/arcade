@@ -159,12 +159,13 @@ class Editor {
     );
 
     // Let Alpine & Livewire do their things again
-    if (window.Alpine) {
-      window.Alpine.start();
-    }
-
     if (window.Livewire) {
       window.Livewire.rescan();
+    }
+
+    if (window.Alpine) {
+      // @ts-ignore
+      window.Alpine.initTree(document.body);
     }
   }
 }

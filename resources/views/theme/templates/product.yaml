@@ -10,15 +10,24 @@ sections:
         type: stock
       short_description:
         type: short_description
+      quantity_selector:
+        type: quantity_selector
       buy_buttons:
         type: buy_buttons
+      description:
+        type: description
+      attributes:
+        type: attributes
 
     blocks_order:
       - title
       - price
       - stock
       - short_description
+      - quantity_selector
       - buy_buttons
+      - description
+      - attributes
 
 # sections order
 order:

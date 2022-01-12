@@ -17,7 +17,6 @@ mix.postCss("resources/css/admin.css", "dist/admin/style.css", [
 mix.copyDirectory("resources/img/admin", "dist/admin/images");
 
 /** Theme Editor */
-
 mix
   .ts("resources/ts/theme-editor/app.ts", "dist/theme-editor")
   .ts("resources/ts/theme-editor/injected.ts", "dist/theme-editor")

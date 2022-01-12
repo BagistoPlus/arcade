@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  content: ["./resources/js/theme-editor/**/*.{js,ts,vue}"],
+  content: ["./resources/ts/theme-editor/**/*.{js,ts,vue}"],
   theme: {
     extend: {
       colors: {
