@@ -31,6 +31,10 @@ class UrlGenerator extends RoutingUrlGenerator
     {
         $query = '';
 
+        if (request()->headers->has('x-livewire')) {
+            dd($path);
+        }
+
         if (arcadeEditor()->inDesignMode()) {
             $query = 'designMode=' . arcadeEditor()->editorTheme();
         } elseif (arcadeEditor()->inPreviewMode()) {

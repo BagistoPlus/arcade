@@ -1,0 +1,6 @@
+sections:
+  category:
+    type: arcade-category-page
+
+order:
+  - category
