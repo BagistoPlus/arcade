@@ -2,9 +2,8 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use Illuminate\Http\Request;
-use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Product\Helpers\Toolbar as ProductsListActionsHelper;
+use Webkul\Product\Repositories\ProductRepository;
 
 class CategoryPage extends LivewireSection
 {
@@ -46,7 +45,7 @@ class CategoryPage extends LivewireSection
         // as livewire don't send query params on subsequent requests
         request()->query->add([
             'sort' => $this->sort,
-            'order' => $this->order
+            'order' => $this->order,
         ]);
     }
 
