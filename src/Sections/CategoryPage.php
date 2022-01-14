@@ -2,8 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use Webkul\Product\Helpers\Toolbar as ProductsListActionsHelper;
+use Illuminate\Http\Request;
 use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Product\Helpers\Toolbar as ProductsListActionsHelper;
 
 class CategoryPage extends LivewireSection
 {
@@ -15,10 +16,10 @@ class CategoryPage extends LivewireSection
     protected $productRepository;
     protected $productsListActionsHelper;
 
-    // protected $queryString = [
-    //     'sort' => ['except' => ''],
-    //     'order' => ['except' => ''],
-    // ];
+    protected $queryString = [
+        'sort' => ['except' => ''],
+        'order' => ['except' => ''],
+    ];
 
     public function mount()
     {
@@ -39,6 +40,14 @@ class CategoryPage extends LivewireSection
         list($sort, $order) = explode('-', $this->sortOrder);
         $this->sort = $sort;
         $this->order = $order;
+
+        // This is necessary to forward query string updated to
+        // other components like ProductRepository
+        // as livewire don't send query params on subsequent requests
+        request()->query->add([
+            'sort' => $this->sort,
+            'order' => $this->order
+        ]);
     }
 
     public function getProductsPaginator()

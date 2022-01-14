@@ -36,7 +36,8 @@ class InjectThemeEditorScript
         }
 
         $response = $next($request);
-        if ($this->themeEditor->active()) {
+
+        if ($this->themeEditor->inDesignMode()) {
             $renderedSections = collect($this->themeEditor->renderedSections());
 
             $themeData = [

@@ -8,6 +8,22 @@ use Illuminate\Routing\UrlGenerator as RoutingUrlGenerator;
 class UrlGenerator extends RoutingUrlGenerator
 {
     /**
+     * Get the current URL for the request.
+     *
+     * @return string
+     */
+    public function current()
+    {
+        $url = parent::current();
+
+        if (arcadeEditor()->inDesignMode() || arcadeEditor()->inPreviewMode()) {
+            $url = explode('?', $url)[0];
+        }
+
+        return $url;
+    }
+
+    /**
      * Get the Route URL generator instance.
      *
      * @return \Illuminate\Routing\RouteUrlGenerator
@@ -30,10 +46,6 @@ class UrlGenerator extends RoutingUrlGenerator
     protected function extractQueryString($path)
     {
         $query = '';
-
-        if (request()->headers->has('x-livewire')) {
-            dd($path);
-        }
 
         if (arcadeEditor()->inDesignMode()) {
             $query = 'designMode=' . arcadeEditor()->editorTheme();
