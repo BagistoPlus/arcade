@@ -2,14 +2,14 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use Illuminate\Http\Request;
-use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Product\Helpers\Toolbar as ProductsListActionsHelper;
+use Webkul\Product\Repositories\ProductRepository;
 
 class CategoryPage extends LivewireSection
 {
     public $sort = '';
     public $order = '';
+    public $perPage = 9;
 
     public $sortOrder = '';
 
@@ -17,8 +17,9 @@ class CategoryPage extends LivewireSection
     protected $productsListActionsHelper;
 
     protected $queryString = [
-        'sort' => ['except' => ''],
-        'order' => ['except' => ''],
+        'sort' ,
+        'order',
+        'perPage' => ['as' => 'limit'],
     ];
 
     public function mount()
@@ -35,18 +36,21 @@ class CategoryPage extends LivewireSection
         $this->productsListActionsHelper = $productsListActionsHelper;
     }
 
-    public function updatedSortOrder()
+    public function updated($name, $value)
     {
-        list($sort, $order) = explode('-', $this->sortOrder);
-        $this->sort = $sort;
-        $this->order = $order;
+        if ($name == 'sortOrder') {
+            list($sort, $order) = explode('-', $this->sortOrder);
+            $this->sort = $sort;
+            $this->order = $order;
+        }
 
-        // This is necessary to forward query string updated to
+        // This is necessary to forward query string updates to
         // other components like ProductRepository
         // as livewire don't send query params on subsequent requests
         request()->query->add([
             'sort' => $this->sort,
-            'order' => $this->order
+            'order' => $this->order,
+            'limit' => $this->perPage,
         ]);
     }
 
@@ -63,6 +67,11 @@ class CategoryPage extends LivewireSection
     public function getSortOptionsProperty()
     {
         return $this->productsListActionsHelper->getAvailableOrders();
+    }
+
+    public function getItemsPerPageOptionsProperty()
+    {
+        return $this->productsListActionsHelper->getAvailableLimits();
     }
 
     public function render()

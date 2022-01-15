@@ -18,15 +18,31 @@
       @endif
 
       <div>
-        <div class="mb-4">
-          <label>{{ __('shop::app.products.sort-by') }}</label>
-          <select class="border-gray-300" wire:model="sortOrder">
-            @foreach ($this->sortOptions as $key => $order)
-              <option value="{{ $key }}">
-                  {{ __('shop::app.products.' . $order) }}
-              </option>
-            @endforeach
-          </select>
+        <div class="mb-6 flex justify-between">
+          <div class="flex space-x-6">
+            <div>
+              <label>{{ __('shop::app.products.sort-by') }}</label>
+              <select class="border-gray-300" wire:model="sortOrder">
+                @foreach ($this->sortOptions as $key => $order)
+                  <option value="{{ $key }}">
+                      {{ __('shop::app.products.' . $order) }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
+            <div>
+              <label>{{ __('shop::app.products.show') }}</label>
+              <select class="border-gray-300" wire:model="perPage">
+                @foreach ($this->itemsPerPageOptions as $limit)
+                  <option value="{{ $limit }}">
+                    {{ $limit }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div></div>
         </div>
 
         <x-products-grid :products="$this->products" />
