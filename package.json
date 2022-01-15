@@ -32,6 +32,7 @@
     "lodash": "^4.17.21",
     "mdi-vue": "^3.0.12",
     "morphdom": "^2.6.1",
+    "nouislider": "^15.5.0",
     "nprogress": "^0.2.0",
     "one-colorpicker": "^1.0.12",
     "pinia": "^2.0.8",

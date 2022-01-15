@@ -7,6 +7,7 @@ declare module "alpinejs" {
 
   export interface AlpineInstance {
     readonly $el: AlpineElement;
+    $dispatch(event: string, detail?: any): void;
   }
 
   export type AlpineComponent<T> = {

@@ -1,6 +1,8 @@
 <div class="container py-10">
   <div class="space-y-6 lg:flex lg:space-x-6 lg:space-y-0">
-    <div class="flex-none w-full h-56 border lg:w-72"></div>
+    <div class="hidden flex-none h-56 lg:block lg:w-72">
+      <x-product-filters wire :filters="$this->filterAttributes" />
+    </div>
     <div class="flex-1">
       <div class="mb-4">
         <h1 class="font-bold text-3xl">{{ $category->name }}</h1>
@@ -18,7 +20,7 @@
       @endif
 
       <div>
-        <div class="mb-6 flex justify-between">
+        <div class="mb-6 flex justify-between items-center">
           <div class="flex space-x-6">
             <div>
               <label>{{ __('shop::app.products.sort-by') }}</label>
@@ -42,7 +44,11 @@
               </select>
             </div>
           </div>
-          <div></div>
+          <div>
+            <span class="hidden lg:inline">
+              {{ __('shop::app.products.pager-info', ['showing' => $this->products->firstItem() . '-' . $this->products->lastItem(), 'total' => $this->products->total()]) }}
+            </span>
+          </div>
         </div>
 
         <x-products-grid :products="$this->products" />

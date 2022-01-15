@@ -8,6 +8,7 @@
 
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+/* @import "nouislider/dist/nouislider"; */
 
 .border-r-transparent {
     border-right-color: transparent;

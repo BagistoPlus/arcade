@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./resources/views/theme/**/*.blade.php",
     "./resources/views/components/**/*.blade.php",
-    "./resources/js/shop/**/*.{js,ts}",
+    "./resources/ts/shop/**/*.{js,ts}",
   ],
   theme: {
     extend: {

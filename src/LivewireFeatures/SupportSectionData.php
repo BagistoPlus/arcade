@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -136,7 +137,7 @@ class SupportSectionData
     {
         foreach ($data as $key => $value) {
             if (is_array($value) && ! empty($value)) {
-                $existingData = data_get($model, $key);
+                $existingData = data_get($model, $key) ?? data_get($model, Str::camel($key));
 
                 if (is_array($existingData)) {
                     $updatedData = static::setDirtyData([], data_get($data, $key));
@@ -150,7 +151,6 @@ class SupportSectionData
                     $updatedData = collect($updatedData);
                 }
             }
-
 
             if ($model instanceof Model && $model->relationLoaded($key)) {
                 $model->setRelation($key, $updatedData);
