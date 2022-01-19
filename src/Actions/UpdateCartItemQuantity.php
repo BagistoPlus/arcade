@@ -16,7 +16,7 @@ class UpdateCartItemQuantity
         $data = [
             'qty' => [
                 $itemId => $quantity,
-            ]
+            ],
         ];
 
         try {
