@@ -41,9 +41,10 @@
             @elseif($block->type === 'quantity_selector')
               <div class="mt-2">
                 <x-arcade::quantity-selector
-                  wire:model="quantity"
+                  :value="$quantity"
                   :label="__('shop::app.products.quantity')"
                   class="mb-4"
+                  wire:on-input="$set('quantity', $event.detail)"
                 />
               </div>
             @elseif($block->type === 'description')

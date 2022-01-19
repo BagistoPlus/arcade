@@ -1,0 +1,6 @@
+sections:
+  cart:
+    type: arcade-cart
+
+order:
+  - cart

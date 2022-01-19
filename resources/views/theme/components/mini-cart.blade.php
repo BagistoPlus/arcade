@@ -17,7 +17,7 @@
     x-transition.origin.top.right
     class="absolute bg-white border mt-2 mr-2 right-0 w-96">
 
-    @if($this->cartEmpty)
+    @if($this->isCartEmpty)
       <div class="flex flex-col items-center p-4">
         <p class="text-center mt-4">
           Your cart is empty
@@ -72,11 +72,11 @@
             {{ __('shop::app.checkout.cart.cart-subtotal') }}
           </span>
 
-          {!! view_render_event('bagisto.shop.checkout.cart-mini.subtotal.before', ['cart' => $cart]) !!}
+          {!! view_render_event('bagisto.shop.checkout.cart-mini.subtotal.before', ['cart' => $this->cart]) !!}
 
-          <x-arcade::currency :amount="$this->displayableTotal" class="font-semibold"/>
+          <x-arcade::currency :amount="$this->cartSubTotal" class="font-semibold"/>
 
-          {!! view_render_event('bagisto.shop.checkout.cart-mini.subtotal.after', ['cart' => $cart]) !!}
+          {!! view_render_event('bagisto.shop.checkout.cart-mini.subtotal.after', ['cart' => $this->cart]) !!}
         </div>
 
         <div class="flex space-x-6 mt-4">

@@ -1,10 +1,18 @@
 @props([
-  'label' => ''
+  'label' => '',
+  'value' => 1
 ])
 
 <div
-  x-data="{ quantity: @if($attributes->has('wire:model')) @entangle($attributes->wire('model')).defer || 1 @else 1 @endif }"
-  {{ $attributes->whereDoesntStartWith('wire:') }}
+  x-data="{
+    quantity: {{ $value }},
+    init() {
+      this.$watch('quantity', (value) => {
+        this.$dispatch('on-input', value);
+      })
+    }
+  }"
+  {{ $attributes }}
 >
   @if($label)
     <label class="block mb-2 font-semibold">{{ $label }}</label>

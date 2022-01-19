@@ -18,8 +18,14 @@ class AddProductToCart
 
     public function execute(array $data)
     {
-        request()->merge($data);
+        // We replace request body with $data to discard custom livewire inputs
+        $originalRequestData = request()->request->all();
+        request()->request->replace($data);
 
-        return $this->cartController->add($data['product_id']);
+        $this->cartController->add($data['product_id']);
+
+        // and then we restore livewire request data to prevent ignition crash
+        // we should probably move this logic to some livewire middleware
+        request()->request->replace($originalRequestData);
     }
 }

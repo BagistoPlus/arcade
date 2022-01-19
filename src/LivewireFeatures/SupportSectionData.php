@@ -137,17 +137,24 @@ class SupportSectionData
     {
         foreach ($data as $key => $value) {
             if (is_array($value) && ! empty($value)) {
-                $existingData = data_get($model, $key) ?? data_get($model, Str::camel($key));
+                $existingData = data_get($model, $key);
+
+                if (null === $existingData) {
+                    // Eloquent model relations keys are snake_cased on json serialize
+                    // so we try to get relation data using the camelCased $attribute
+                    $existingData = data_get($model, Str::camel($key));
+                }
 
                 if (is_array($existingData)) {
                     $updatedData = static::setDirtyData([], data_get($data, $key));
                 } else {
                     $updatedData = static::setDirtyData($existingData, data_get($data, $key));
                 }
+
             } else {
                 $updatedData = data_get($data, $key);
 
-                if (array_key_exists($key, $model->getRelations())) {
+                if ($model instanceof Model && array_key_exists($key, $model->getRelations())) {
                     $updatedData = collect($updatedData);
                 }
             }
@@ -157,6 +164,7 @@ class SupportSectionData
             } else {
                 data_set($model, $key, $updatedData);
             }
+
         }
 
         return $model;
