@@ -151,7 +151,6 @@ class SupportSectionData
                 } else {
                     $updatedData = static::setDirtyData($existingData, data_get($data, $key));
                 }
-
             } else {
                 $updatedData = data_get($data, $key);
 
@@ -165,7 +164,6 @@ class SupportSectionData
             } else {
                 data_set($model, $key, $updatedData);
             }
-
         }
 
         return $model;
