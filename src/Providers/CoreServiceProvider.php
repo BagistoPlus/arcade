@@ -39,6 +39,7 @@ class CoreServiceProvider extends ServiceProvider
         'mini-cart' => Components\MiniCart::class,
         'login-customer' => Components\LoginCustomer::class,
         'register-customer' => Components\RegisterCustomer::class,
+        'cart-apply-coupon' => Components\CartApplyCoupon::class,
     ];
 
     protected $sections = [
