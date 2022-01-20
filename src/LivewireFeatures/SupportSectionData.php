@@ -89,6 +89,7 @@ class SupportSectionData
                         || $value instanceof DateTimeInterface
                         || $value instanceof Stringable;
                 })
+                ->except(['cart'])
                 ->all();
 
             $component->setContext($data);

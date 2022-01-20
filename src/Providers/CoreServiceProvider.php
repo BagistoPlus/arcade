@@ -32,6 +32,7 @@ class CoreServiceProvider extends ServiceProvider
         'product-buy-buttons' => Components\ProductBuyButtons::class,
         'product-attributes' => Components\ProductAttributes::class,
         'product-filters' => Components\ProductFilters::class,
+        'cart-summary' => Components\CartSummary::class,
     ];
 
     protected static $livewireComponents = [

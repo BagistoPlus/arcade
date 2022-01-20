@@ -15,8 +15,12 @@
         </p>
     </div>
     @else
+      <h1 class="text-3xl font-medium mb-5">
+        {{ __('shop::app.checkout.cart.title') }}
+      </h1>
+
       <div class="lg:flex lg:space-x-6 space-y-6 lg:space-y-0">
-        <div class="flex-1">
+        <div class="flex-1 space-y-2">
           @foreach($this->cartItems as $item)
             <div class="border p-4 lg:flex lg:flex-wrap lg:items-center">
               <div class="text-center flex-none">
@@ -63,7 +67,7 @@
                   wire:on-input="updateCartItemQuantity({{ $item->id }}, $event.detail)"
                 />
                 <a
-                  class="lg:pl-2 lg:mt-2 hover:text-primary"
+                  class="lg:pl-2 lg:mt-2 text-sm hover:text-primary"
                   href="{{ route('shop.checkout.cart.remove', $item->id) }}"
                   wire:click.prevent="removeItemFromCart({{ $item->id }})"
                 >
@@ -75,7 +79,13 @@
             </div>
           @endforeach
         </div>
-        <div class="flex-none lg:w-96 border h-48"></div>
+        <div class="flex-none lg:w-96 border h-48 p-4">
+          {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
+
+          <x-cart-summary />
+
+          {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
+        </div>
       </div>
     @endif
   </div>
