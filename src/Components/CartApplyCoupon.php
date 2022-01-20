@@ -18,6 +18,7 @@ class CartApplyCoupon extends Component
     {
         if (empty($this->code)) {
             $this->addError('code', __('shop::app.checkout.total.invalid-coupon'));
+
             return;
         }
 

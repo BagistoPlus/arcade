@@ -10,7 +10,7 @@ class CartSummary extends Component
     public function render()
     {
         return view('shop::components.cart-summary', [
-            'cart' => Cart::getCart()
+            'cart' => Cart::getCart(),
         ]);
     }
 }
