@@ -79,13 +79,19 @@
             </div>
           @endforeach
         </div>
-        <div class="flex-none lg:w-96 border p-4">
-          {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
+        <div class="flex-none lg:w-96">
+          <div class="border p-4">
+            {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
 
-          <x-cart-summary />
-          <livewire:cart-apply-coupon class="mt-8" />
+            <x-cart-summary />
+            <livewire:cart-apply-coupon class="mt-8" />
 
-          {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
+            {!! view_render_event('bagisto.shop.checkout.cart.summary.after', ['cart' => $this->cart]) !!}
+          </div>
+
+          <a href="{{ route('shop.checkout.onepage.index') }}" class="block mt-6 bg-primary text-white text-center py-3">
+            {{ __('shop::app.checkout.cart.proceed-to-checkout') }}
+          </a>
         </div>
       </div>
     @endif

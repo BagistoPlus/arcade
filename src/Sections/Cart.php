@@ -10,7 +10,7 @@ class Cart extends LivewireSection
     use InteractsWithCart;
 
     protected $listeners = [
-        'couponApplied' => '$refresh'
+        'couponApplied' => '$refresh',
     ];
 
     public function updateCartItemQuantity(UpdateCartItemQuantity $updateCartItemQuantity, $itemId, $quantity)
