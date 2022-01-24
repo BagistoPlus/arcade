@@ -7,6 +7,8 @@ use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
 
 class ProductDetails extends LivewireSection
 {
+    protected static $view = 'shop::sections.product-details';
+
     public $quantity = 1;
 
     public function addToCart(AddProductToCart $addProductToCart)
@@ -29,11 +31,6 @@ class ProductDetails extends LivewireSection
             'quantity' => $this->quantity,
             'is_buy_now' => true,
         ]);
-    }
-
-    public function render()
-    {
-        return view('shop::sections.product-details');
     }
 
     public static function blocks()

@@ -16,10 +16,22 @@ trait SectionTrait
     protected static $previewImageUrl;
     protected static $previewDescription;
 
+    protected static string $view;
+
     /**
      * Section unique id used to retrive it's data
      */
     public $arcadeId;
+
+    protected function getViewData(): array
+    {
+        return [];
+    }
+
+    public function render()
+    {
+        return view(static::$view, $this->getViewData());
+    }
 
     protected static function className()
     {

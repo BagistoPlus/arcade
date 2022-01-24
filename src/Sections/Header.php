@@ -6,6 +6,7 @@ use Webkul\Category\Repositories\CategoryRepository;
 
 class Header extends BladeSection
 {
+    protected static $view = 'shop::sections.header';
     protected static $settings = [];
 
     public $categories = [];
@@ -22,10 +23,5 @@ class Header extends BladeSection
                 array_push($this->categories, $category);
             }
         }
-    }
-
-    public function render()
-    {
-        return view('shop::sections.header');
     }
 }

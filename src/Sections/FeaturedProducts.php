@@ -12,6 +12,8 @@ class FeaturedProducts extends BladeSection
 {
     protected static $maxBlocks = 4;
 
+    protected static $view = 'shop::sections.featured-products';
+
     public function getProducts()
     {
         if (count($this->section->blocks) > 0) {
@@ -59,11 +61,6 @@ class FeaturedProducts extends BladeSection
                 ->where('product_flat.locale', $locale)
                 ->inRandomOrder();
         })->take($count)->get();
-    }
-
-    public function render()
-    {
-        return view('shop::sections.featured-products');
     }
 
     public static function settings()

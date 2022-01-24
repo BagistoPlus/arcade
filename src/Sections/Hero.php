@@ -9,7 +9,8 @@ use EldoMagan\BagistoArcade\SettingTypes\SettingType;
 
 class Hero extends BladeSection
 {
-    public static $maxBlocks = 4;
+    protected static $view = 'shop::sections.hero';
+    protected static $maxBlocks = 4;
 
     public static function settings()
     {
@@ -95,10 +96,5 @@ class Hero extends BladeSection
                         ->default('primary'),
                 ]),
         ];
-    }
-
-    public function render()
-    {
-        return view('shop::sections.hero');
     }
 }

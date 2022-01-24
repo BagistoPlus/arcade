@@ -9,6 +9,8 @@ use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class FeaturedCategory extends BladeSection
 {
+    protected static $view = 'shop::sections.featured-category';
+
     public static function settings()
     {
         return [
@@ -33,10 +35,5 @@ class FeaturedCategory extends BladeSection
                 ->default(false)
                 ->info('Only applicable for vertical layout'),
         ];
-    }
-
-    public function render()
-    {
-        return view('shop::sections.featured-category');
     }
 }
