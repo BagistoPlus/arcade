@@ -33,9 +33,4 @@ class LivewireSection extends Component implements SectionInterface
     {
         return $this->section;
     }
-
-    public function render()
-    {
-        return view('shop::sections.livewire');
-    }
 }

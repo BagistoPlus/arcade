@@ -27,6 +27,7 @@
     "php": "^7.4|^8.0",
     "blade-ui-kit/blade-heroicons": "^1.2",
     "blade-ui-kit/blade-icons": "^1.1",
+    "codeat3/blade-google-material-design-icons": "^1.7",
     "illuminate/contracts": "^8.71",
     "livewire/livewire": "^2.8",
     "symfony/yaml": "^5.4"
