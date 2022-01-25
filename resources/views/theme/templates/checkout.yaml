@@ -1,0 +1,6 @@
+sections:
+  checkout-form:
+    type: arcade-checkout-page
+
+order:
+  - checkout-form

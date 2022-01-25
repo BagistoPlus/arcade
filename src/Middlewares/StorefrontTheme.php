@@ -15,6 +15,7 @@ class StorefrontTheme extends Theme
             return $next($request);
         }
 
+
         return parent::handle($request, $next);
     }
 }

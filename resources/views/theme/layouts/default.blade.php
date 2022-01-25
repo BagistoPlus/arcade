@@ -21,7 +21,8 @@
       @show
     </main>
 
+    @arcade_slot('bagisto.shop.layout.body.after')
+
     @include('shop::partials.scripts')
-    @yield('scripts')
   </body>
 </html>

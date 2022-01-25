@@ -13,6 +13,7 @@ class MiniCart extends Component
 
     protected $listeners = [
         'cartItemAdded' => 'onItemAdded',
+        'cartUpdated' => '$refresh',
     ];
 
     public function onItemAdded()

@@ -20,7 +20,7 @@
 <div class="relative" style="height: {{ $heightMap[$section->settings->height] }}">
   <div class="absolute inset-0 w-full h-full flex">
     @if($section->settings->image)
-      <div class="flex-1" class="bg-cover bg-center bg-no-repeat" style="background-image: url({{ arcade_image($section->settings->image) }})"></div>
+      <div class="flex-1 bg-cover bg-center bg-no-repeat" style="background-image: url({{ arcade_image($section->settings->image) }})"></div>
     @endif
   </div>
 

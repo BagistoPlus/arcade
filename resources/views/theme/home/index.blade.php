@@ -9,9 +9,7 @@
   }
 @endphp
 
-@section('page_title')
-  {{ isset($metaTitle) ? $metaTitle : "" }}
-@endsection
+@section('page_title', $homeSEO->meta_title ?? config('app.name'))
 
 @push('head')
   @if (isset($homeSEO))

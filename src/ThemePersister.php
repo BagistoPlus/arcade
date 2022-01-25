@@ -54,7 +54,7 @@ class ThemePersister
         $this->persistTemplate($themeCode, $themeData);
         $this->persistThemeData($themeCode, $themeData);
 
-        return Http::get($themeData['url']);
+        return redirect($themeData['url']);
     }
 
     /**

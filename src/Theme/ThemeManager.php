@@ -15,6 +15,13 @@ class ThemeManager extends Themes
     protected $themes = [];
 
     /**
+     * Contains current activated theme
+     *
+     * @var Theme
+     */
+    protected $activeTheme = null;
+
+    /**
      * Prepare all themes.
      *
      * @return Theme[]
@@ -55,5 +62,24 @@ class ThemeManager extends Themes
     public function createTheme($attributes)
     {
         return new Theme($attributes);
+    }
+
+    /**
+     * Enable theme
+     *
+     * @param  string  $themeName
+     * @return \Webkul\Theme\Theme
+     */
+    public function set($themeName)
+    {
+        $result = parent::set($themeName);
+
+        if ($this->activeTheme->isArcadeTheme) {
+            app('view')->prependNamespace('shop', __DIR__ . '/../../resources/views/theme');
+            app('view')->prependNamespace('core', __DIR__ . '/../../resources/views/webkul/core');
+            app('view')->prependNamespace('paypal', __DIR__ . '/../../resources/views/webkul/paypal');
+        }
+
+        return $result;
     }
 }

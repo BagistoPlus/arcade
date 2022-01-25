@@ -11,6 +11,7 @@ use EldoMagan\BagistoArcade\Middlewares\StorefrontTheme;
 use EldoMagan\BagistoArcade\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -19,6 +20,7 @@ use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Middleware\Currency;
 use Webkul\Shop\Http\Middleware\Locale;
+use Webkul\Theme\ViewRenderEventManager;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,7 @@ class CoreServiceProvider extends ServiceProvider
         'product-attributes' => Components\ProductAttributes::class,
         'product-filters' => Components\ProductFilters::class,
         'cart-summary' => Components\CartSummary::class,
+        'checkout-address-form' => Components\CheckoutAddressForm::class,
     ];
 
     protected static $livewireComponents = [
@@ -53,6 +56,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\ProductDetails::class,
         Sections\CategoryPage::class,
         Sections\Cart::class,
+        Sections\CheckoutPage::class,
     ];
 
     protected function templates()
@@ -85,7 +89,8 @@ class CoreServiceProvider extends ServiceProvider
         // add product template if any product exists
         {
             $product = app(ProductRepository::class)->first();
-            if (null !== $product) {
+
+            if (null !== $product && $product->url_key) {
                 $templates['shop.products.index'] = [
                     'icon' => 'tag-outline',
                     'label' => 'Product Page',
@@ -126,11 +131,11 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../../routes/shop.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'arcade');
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views/theme', 'shop');
 
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
         $this->registerMiddlewaresForLivewire();
+        $this->registerViewRenderEvents();
 
         Arcade::createCustomerUsing(CreateCustomer::class);
         Arcade::registerSections($this->sections, 'arcade');
@@ -200,5 +205,12 @@ class CoreServiceProvider extends ServiceProvider
             StorefrontTheme::class,
             Currency::class,
         ]);
+    }
+
+    protected function registerViewRenderEvents()
+    {
+        Event::listen('bagisto.shop.checkout.payment.paypal_smart_button', function (ViewRenderEventManager $event) {
+            $event->addTemplate('paypal::checkout.onepage.payment');
+        });
     }
 }

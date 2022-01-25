@@ -12,10 +12,18 @@ class LoginCustomer extends Component
     public $email = '';
     public $password = '';
 
+    public $redirectUrl = '';
+
     protected $rules = [
         'email' => 'required|email',
         'password' => 'required',
     ];
+
+
+    public function mount()
+    {
+        $this->redirectUrl = request()->get('redirect');
+    }
 
     public function submit()
     {
@@ -58,7 +66,7 @@ class LoginCustomer extends Component
          */
         Event::dispatch('customer.after.login', $this->email);
 
-        return redirect()->intended(route('customer.profile.index'));
+        return redirect()->intended($this->redirectUrl ?? route('customer.account.index'));
     }
 
     public function render()

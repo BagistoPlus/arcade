@@ -2,6 +2,7 @@ module.exports = {
   mode: "jit",
   content: [
     "./resources/views/theme/**/*.blade.php",
+    "./resources/views/webkul/**/*.blade.php",
     "./resources/views/components/**/*.blade.php",
     "./resources/ts/shop/**/*.{js,ts}",
   ],

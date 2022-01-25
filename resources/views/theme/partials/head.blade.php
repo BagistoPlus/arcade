@@ -4,12 +4,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
 
-<title>@yield('page_title')</title>
+<title>@yield('page_title', config('app.name'))</title>
 
 @if ($favicon = core()->getCurrentChannel()->favicon_url)
   <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
 @else
-  <link rel="icon" sizes="16x16" href="{{ bagisto_asset('images/favicon.ico') }}" />
+  <link rel="icon" sizes="16x16" href="{{ asset('/favicon.ico') }}" />
 @endif
 
 @stack('head')

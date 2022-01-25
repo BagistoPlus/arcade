@@ -16,7 +16,7 @@ trait SectionTrait
     protected static $previewImageUrl;
     protected static $previewDescription;
 
-    protected static string $view;
+    protected static $view;
 
     /**
      * Section unique id used to retrive it's data
