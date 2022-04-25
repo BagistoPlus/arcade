@@ -2,11 +2,25 @@
   x-data="{ showNewAddressForm: @entangle($newFormToggle) }"
   {{ $attributes }}
 >
-  <h2 class="mb-4 text-2xl font-bold leading-tight">
-    {{ $title }} <span x-text="showNewAddressForm"></span>
-  </h2>
+  <div class="flex justify-between items-center">
+    <h2 class="text-2xl font-bold leading-tight">
+      {{ $title }}
+    </h2>
+    @auth('customer')
+      <button
+        type="button"
+        class="border px-2 py-1 hover:bg-gray-100"
+        x-text="
+          showNewAddressForm ?
+            '{{ __('shop::app.checkout.onepage.back') }}' :
+            '{{ __('shop::app.checkout.onepage.new-address')}}'
+          "
+        x-on:click="showNewAddressForm = !showNewAddressForm">
+      </button>
+    @endauth
+  </div>
 
-  <div x-show="!showNewAddressForm">
+  <div x-show="!showNewAddressForm" class="mt-6">
     <div class="flex">
       @foreach($addresses as $address)
         <label for="{{ $address->id }}" class="p-4 flex flex-start border w-full sm:w-1/2 xl:1/3">
@@ -41,7 +55,7 @@
     @enderror
   </div>
 
-  <div x-show="showNewAddressForm">
+  <div x-show="showNewAddressForm" class="mt-6">
     @if ($name === 'billing')
       <div class="mt-4">
         <label class="block">
