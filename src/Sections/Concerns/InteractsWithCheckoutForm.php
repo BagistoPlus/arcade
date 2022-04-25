@@ -130,7 +130,7 @@ trait InteractsWithCheckoutForm
 
         $this->shippingRates = Shipping::getGroupedAllShippingRates();
 
-        if (($firstGroup = reset($this->shippingRates)) && !empty($firstGroup['rates'])) {
+        if (($firstGroup = reset($this->shippingRates)) && ! empty($firstGroup['rates'])) {
             $this->selectedShippingMethod = $firstGroup['rates'][0]['method'];
         }
 
@@ -141,7 +141,7 @@ trait InteractsWithCheckoutForm
     {
         $this->paymentMethods = Payment::getPaymentMethods();
 
-        if (!empty($this->paymentMethods)) {
+        if (! empty($this->paymentMethods)) {
             $this->selectedPaymentMethod = $this->paymentMethods[0]['method'];
         }
 
@@ -178,9 +178,11 @@ trait InteractsWithCheckoutForm
             ]);
         } catch (InvalidCartException $e) {
             dd('InvalidCartException');
+
             return $this->redirectRoute('shop.checkout.cart.index');
         } catch (InvalidGuestCheckoutException $e) {
             dd('InvalidGuestCheckoutException');
+
             return $this->redirectRoute('customer.session.index');
         }
 
@@ -242,9 +244,9 @@ trait InteractsWithCheckoutForm
 
     protected function getBillingAddressValidationRules()
     {
-        if (!$this->showNewBillingAddressForm) {
+        if (! $this->showNewBillingAddressForm) {
             return [
-                'billingAddress.address_id' => 'required'
+                'billingAddress.address_id' => 'required',
             ];
         }
 
@@ -278,9 +280,9 @@ trait InteractsWithCheckoutForm
             return [];
         }
 
-        if (!$this->showNewShippingAddressForm) {
+        if (! $this->showNewShippingAddressForm) {
             return [
-                'shippingAddress.address_id' => 'required'
+                'shippingAddress.address_id' => 'required',
             ];
         }
 

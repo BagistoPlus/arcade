@@ -11,8 +11,8 @@ class SavePaymentMethod
     {
         if (
             Cart::hasError() ||
-            !$paymentMethod ||
-            !Cart::savePaymentMethod(['method' => $paymentMethod])
+            ! $paymentMethod ||
+            ! Cart::savePaymentMethod(['method' => $paymentMethod])
         ) {
             throw new InvalidCartException();
         }

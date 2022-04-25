@@ -23,11 +23,11 @@ class CheckoutPage extends LivewireSection
     public function mount()
     {
         $this->billingAddress = new Address();
-        $this->shippingAddress =  new Address();
+        $this->shippingAddress = new Address();
 
         if ($this->isStepActive('shipping')) {
             $this->gotoShippingStep();
-        } else if ($this->isStepActive('payment')) {
+        } elseif ($this->isStepActive('payment')) {
             $this->gotoPaymentStep();
         }
     }
