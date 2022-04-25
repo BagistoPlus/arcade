@@ -59,7 +59,7 @@ class Address implements Wireable
 
     public static function fromLivewire($value)
     {
-        $address = new static;
+        $address = new static();
 
         $address->address_id = $value['address_id'];
         $address->company_name = $value['company_name'];

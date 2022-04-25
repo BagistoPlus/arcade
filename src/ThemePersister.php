@@ -3,7 +3,6 @@
 namespace EldoMagan\BagistoArcade;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Http;
 use Webkul\Theme\Themes;
 
 class ThemePersister

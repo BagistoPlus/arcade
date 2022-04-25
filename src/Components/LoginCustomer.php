@@ -19,7 +19,6 @@ class LoginCustomer extends Component
         'password' => 'required',
     ];
 
-
     public function mount()
     {
         $this->redirectUrl = request()->get('redirect');
