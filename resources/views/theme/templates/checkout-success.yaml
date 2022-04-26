@@ -1,0 +1,6 @@
+sections:
+  checkout-success:
+    type: arcade-checkout-success
+
+order:
+  - checkout-success
