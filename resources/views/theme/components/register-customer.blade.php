@@ -92,7 +92,7 @@
     wire:loading.class="text-transparent relative pointer-events-none"
     wire:target="submit">
     {{ __('shop::app.customer.signup-form.button_title') }}
-    <div wire:loading="submit" wire:target="submit" class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
+    <div wire:loading="submit" wire:target="submit" class="text-white absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
       <div class="w-4 h-4 rounded-full border-2 border-r-transparent animate animate-spin"></div>
     </div>
   </button>
