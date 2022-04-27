@@ -1,0 +1,6 @@
+sections:
+  edit-profile:
+    type: arcade-customer-edit-profile
+
+order:
+  - edit-profile
