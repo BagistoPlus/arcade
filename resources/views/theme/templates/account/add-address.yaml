@@ -1,0 +1,6 @@
+sections:
+  add-address:
+    type: arcade-customer-create-address
+
+order:
+  - add-address

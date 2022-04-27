@@ -27,6 +27,7 @@ use Webkul\Theme\ViewRenderEventManager;
 class CoreServiceProvider extends ServiceProvider
 {
     protected static $bladeComponents = [
+        'address-form',
         'account-layout' => Components\AccountLayout::class,
         'account-menu' => Components\AccountMenu::class,
         'currency-switcher' => Components\CurrencySwitcher::class,
@@ -63,7 +64,8 @@ class CoreServiceProvider extends ServiceProvider
         Sections\CheckoutSuccess::class,
         Sections\CustomerProfile::class,
         Sections\CustomerEditProfile::class,
-        Sections\CustomerAddresses::class
+        Sections\CustomerAddresses::class,
+        Sections\CustomerCreateAddress::class,
     ];
 
     protected function templates()
@@ -201,7 +203,11 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
             foreach (self::$bladeComponents as $name => $component) {
-                $blade->component($component, $name);
+                if (is_numeric($name)) {
+                    $blade->component('shop::components.' . $component, $component);
+                } else {
+                    $blade->component($component, $name);
+                }
             }
         });
     }
