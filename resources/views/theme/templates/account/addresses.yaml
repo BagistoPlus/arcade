@@ -1,0 +1,6 @@
+sections:
+  addresses:
+    type: arcade-customer-addresses
+
+order:
+  - addresses

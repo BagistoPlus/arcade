@@ -65,7 +65,7 @@ class LoginCustomer extends Component
          */
         Event::dispatch('customer.after.login', $this->email);
 
-        return redirect()->intended($this->redirectUrl ?? route('customer.account.index'));
+        return redirect()->intended($this->redirectUrl ?? route('customer.account.profile'));
     }
 
     public function render()
