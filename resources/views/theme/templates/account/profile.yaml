@@ -1,0 +1,6 @@
+sections:
+  profile:
+    type: arcade-customer-profile
+
+order:
+  - profile

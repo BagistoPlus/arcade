@@ -61,6 +61,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\Cart::class,
         Sections\CheckoutPage::class,
         Sections\CheckoutSuccess::class,
+        Sections\CustomerProfile::class,
     ];
 
     protected function templates()

@@ -1,7 +1,3 @@
-@props([
-  'title' => 'Page title',
-])
-
 <div class="container py-10">
   <div class="md:flex md:space-x-10">
     <div class="flex-none md:w-72 xl:80">
@@ -17,6 +13,9 @@
               {{ $actions }}
             </div>
           @endisset
+        </div>
+        <div class="p-4">
+          {{ $slot }}
         </div>
       </div>
     </div>
