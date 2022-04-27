@@ -25,6 +25,7 @@ class UpdateCustomer
             // and then we restore livewire request data to prevent ignition crash
             // we should probably move this logic to some livewire middleware
             request()->request->replace($originalRequestData);
+
             return $response;
         } catch (\ErrorException $e) {
             return redirect()->route('customer.profile.index');

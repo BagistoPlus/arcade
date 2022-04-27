@@ -51,7 +51,7 @@ class CustomerEditProfile extends LivewireSection
             'oldpassword' => $this->oldPassword,
             'password' => $this->password,
             'password_confirmation' => $this->passwordConfirmation,
-            'subscribed_to_newsletter' => $this->subscribedToNewsletter
+            'subscribed_to_newsletter' => $this->subscribedToNewsletter,
         ]);
     }
 }
