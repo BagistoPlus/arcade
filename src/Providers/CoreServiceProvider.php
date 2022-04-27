@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
+use BladeUI\Icons\Factory;
 use EldoMagan\BagistoArcade\Actions\CreateCustomer;
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\Components;
@@ -17,6 +18,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
 use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Core\Tree;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Middleware\Currency;
 use Webkul\Shop\Http\Middleware\Locale;
@@ -25,6 +27,7 @@ use Webkul\Theme\ViewRenderEventManager;
 class CoreServiceProvider extends ServiceProvider
 {
     protected static $bladeComponents = [
+        'account-layout' => Components\AccountLayout::class,
         'account-menu' => Components\AccountMenu::class,
         'currency-switcher' => Components\CurrencySwitcher::class,
         'products-grid' => Components\ProductsGrid::class,
@@ -137,6 +140,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerLivewireComponents();
         $this->registerMiddlewaresForLivewire();
         $this->registerViewRenderEvents();
+        $this->registerViewComposers();
 
         Arcade::createCustomerUsing(CreateCustomer::class);
         Arcade::registerSections($this->sections, 'arcade');
@@ -168,6 +172,13 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->app->singleton(ArcadeManager::class, function ($app) {
             return new ArcadeManager($app[SectionDataCollector::class]);
+        });
+
+        $this->callAfterResolving(Factory::class, function (Factory $factory) {
+            $factory->add('arcade-icons', [
+                'path' => __DIR__. '/../../resources/svg',
+                'prefix' => 'ic',
+            ]);
         });
     }
 
@@ -212,6 +223,21 @@ class CoreServiceProvider extends ServiceProvider
     {
         Event::listen('bagisto.shop.checkout.payment.paypal_smart_button', function (ViewRenderEventManager $event) {
             $event->addTemplate('paypal::checkout.onepage.payment');
+        });
+    }
+
+    protected function registerViewComposers()
+    {
+        view()->composer('shop::partials.account.side-nav', function ($view) {
+            $tree = Tree::create();
+
+            foreach (config('menu.customer') as $item) {
+                $tree->add($item, 'menu');
+            }
+
+            $tree->items = core()->sortItems($tree->items);
+
+            $view->with('menu', $tree);
         });
     }
 }
