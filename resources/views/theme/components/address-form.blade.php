@@ -3,18 +3,11 @@
   'submitBtnText' => __('shop::app.customer.account.address.create.submit'),
 ])
 
-@php
-  function oldValue($field) {
-    if (isset($address)) {
-      return old($field, $address->{$field});
-    }
-
-    return old($field);
-  }
-@endphp
-
-<form {{ $attributes }} method="POST">
+<form {{ $attributes }} method="post">
   @csrf
+  @if($address)
+    @method('PUT')
+  @endif
 
   {!! view_render_event('bagisto.shop.customers.account.address.create_form_controls.before') !!}
 
@@ -25,7 +18,7 @@
         type="text"
         name="company_name"
         class="mt-1 block w-full border-gray-300"
-        value="{{ oldValue('company_name') }}">
+        value="{{ old('company_name', optional($address)->company_name) }}">
     </label>
     @error('company_name')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -41,7 +34,7 @@
         type="text"
         name="first_name"
         class="mt-1 block w-full border-gray-300"
-        value="{{ oldValue('first_name') }}">
+        value="{{ old('first_name', optional($address)->first_name) }}">
     </label>
     @error('first_name')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -57,7 +50,7 @@
         type="text"
         name="last_name"
         class="mt-1 block w-full border-gray-300"
-        value="{{ oldValue('last_name') }}">
+        value="{{ old('last_name', optional($address)->last_name) }}">
     </label>
     @error('last_name')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -75,7 +68,7 @@
         type="text"
         name="vat_id"
         class="mt-1 block w-full border-gray-300"
-        value="{{ oldValue('vat_id') }}">
+        value="{{ old('vat_id', optional($address)->vat_id) }}">
     </label>
     @error('vat_id')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -91,7 +84,7 @@
         type="text"
         name="address1[]"
         class="mt-1 block w-full border-gray-300"
-        value="{{ oldValue('address1') }}">
+        value="{{ old('address1', optional($address)->address1) }}">
     </label>
     @error('address1[]')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -120,7 +113,7 @@
       <span>{{ __('shop::app.customer.account.address.create.country') }}</span>
       <select class="block w-full mt-1 border-gray-300" name="country">
         @foreach(core()->countries() as $country)
-          <option value="{{ $country->code }}" @if(oldValue('country') === $country->code) selected @endif>
+          <option value="{{ $country->code }}" @if(old('country', optional($address)->country) === $country->code) selected @endif>
             {{ $country->name }}
           </option>
         @endforeach
@@ -138,7 +131,7 @@
         type="text"
         class="mt-1 block w-full border-gray-300"
         name="state"
-        value="{{ oldValue('state') }}">
+        value="{{ old('state', optional($address)->state) }}">
     </label>
     @error('state')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -154,7 +147,7 @@
         type="text"
         class="mt-1 block w-full border-gray-300"
         name="city"
-        value="{{ oldValue('city') }}">
+        value="{{ old('city', optional($address)->city) }}">
     </label>
     @error('city')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -170,7 +163,7 @@
         type="text"
         class="mt-1 block w-full border-gray-300"
         name="postcode"
-        value="{{ oldValue('postcode') }}">
+        value="{{ old('postcode', optional($address)->postcode) }}">
     </label>
     @error('postcode')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -186,7 +179,7 @@
         type="text"
         class="mt-1 block w-full border-gray-300"
         name="phone"
-        value="{{ oldValue('phone') }}">
+        value="{{ old('phone', optional($address)->phone) }}">
     </label>
     @error('phone')
       <span class="text-xs italic text-red-500">{{ $message }}</span>
@@ -197,7 +190,7 @@
 
   <div class="mt-4">
     <label class="inline-flex items-center">
-      <input type="checkbox" name="default_address" {{ oldValue('default_address') ? 'checked' : '' }}>
+      <input type="checkbox" name="default_address" {{ old('default_address', optional($address)->default_address) ? 'checked' : '' }}>
       <span class="ml-2">
         {{ __('shop::app.customer.account.address.default-address') }}
       </span>

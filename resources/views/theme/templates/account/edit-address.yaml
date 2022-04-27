@@ -1,0 +1,6 @@
+sections:
+  edit-address:
+    type: arcade-customer-edit-address
+
+order:
+  - edit-address
