@@ -22,6 +22,11 @@ class OrdersTable extends DataTableComponent
         ;
     }
 
+    public function builder(): Builder
+    {
+        return Order::query()->where('customer_id', auth()->guard('customer')->user()->id);
+    }
+
     public function columns(): array
     {
         return [
