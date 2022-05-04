@@ -47,6 +47,7 @@ class CoreServiceProvider extends ServiceProvider
         'login-customer' => Components\LoginCustomer::class,
         'register-customer' => Components\RegisterCustomer::class,
         'cart-apply-coupon' => Components\CartApplyCoupon::class,
+        'orders-table' => Components\Tables\OrdersTable::class,
     ];
 
     protected $sections = [
@@ -67,6 +68,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\CustomerAddresses::class,
         Sections\CustomerCreateAddress::class,
         Sections\CustomerEditAddress::class,
+        Sections\CustomerOrders::class,
     ];
 
     protected function templates()

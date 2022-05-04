@@ -1,0 +1,6 @@
+sections:
+  orders:
+    type: arcade-customer-orders
+
+order:
+  - orders

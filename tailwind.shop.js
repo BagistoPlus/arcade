@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   mode: "jit",
   content: [
@@ -5,7 +7,9 @@ module.exports = {
     "./resources/views/webkul/**/*.blade.php",
     "./resources/views/components/**/*.blade.php",
     "./resources/ts/shop/**/*.{js,ts}",
+    "./vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {

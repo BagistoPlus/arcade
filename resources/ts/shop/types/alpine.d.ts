@@ -1,4 +1,6 @@
 declare module "@alpinejs/collapse";
+declare module "@alpinejs/focus";
+
 declare module "alpinejs" {
   export interface AlpineElement extends HTMLElement {
     __x: AlpineInstance;
