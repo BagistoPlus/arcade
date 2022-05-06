@@ -69,6 +69,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\CustomerCreateAddress::class,
         Sections\CustomerEditAddress::class,
         Sections\CustomerOrders::class,
+        Sections\CustomerOrderDetails::class,
     ];
 
     protected function templates()
