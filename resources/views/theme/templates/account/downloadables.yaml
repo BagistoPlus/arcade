@@ -1,0 +1,6 @@
+sections:
+  downloadables:
+    type: arcade-customer-downloadables
+
+order:
+  - downloadables

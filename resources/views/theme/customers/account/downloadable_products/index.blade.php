@@ -6,6 +6,6 @@
 
 @arcade_content
 
-  @include('shop::templates.account.downloads')
+  @include('shop::templates.account.downloadables')
 
 @end_arcade_content

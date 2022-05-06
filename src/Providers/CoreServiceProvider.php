@@ -48,6 +48,7 @@ class CoreServiceProvider extends ServiceProvider
         'register-customer' => Components\RegisterCustomer::class,
         'cart-apply-coupon' => Components\CartApplyCoupon::class,
         'orders-table' => Components\Tables\OrdersTable::class,
+        'downloadables-table' => Components\Tables\DownloadablesTable::class,
     ];
 
     protected $sections = [
@@ -72,6 +73,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\CustomerOrderDetails::class,
         Sections\CustomerReviews::class,
         Sections\CustomerWishlist::class,
+        Sections\CustomerDownloadables::class,
     ];
 
     protected function templates()

@@ -8,6 +8,8 @@ use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
 
@@ -36,6 +38,10 @@ class InjectThemeEditorScript
         }
 
         $response = $next($request);
+
+        if ($response instanceof StreamedResponse || $response instanceof BinaryFileResponse) {
+            return $response;
+        }
 
         if ($this->themeEditor->inDesignMode()) {
             $renderedSections = collect($this->themeEditor->renderedSections());
