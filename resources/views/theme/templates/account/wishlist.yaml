@@ -1,0 +1,6 @@
+sections:
+  customer-wishlist:
+    type: arcade-customer-wishlist
+
+order:
+  - customer-wishlist
