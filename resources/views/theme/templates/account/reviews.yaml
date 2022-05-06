@@ -1,0 +1,6 @@
+sections:
+  customer-reviews:
+    type: arcade-customer-reviews
+
+order:
+  - customer-reviews
