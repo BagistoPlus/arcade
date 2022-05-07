@@ -75,6 +75,7 @@ class CoreServiceProvider extends ServiceProvider
         Sections\CustomerWishlist::class,
         Sections\CustomerDownloadables::class,
         Sections\SearchResults::class,
+        Sections\CmsPage::class,
     ];
 
     protected function templates()

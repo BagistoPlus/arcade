@@ -1,0 +1,6 @@
+sections:
+  page:
+    type: arcade-cms-page
+
+order:
+  - page
