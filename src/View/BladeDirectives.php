@@ -84,4 +84,13 @@ if (arcadeEditor()->active()) {
     {
         return sprintf("<?php echo view_render_event(%s); ?>", $expression);
     }
+
+    public static function preserveQueryString()
+    {
+        return "<?php
+foreach (\$_GET as \$key => \$value) {
+    echo \"<input type='hidden' name='\" . e(\$key) . \"' value='\" . e(\$value) . \"'>\";
+}
+?>";
+    }
 }

@@ -83,6 +83,7 @@ class ViewServiceProvider extends ServiceProvider
         Blade::directive('arcade_dymanic_content', [BladeDirectives::class, 'arcadeDynamicContent']);
 
         Blade::directive('arcade_slot', [BladeDirectives::class, 'arcadeSlot']);
+        Blade::directive('preserve_query_string', [BladeDirectives::class, 'preserveQueryString']);
     }
 
     protected function registerArcadeTagsCompiler()

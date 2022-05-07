@@ -1,0 +1,6 @@
+sections:
+  search:
+    type: arcade-search-results
+
+order:
+  - search
