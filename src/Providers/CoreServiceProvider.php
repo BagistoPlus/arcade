@@ -54,6 +54,7 @@ class CoreServiceProvider extends ServiceProvider
     protected $sections = [
         Sections\Hero::class,
         Sections\Header::class,
+        Sections\Footer::class,
         Sections\AnnouncementBar::class,
         Sections\FeaturedCategory::class,
         Sections\FeaturedProducts::class,

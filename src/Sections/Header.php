@@ -6,8 +6,7 @@ use Webkul\Category\Repositories\CategoryRepository;
 
 class Header extends BladeSection
 {
-    protected static $view = 'shop::sections.header';
-    protected static $settings = [];
+    protected static string $view = 'shop::sections.header';
 
     public $categories = [];
 

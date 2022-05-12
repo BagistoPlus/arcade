@@ -4,5 +4,5 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 class CustomerCreateAddress extends BladeSection
 {
-    public static $view = 'shop::sections.customer-create-address';
+    public static string $view = 'shop::sections.customer-create-address';
 }

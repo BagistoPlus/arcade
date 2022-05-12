@@ -6,17 +6,18 @@ use Illuminate\Support\Str;
 
 trait SectionTrait
 {
-    protected static $slug;
-    protected static $label;
-    protected static $wrapper;
-    protected static $settings;
-    protected static $blocks;
-    protected static $maxBlocks;
-    protected static $description;
-    protected static $previewImageUrl;
-    protected static $previewDescription;
+    protected static string $slug = '';
+    protected static string $label = '';
+    protected static string $wrapper = '<div>{section_content}</div>';
+    protected static array $settings = [];
+    protected static array $blocks = [];
+    protected static int $maxBlocks = 16;
+    protected static string $description = '';
+    protected static string $previewImageUrl = '';
+    protected static string $previewDescription = '';
+    protected static array $default = [];
 
-    protected static $view;
+    protected static string $view = '';
 
     /**
      * Section unique id used to retrive it's data
@@ -33,89 +34,70 @@ trait SectionTrait
         return view(static::$view, $this->getViewData());
     }
 
-    protected static function className()
+    protected static function className(): string
     {
         return (new \ReflectionClass(static::class))->getShortName();
     }
 
-    public static function slug()
+    public static function slug(): string
     {
-        if (static::$slug) {
+        if (! empty(static::$slug)) {
             return static::$slug;
         }
 
         return Str::kebab(self::className());
     }
 
-    public static function label()
+    public static function label(): string
     {
-        if (static::$label) {
+        if (! empty(static::$label)) {
             return static::$label;
         }
 
         return Str::of(self::slug())->replace('-', ' ')->title();
     }
 
-    public static function wrapper()
+    public static function wrapper(): string
     {
-        if (static::$wrapper) {
+        if (! empty(static::$wrapper)) {
             return static::$wrapper;
         }
 
         return '<div>{section_content}</div>';
     }
 
-    public static function settings()
+    public static function settings(): array
     {
-        if (static::$settings) {
-            return static::$settings;
-        }
-
-        return [];
+        return static::$settings;
     }
 
-    public static function blocks()
+    public static function blocks(): array
     {
-        if (static::$blocks) {
-            return static::$blocks;
-        }
-
-        return [];
+        return static::$blocks;
     }
 
-    public static function maxBlocks()
+    public static function maxBlocks(): int
     {
-        if (static::$maxBlocks) {
-            return static::$maxBlocks;
-        }
-
-        return 16;
+        return static::$maxBlocks;
     }
 
-    public static function description()
+    public static function description(): string
     {
-        if (static::$description) {
-            return static::$description;
-        }
-
-        return '';
+        return static::$description;
     }
 
-    public static function previewImageUrl()
+    public static function previewImageUrl(): string
     {
-        if (static::$previewImageUrl) {
-            return static::$previewImageUrl;
-        }
-
-        return '';
+        return static::$previewImageUrl;
     }
 
-    public static function previewDescription()
+    public static function previewDescription(): string
     {
-        if (static::$previewDescription) {
-            return static::$previewDescription;
-        }
+        return static::$previewDescription;
+    }
 
-        return '';
+    public static function default(): array
+    {
+        return static::$default;
     }
 }

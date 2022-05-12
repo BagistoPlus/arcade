@@ -4,5 +4,5 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 class CustomerDownloadables extends BladeSection
 {
-    public static $view = 'shop::sections.customer-downloadables';
+    public static string $view = 'shop::sections.customer-downloadables';
 }

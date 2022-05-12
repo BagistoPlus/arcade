@@ -4,5 +4,5 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 class CustomerProfile extends BladeSection
 {
-    public static $view = 'shop::sections.customer-profile';
+    public static string $view = 'shop::sections.customer-profile';
 }

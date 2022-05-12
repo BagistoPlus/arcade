@@ -9,9 +9,9 @@ use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class FeaturedCategory extends BladeSection
 {
-    protected static $view = 'shop::sections.featured-category';
+    protected static string $view = 'shop::sections.featured-category';
 
-    public static function settings()
+    public static function settings(): array
     {
         return [
             SettingType::make('category', 'Category')

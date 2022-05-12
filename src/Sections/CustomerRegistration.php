@@ -4,5 +4,5 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 class CustomerRegistration extends BladeSection
 {
-    protected static $view = 'shop::sections.customer-registration';
+    protected static string $view = 'shop::sections.customer-registration';
 }

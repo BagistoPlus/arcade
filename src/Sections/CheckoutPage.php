@@ -14,7 +14,7 @@ class CheckoutPage extends LivewireSection
     /**
      * @var string rendered view
      */
-    protected static $view = 'shop::sections.checkout-page';
+    protected static string $view = 'shop::sections.checkout-page';
 
     protected $queryString = ['activeStep' => ['as' => 'step']];
 

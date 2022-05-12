@@ -4,5 +4,5 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 class CustomerEditAddress extends BladeSection
 {
-    public static $view = 'shop::sections.customer-edit-address';
+    public static string $view = 'shop::sections.customer-edit-address';
 }

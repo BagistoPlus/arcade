@@ -55,10 +55,24 @@ class SectionDataCollector
          * Compute default settings values
          * TODO: should refactor this
          */
+
+        if (empty($data['settings']) && isset($section->default['settings'])) {
+            $data['settings'] = $section->default['settings'];
+        }
+
         foreach ($section->settings as $setting) {
             if (! isset($data['settings'][$setting->id])) {
                 $data['settings'][$setting->id] = $setting->default;
             }
+        }
+
+        if (! isset($data['blocks']) && isset($section->default['blocks'])) {
+            $data['blocks'] = collect($section->default['blocks'])
+                ->groupBy('type')
+                ->map(function ($blocks) {
+                    return $blocks->first();
+                })
+                ->toArray();
         }
 
         collect($data['blocks'] ?? [])->each(function ($blockData, $id) use ($section, &$data) {

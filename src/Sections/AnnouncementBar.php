@@ -8,9 +8,9 @@ use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class AnnouncementBar extends BladeSection
 {
-    protected static $description = 'You can show your announcements here';
+    protected static string $description = 'You can show your announcements here';
 
-    public static function settings()
+    public static function settings(): array
     {
         return [
             CheckboxType::make('show_announcement', 'Show Announcement')

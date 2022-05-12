@@ -7,5 +7,5 @@ class CheckoutSuccess extends BladeSection
     /**
      * @var string rendered view
      */
-    protected static $view = 'shop::sections.checkout-success';
+    protected static string $view = 'shop::sections.checkout-success';
 }

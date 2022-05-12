@@ -9,10 +9,10 @@ use EldoMagan\BagistoArcade\SettingTypes\SettingType;
 
 class Hero extends BladeSection
 {
-    protected static $view = 'shop::sections.hero';
-    protected static $maxBlocks = 4;
+    protected static string $view = 'shop::sections.hero';
+    protected static int $maxBlocks = 4;
 
-    public static function settings()
+    public static function settings(): array
     {
         return [
             SettingType::make('image', 'Background Image')
@@ -49,7 +49,7 @@ class Hero extends BladeSection
         ];
     }
 
-    public static function blocks()
+    public static function blocks(): array
     {
         return [
             Block::make('heading', 'Heading')

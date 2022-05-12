@@ -6,7 +6,7 @@ use EldoMagan\BagistoArcade\Actions\UpdateCustomer;
 
 class CustomerEditProfile extends LivewireSection
 {
-    public static $view = 'shop::sections.customer-edit-profile';
+    public static string $view = 'shop::sections.customer-edit-profile';
 
     public $firstName = '';
     public $lastName = '';

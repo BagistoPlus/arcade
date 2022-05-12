@@ -10,9 +10,9 @@ use Webkul\Product\Repositories\ProductFlatRepository;
 
 class FeaturedProducts extends BladeSection
 {
-    protected static $maxBlocks = 4;
+    protected static int $maxBlocks = 4;
 
-    protected static $view = 'shop::sections.featured-products';
+    protected static string $view = 'shop::sections.featured-products';
 
     public function getProducts()
     {
@@ -63,7 +63,7 @@ class FeaturedProducts extends BladeSection
         })->take($count)->get();
     }
 
-    public static function settings()
+    public static function settings(): array
     {
         return [
             TextType::make('heading', 'Heading')
@@ -87,7 +87,7 @@ class FeaturedProducts extends BladeSection
         ];
     }
 
-    public static function blocks()
+    public static function blocks(): array
     {
         return [
             Block::make('product', 'Product')

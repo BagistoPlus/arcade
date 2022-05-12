@@ -18,61 +18,68 @@ use Livewire\Component as LivewireComponent;
  * @property-read string $description
  * @property-read string $previewImageUrl
  * @property-read string $previewDescription
+ * @property-read array $default
  */
 final class Section implements Arrayable, JsonSerializable
 {
     /**
      * Blade/Livewire component is registered using this slug
      */
-    private $slug;
+    private string $slug;
 
     /**
      * Shown in the editor left panel
      */
-    private $label;
+    private string $label;
 
     /**
      * An emmet formatted string of the section wrapper
      */
-    private $wrapper;
+    private string $wrapper;
 
     /**
      * The section settings list
      */
-    private $settings;
+    private array $settings;
 
     /**
      * List of blocks the section can accept with their configuration
      */
-    private $blocks;
+    private array $blocks;
 
     /**
      * The maximum number of blocks the section can accept
      */
-    private $maxBlocks;
+    private int $maxBlocks;
 
     /**
      * Is this a livewire component ?
      */
-    private $isLivewire;
+    private bool $isLivewire;
 
     /**
      * The section description
      * Shown on the theme editor left panel when editing a section
      */
-    private $description;
+    private string $description;
 
     /**
      * The section preview image
      * Shown on the sections selector of the theme editor
      */
-    private $previewImageUrl;
+    private string $previewImageUrl;
 
     /**
      * The section preview description
      * Shown on the sections selector of the theme editor
      */
-    private $previewDescription;
+    private string $previewDescription;
+
+    /**
+     * The section default values
+     * Useful for static sections
+     */
+    private array $default;
 
     public function __construct(
         $slug,
@@ -84,6 +91,7 @@ final class Section implements Arrayable, JsonSerializable
         $description = '',
         $previewImageUrl = '',
         $previewDescription = '',
+        $default = [],
         $isLivewire = false
     ) {
         $this->slug = $slug;
@@ -95,6 +103,7 @@ final class Section implements Arrayable, JsonSerializable
         $this->description = $description;
         $this->previewImageUrl = $previewImageUrl;
         $this->previewDescription = $previewDescription;
+        $this->default = $default;
         $this->isLivewire = $isLivewire;
     }
 
@@ -167,6 +176,7 @@ final class Section implements Arrayable, JsonSerializable
             'description' => $this->description,
             'previewImageUrl' => $this->previewImageUrl,
             'previewDescription' => $this->previewDescription,
+            'default' => $this->default,
             'isLivewire' => $this->isLivewire,
         ];
     }
@@ -188,6 +198,7 @@ final class Section implements Arrayable, JsonSerializable
             $component::description(),
             $component::previewImageUrl(),
             $component::previewDescription(),
+            $component::default(),
             is_subclass_of($component, LivewireComponent::class)
         );
     }

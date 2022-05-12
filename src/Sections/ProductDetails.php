@@ -7,7 +7,7 @@ use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
 
 class ProductDetails extends LivewireSection
 {
-    protected static $view = 'shop::sections.product-details';
+    protected static string $view = 'shop::sections.product-details';
 
     public $quantity = 1;
 
@@ -33,7 +33,7 @@ class ProductDetails extends LivewireSection
         ]);
     }
 
-    public static function blocks()
+    public static function blocks(): array
     {
         return [
             Block::make('title', 'Title')->limit(1),

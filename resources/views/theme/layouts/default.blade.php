@@ -21,6 +21,8 @@
       @show
     </main>
 
+    <arcade:section name="arcade-footer" />
+
     @arcade_slot('bagisto.shop.layout.body.after')
 
     @include('shop::partials.scripts')
