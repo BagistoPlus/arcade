@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class ProductGallery extends Component
 {
-    protected $product;
+    public $product;
 
     public function __construct($product)
     {

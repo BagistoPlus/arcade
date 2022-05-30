@@ -10,6 +10,8 @@ declare module "alpinejs" {
   export interface AlpineInstance {
     readonly $el: AlpineElement;
     $dispatch(event: string, detail?: any): void;
+    $watch(prop: string, cb: (value: any, oldValue?: any) => void): void;
+    $nextTick(cb: () => void): void;
   }
 
   export type AlpineComponent<T> = {

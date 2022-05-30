@@ -10,18 +10,23 @@
 
           @foreach($section->blocks as $block)
             @if($block->type === 'title')
+
               <h1 class="text-2xl font-bold mb-4">{{ $product->name }}</h1>
+
             @elseif($block->type === 'price')
+
               <div class="mt-2 flex justify-between">
-                <div class="text-lg font-semibold text-primary">
-                  {!! $product->getTypeInstance()->getPriceHtml() !!}
-                </div>
+                <x-product-price :product="$product" />
               </div>
+
             @elseif($block->type === 'stock')
+
               <div class="mt-2">
                 <x-product-stock-status :product="$product" />
               </div>
+
             @elseif($block->type === 'short_description')
+
               <div class="mt-2">
                 {!! view_render_event('bagisto.shop.products.view.short_description.before', ['product' => $product]) !!}
 
@@ -31,14 +36,20 @@
 
                   {!! view_render_event('bagisto.shop.products.view.short_description.after', ['product' => $product]) !!}
               </div>
+
             @elseif($block->type === 'buy_buttons')
+
               <div class="mt-4">
                 <x-product-buy-buttons
                   :product="$product"
                   :showBuyNowButton="$block->settings->show_buy_now"
                 />
               </div>
-            @elseif($block->type === 'quantity_selector')
+
+            @elseif($block->type === 'quantity_selector' && $product->getTypeInstance()->showQuantityBox())
+
+              {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
+
               <div class="mt-2">
                 <x-arcade::quantity-selector
                   :value="$quantity"
@@ -47,7 +58,11 @@
                   wire:on-input="$set('quantity', $event.detail)"
                 />
               </div>
+
+              {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
+
             @elseif($block->type === 'description')
+
               <div class="mt-2">
                 {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}
 
@@ -61,10 +76,31 @@
 
                 {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
               </div>
+
             @elseif($block->type === 'attributes')
+
               <div class="mt-2">
                 <x-product-attributes :product="$product" />
               </div>
+
+            @elseif($block->type === 'variant_picker' && $this->productHasVariants())
+
+              {!! view_render_event('bagisto.shop.products.view.configurable-options.before', ['product' => $product]) !!}
+
+              <x-product-variant-picker :product="$product" :livewire="$this" />
+
+              {!! view_render_event('bagisto.shop.products.view.configurable-options.after', ['product' => $product]) !!}
+
+            @elseif($block->type === 'downloadable_options' && $product->type === 'downloadable')
+
+              {!! view_render_event('bagisto.shop.products.view.downloadable.before', ['product' => $product]) !!}
+
+              <div class="mt-2">
+                <x-product-downloadable-options :product="$product" />
+              </div>
+
+              {!! view_render_event('bagisto.shop.products.view.downloadable.after', ['product' => $product]) !!}
+
             @endif
           @endforeach
 

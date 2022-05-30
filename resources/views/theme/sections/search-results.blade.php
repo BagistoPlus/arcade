@@ -13,7 +13,7 @@
       @else
         <div class="text-center mb-6">
           <span>
-            <b>{{ $results->total() }} </b>
+            <span class="font-medium">{{ $results->total() }} </span>
 
             {{ ($results->total() == 1) ? __('shop::app.search.found-result') : __('shop::app.search.found-results') }}
           </span>

@@ -28,6 +28,8 @@ class CoreServiceProvider extends ServiceProvider
 {
     protected static $bladeComponents = [
         'address-form',
+        'product-price',
+        'product-downloadable-options',
         'account-layout' => Components\AccountLayout::class,
         'account-menu' => Components\AccountMenu::class,
         'currency-switcher' => Components\CurrencySwitcher::class,
@@ -38,6 +40,7 @@ class CoreServiceProvider extends ServiceProvider
         'product-buy-buttons' => Components\ProductBuyButtons::class,
         'product-attributes' => Components\ProductAttributes::class,
         'product-filters' => Components\ProductFilters::class,
+        'product-variant-picker' => Components\ProductVariantPicker::class,
         'cart-summary' => Components\CartSummary::class,
         'checkout-address-form' => Components\CheckoutAddressForm::class,
     ];

@@ -18,6 +18,7 @@ use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Livewire;
 use Livewire\Response;
+use Webkul\Product\Models\ProductFlat;
 
 class SupportSectionData
 {
@@ -107,6 +108,11 @@ class SupportSectionData
 
     protected static function dehydrateModel($value, $key, $response)
     {
+        // TODO: temporal hack to fix product relation undefined error
+        if ($value instanceof ProductFlat) {
+            $value->setRelations([]);
+        }
+
         $serializedModel = $value instanceof QueueableEntity && ! $value->exists
             ? ['class' => get_class($value)]
             : (array) (new static())->getSerializedPropertyValue($value);

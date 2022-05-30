@@ -4,6 +4,7 @@ namespace EldoMagan\BagistoArcade\Components;
 
 use Illuminate\View\Component;
 use Webkul\Product\Contracts\ProductFlat;
+use Webkul\Product\Helpers\ProductType;
 
 class ProductBuyButtons extends Component
 {
@@ -19,10 +20,13 @@ class ProductBuyButtons extends Component
      */
     public $showBuyNowButton;
 
+    public $productHasVariants;
+
     public function __construct(ProductFlat $product, $showBuyNowButton)
     {
         $this->product = $product;
         $this->showBuyNowButton = $showBuyNowButton;
+        $this->productHasVariants = ProductType::hasVariants($this->product->type);
     }
 
     public function render()

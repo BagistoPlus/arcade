@@ -48,7 +48,7 @@
                 @if (isset($item->additional['attributes']))
                   <div class="text-center lg:text-left mt-4 text-sm">
                     @foreach ($item->additional['attributes'] as $attribute)
-                      <b>{{ $attribute['attribute_name'] }} : </b>{{ $attribute['option_label'] }}</br>
+                      <span class="font-medium">{{ $attribute['attribute_name'] }} : </span>{{ $attribute['option_label'] }}</br>
                     @endforeach
                   </div>
                 @endif

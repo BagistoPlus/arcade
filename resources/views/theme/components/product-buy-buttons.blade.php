@@ -1,10 +1,14 @@
 {!! view_render_event('bagisto.shop.products.view.product-add.before', ['product' => $product]) !!}
 
-<div class="md:flex md:space-x-4 space-y-3 md:space-y-0">
+<div
+  x-data="ArcadeProductBuyButtons({ productHasVariants: {{ $productHasVariants ? 'true' : 'false' }} })"
+  class="md:flex md:space-x-4 space-y-3 md:space-y-0">
   <button
     type="button"
     wire:click="addToCart"
     class="relative block w-full md:flex-1 lg:w-1/2 py-3 {{ $product->isSaleable() ? 'bg-black text-white' : 'bg-gray-200 cursor-not-allowed' }}"
+    x-bind:disabled="disableButtons"
+    x-bind:class="{ 'bg-gray-300 text-gray-400 cursor-not-allowed': disableButtons }"
     wire:loading.class="text-transparent relative pointer-events-none"
     wire:target="addToCart"
     {{ $product->isSaleable() ? '' : 'disabled' }}>
@@ -20,6 +24,8 @@
       type="button"
       wire:click="buyNow"
       class="relative block w-full md:flex-1 lg:w-1/2 py-3 {{ $product->isSaleable() ? 'bg-primary text-white' : 'bg-gray-200 cursor-not-allowed' }}"
+      x-bind:disabled="disableButtons"
+      x-bind:class="{ 'bg-gray-300 text-gray-400 cursor-not-allowed': disableButtons }"
       wire:loading.class="text-transparent relative pointer-events-none"
       wire:target="buyNow"
       {{ $product->isSaleable() ? '' : 'disabled' }}>

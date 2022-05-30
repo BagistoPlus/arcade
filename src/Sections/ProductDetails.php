@@ -4,6 +4,7 @@ namespace EldoMagan\BagistoArcade\Sections;
 
 use EldoMagan\BagistoArcade\Actions\AddProductToCart;
 use EldoMagan\BagistoArcade\SettingTypes\CheckboxType;
+use Webkul\Product\Helpers\ProductType;
 
 class ProductDetails extends LivewireSection
 {
@@ -11,12 +12,26 @@ class ProductDetails extends LivewireSection
 
     public $quantity = 1;
 
+    public $data = [];
+
+    public function setData($key, $value)
+    {
+        if (! array_key_exists($key, $this->data)) {
+            $this->data[$key] = $value;
+        }
+    }
+
+    protected function productHasVariants()
+    {
+        return ProductType::hasVariants($this->context['product']->type);
+    }
+
     public function addToCart(AddProductToCart $addProductToCart)
     {
-        $addProductToCart->execute([
+        $addProductToCart->execute(array_merge([
             'product_id' => $this->context['product']->product_id,
             'quantity' => $this->quantity,
-        ]);
+        ], $this->data));
 
         $this->quantity = 1;
         $this->emit('cartItemAdded');
@@ -26,11 +41,11 @@ class ProductDetails extends LivewireSection
     {
         $this->quantity = 1;
 
-        return $addProductToCart->execute([
+        return $addProductToCart->execute(array_merge([
             'product_id' => $this->context['product']->product_id,
             'quantity' => $this->quantity,
             'is_buy_now' => true,
-        ]);
+        ], $this->data));
     }
 
     public static function blocks(): array
@@ -49,6 +64,8 @@ class ProductDetails extends LivewireSection
                 ]),
             Block::make('description', 'Description')->limit(1),
             Block::make('attributes', 'Attributes')->limit(1),
+            Block::make('variant_picker', 'Variant Picker')->limit(1),
+            Block::make('downloadable_options', 'Downloadable options')->limit(1),
         ];
     }
 }
