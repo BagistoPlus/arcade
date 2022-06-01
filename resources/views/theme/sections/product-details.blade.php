@@ -55,7 +55,7 @@
                   :value="$quantity"
                   :label="__('shop::app.products.quantity')"
                   class="mb-4"
-                  wire:on-input="$set('quantity', $event.detail)"
+                  wire:on-input="$set('quantity', $event.detail, true)"
                 />
               </div>
 
@@ -100,6 +100,16 @@
               </div>
 
               {!! view_render_event('bagisto.shop.products.view.downloadable.after', ['product' => $product]) !!}
+
+            @elseif($block->type === 'grouped_options' && $product->type === 'grouped')
+
+              {!! view_render_event('bagisto.shop.products.view.grouped_products.before', ['product' => $product]) !!}
+
+              <div class="mt-2">
+                <x-product-grouped-options :product="$product" />
+              </div>
+
+              {!! view_render_event('bagisto.shop.products.view.grouped_products.after', ['product' => $product]) !!}
 
             @endif
           @endforeach

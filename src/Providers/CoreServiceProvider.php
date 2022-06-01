@@ -30,6 +30,7 @@ class CoreServiceProvider extends ServiceProvider
         'address-form',
         'product-price',
         'product-downloadable-options',
+        'product-grouped-options',
         'account-layout' => Components\AccountLayout::class,
         'account-menu' => Components\AccountMenu::class,
         'currency-switcher' => Components\CurrencySwitcher::class,

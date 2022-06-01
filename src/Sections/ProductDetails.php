@@ -66,6 +66,7 @@ class ProductDetails extends LivewireSection
             Block::make('attributes', 'Attributes')->limit(1),
             Block::make('variant_picker', 'Variant Picker')->limit(1),
             Block::make('downloadable_options', 'Downloadable options')->limit(1),
+            Block::make('grouped_options', 'Grouped products')->limit(1),
         ];
     }
 }
