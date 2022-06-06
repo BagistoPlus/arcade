@@ -60,12 +60,13 @@
               {!! view_render_event('bagisto.shop.checkout.cart.item.quantity.before', ['item' => $item]) !!}
 
               <div class="flex lg:flex-col items-center lg:items-start justify-center mt-4">
-                <label class="lg:block lg:pl-2 lg:mb-1">{{ __('shop::app.products.quantity') }}</label>
                 <x-arcade::quantity-selector
                   class="ml-2"
                   value="{{ $item->quantity }}"
+                  :label="__('shop::app.products.quantity')"
                   wire:on-input="updateCartItemQuantity({{ $item->id }}, $event.detail)"
                 />
+
                 <a
                   class="ml-2 lg:mt-2 text-sm hover:text-primary"
                   href="{{ route('shop.checkout.cart.remove', $item->id) }}"

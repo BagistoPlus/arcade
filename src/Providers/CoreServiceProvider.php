@@ -42,6 +42,7 @@ class CoreServiceProvider extends ServiceProvider
         'product-attributes' => Components\ProductAttributes::class,
         'product-filters' => Components\ProductFilters::class,
         'product-variant-picker' => Components\ProductVariantPicker::class,
+        'product-bundle-options' => Components\ProductBundleOptions::class,
         'cart-summary' => Components\CartSummary::class,
         'checkout-address-form' => Components\CheckoutAddressForm::class,
     ];

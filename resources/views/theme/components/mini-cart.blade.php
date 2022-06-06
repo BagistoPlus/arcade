@@ -48,6 +48,16 @@
               </div>
               {!! view_render_event('bagisto.shop.checkout.cart-mini.item.name.after', ['item' => $item]) !!}
 
+              {!! view_render_event('bagisto.shop.checkout.cart-mini.item.options.before', ['item' => $item]) !!}
+              @if (isset($item->additional['attributes']))
+                <div class="text-xs font-light">
+                  @foreach ($item->additional['attributes'] as $attribute)
+                    <span class="font-semibold">{{ $attribute['attribute_name'] }} : </span>{{ $attribute['option_label'] }}</br>
+                  @endforeach
+                </div>
+              @endif
+              {!! view_render_event('bagisto.shop.checkout.cart-mini.item.options.after', ['item' => $item]) !!}
+
               {!! view_render_event('bagisto.shop.checkout.cart-mini.item.price.before', ['item' => $item]) !!}
               <div class="flex justify-between">
                 <x-arcade::currency :amount="$item->displayablePrice" class="font-bold" />

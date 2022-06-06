@@ -7,6 +7,7 @@ import RangeInput from "./components/range-input";
 import ProductVariantPicker from "./components/product-variant-picker";
 import ProductBuyButtons from "./components/product-buy-buttons";
 import ProductGallery from "./components/product-gallery";
+import ProductBundler from "./components/product-bundler";
 
 declare global {
   interface Window {
@@ -23,5 +24,6 @@ Alpine.data("ArcadeRangeInput", RangeInput);
 Alpine.data("ArcadeProductVariantPicker", ProductVariantPicker);
 Alpine.data("ArcadeProductBuyButtons", ProductBuyButtons);
 Alpine.data("ArcadeProductGallery", ProductGallery);
+Alpine.data("ArcadeProductBundler", ProductBundler);
 
 Alpine.start();

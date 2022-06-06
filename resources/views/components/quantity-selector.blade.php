@@ -15,7 +15,7 @@
   {{ $attributes }}
 >
   @if($label)
-    <label class="block mb-2 font-semibold">{{ $label }}</label>
+    <label class="block mb-1 font-medium">{{ $label }}</label>
   @endif
 
   <div class="flex">
