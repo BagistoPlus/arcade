@@ -1,4 +1,12 @@
-<div class="group relative border">
+<div class="group relative border overflow-hidden">
+  <div class="absolute z-10 top-1 left-1">
+    @if ($product->new)
+      <span class="bg-primary text-white text-sm font-medium  px-2 py-0.5 rounded">
+        {{ __('shop::app.products.new') }}
+      </span>
+    @endif
+  </div>
+
   <div class="w-full min-h-64 bg-gray-200 aspect-w-1 aspect-h-1 overflow-hidden group-hover:opacity-75">
     <img src="{{ $previewImageUrl }}" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover">
   </div>
