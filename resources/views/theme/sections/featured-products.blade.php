@@ -1,7 +1,7 @@
 <div class="py-10">
   <div class="container">
     @if($section->settings->heading)
-      <h3 class="text-center text-2xl font-semibold">{{ $section->settings->heading }}</h3>
+      <h2 class="text-center text-2xl font-semibold">{{ $section->settings->heading }}</h2>
     @endif
 
     @if($section->settings->subheading)

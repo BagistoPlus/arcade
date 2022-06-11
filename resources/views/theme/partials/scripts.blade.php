@@ -1,6 +1,6 @@
 
 @livewireScripts
-<script type="text/javascript" src="{{ asset('vendor/arcade/shop/shop.js') }}"></script>
+<script async type="text/javascript" src="{{ asset('vendor/arcade/shop/shop.js') }}"></script>
 
 @stack('scripts')
 

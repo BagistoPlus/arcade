@@ -5,9 +5,9 @@
 @if ($category)
 <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
   <div class="flex justify-between">
-    <h3 class="text-xl font-semibold text-on-surface-variant">
+    <h2 class="text-xl font-semibold text-on-surface-variant">
       {{ $section->settings->heading ?: $category->name . ' collection' }}
-    </h3>
+    </h2>
     <a href="{{ url()->to($category->translations[0]->url_path) }}" class="hover:underline">
       View all
       <x-heroicon-o-arrow-right class="inline w-4 h-4"/>

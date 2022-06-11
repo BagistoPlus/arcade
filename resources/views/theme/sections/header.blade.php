@@ -22,7 +22,7 @@
           class="flex absolute inset-0 w-full h-full bg-white z-20 lg:static lg:w-auto lg:h-auto"
           action="{{ route('shop.search.index') }}">
           @preserve_query_string
-          <button type="button" class="p-4 flex-none lg:hidden" x-on:click="searchFormOpen = false">
+          <button type="button" aria-label="back" class="p-4 flex-none lg:hidden" x-on:click="searchFormOpen = false">
             <x-heroicon-o-arrow-left class="w-5 h-5" />
           </button>
 
@@ -33,7 +33,7 @@
             name="term"
             value="{{ request('term') }}">
 
-          <button type="submit" class="p-4 lg:p-2 flex-none text-primary lg:text-gray-500 lg:border lg:border-l-0">
+          <button type="submit" aria-label="search" class="p-4 lg:p-2 flex-none text-primary lg:text-gray-500 lg:border lg:border-l-0">
             <x-heroicon-o-search class="w-5 h-5" />
           </button>
         </form>
