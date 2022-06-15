@@ -3,13 +3,9 @@
     <label v-if="label" class="block mb-1 text-sm font-medium">
       {{ label }}
     </label>
-    <label
-      v-for="option in options"
-      :key="option.value"
-      class="flex items-center"
-    >
-      <input v-model="model" type="radio" :name="name" :value="option.value" />
-      <span class="ml-2">{{ option.label }}</span>
+    <label v-for="(label, value) in options" :key="value" class="flex items-center">
+      <input v-model="model" type="radio" :name="name" :value="value" />
+      <span class="ml-2">{{ label }}</span>
     </label>
   </div>
 </template>
@@ -35,7 +31,7 @@ export default defineComponent({
     },
 
     options: {
-      type: Array as () => Array<{ value: string; label: string }>,
+      type: Object as () => Record<string, unknown>,
       default: [],
     },
   },

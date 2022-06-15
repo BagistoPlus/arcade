@@ -2,15 +2,10 @@
   <div v-if="section" class="flex flex-col h-full overflow-hidden relative">
     <header class="flex-none p-2 border-b border-gray-300">
       <div class="flex items-center">
-        <button
-          class="p-1 rounded hover:bg-gray-200 focus:outline-none"
-          @click="$router.back()"
-        >
+        <button class="p-1 rounded hover:bg-gray-200 focus:outline-none" @click="$router.back()">
           <mdicon name="arrow-left" class="text-gray-400" />
         </button>
-        <span class="ml-2">{{
-          sectionData.settings.heading || section.label
-        }}</span>
+        <span class="ml-2">{{ sectionData.settings.heading || section.label }}</span>
       </div>
       <p v-if="section.description" class="mt-2 text-sm">
         {{ section.description }}
@@ -26,7 +21,9 @@
             :value-path="valuePath"
             :getSettingValue="getSettingValue"
             @update-setting="onUpdateSetting"
-            @pickImage="onPickImage"
+            @pickImage="(path) => openPicker('image', path)"
+            @selectCategory="(path) => openPicker('category', path)"
+            @selectProduct="(path) => openPicker('product', path)"
           />
         </template>
 
@@ -39,11 +36,14 @@
               :value-path="valuePath"
               :getSettingValue="getSettingValue"
               @update-setting="onUpdateSetting"
-              @pickImage="onPickImage"
+              @pickImage="(path) => openPicker('image', path)"
+              @selectCategory="(path) => openPicker('category', path)"
+              @selectProduct="(path) => openPicker('product', path)"
             />
           </template>
         </template>
       </section>
+
       <p v-else>This section has no configuration</p>
 
       <template v-if="section.blocks.length > 0">
@@ -107,10 +107,7 @@
     </div>
 
     <footer v-if="isRemovable" class="flex-none border-t border-gray-300">
-      <button
-        class="flex w-full text-left py-3 px-4 hover:bg-gray-100"
-        @click="onRemoveSection"
-      >
+      <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100" @click="onRemoveSection">
         <mdicon name="trash-can-outline" class="inline mr-2" />
         Remove section
       </button>
@@ -143,9 +140,7 @@ export default defineComponent({
       sectionData.value ? store.sectionByType(sectionData.value.type) : null
     );
 
-    const isRemovable = computed(() =>
-      store.canRemoveSection(root.$route.params.sectionId)
-    );
+    const isRemovable = computed(() => store.canRemoveSection(root.$route.params.sectionId));
 
     const valuePath = computed(() =>
       sectionData.value ? `sections.${sectionData.value.id}.settings` : ""
@@ -161,25 +156,24 @@ export default defineComponent({
 
     const blocksData = computed(() =>
       sectionData.value
-        ? sectionData.value.blocks_order.map(
-            (id: string) => sectionData.value.blocks[id]
-          )
+        ? sectionData.value.blocks_order.map((id: string) => sectionData.value.blocks[id])
         : []
     );
 
     const remainingBlocks = computed(() => {
-      return section.value!.blocks!.filter((block: Block) => {
+      if (!section.value) {
+        return [];
+      }
+
+      return section.value.blocks!.filter((block: Block) => {
         return (
-          blocksData.value.filter((b: BlockData) => b.type === block.type)
-            .length < block.limit
+          blocksData.value.filter((b: BlockData) => b.type === block.type).length < block.limit
         );
       });
     });
 
     const getBlockByType = (type: string) => {
-      return section.value
-        ? section.value.blocks?.find((block) => block.type === type)
-        : {};
+      return section.value ? section.value.blocks?.find((block) => block.type === type) : {};
     };
 
     function getSettingValue(settingId: string) {
@@ -191,10 +185,7 @@ export default defineComponent({
     }
 
     function onReorderBlocks(order: string[]) {
-      store.updateThemeDataValue(
-        `sections.${sectionData.value.id}.blocks_order`,
-        order
-      );
+      store.updateThemeDataValue(`sections.${sectionData.value.id}.blocks_order`, order);
     }
 
     function onEditBlock(blockId: string) {
@@ -214,8 +205,9 @@ export default defineComponent({
       store.addSectionBlock(root.$route.params.sectionId, block);
     }
 
-    function onPickImage(path: string) {
-      store.openImagePicker(path);
+    function openPicker(type: string, path: string) {
+      console.log(type, path);
+      store.openPicker(type as any, path);
     }
 
     return {
@@ -235,7 +227,7 @@ export default defineComponent({
       onRemoveSection,
       onToggleBlock,
       onAddBlock,
-      onPickImage,
+      openPicker,
     };
   },
 });

@@ -13,6 +13,7 @@ interface Block {
   type: string;
   name: string;
   limit: number;
+  description: string;
   settings: Setting[];
 }
 
@@ -23,8 +24,8 @@ export interface Section {
   previewImageUrl: string;
   previewDescription: string;
   settings: Setting[];
-  blocks?: Block[];
-  maxBlocks?: number;
+  blocks: Block[];
+  maxBlocks: number;
 }
 
 export interface BlockData {

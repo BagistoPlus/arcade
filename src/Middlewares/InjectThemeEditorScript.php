@@ -84,6 +84,7 @@ class InjectThemeEditorScript
                 'themeData' => $themeData,
                 'sections' => Sections::all(),
                 'templates' => array_values($this->themeEditor->getTemplates()),
+                'initialState' => $this->sectionDataCollector->getEditorInitialStore(),
             ]);
         } else {
             $editorContent = "<script type='text/javascript'>

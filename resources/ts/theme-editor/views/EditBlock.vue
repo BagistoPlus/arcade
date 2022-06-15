@@ -2,16 +2,11 @@
   <div v-if="block" class="flex flex-col h-full overflow-hidden relative">
     <header class="flex-none p-2 border-b border-gray-300">
       <div class="flex items-center">
-        <button
-          class="p-1 rounded hover:bg-gray-200 focus:outline-none"
-          @click="$router.back()"
-        >
+        <button class="p-1 rounded hover:bg-gray-200 focus:outline-none" @click="$router.back()">
           <mdicon name="arrow-left" class="text-gray-400" />
         </button>
         <span class="ml-2">
-          {{
-            blockData.settings.title || blockData.settings.heading || block.name
-          }}
+          {{ blockData.settings.title || blockData.settings.heading || block.name }}
         </span>
       </div>
       <p v-if="block.description" class="mt-2 text-sm">
@@ -29,6 +24,9 @@
             :value-path="valuePath"
             :getSettingValue="getSettingValue"
             @update-setting="onUpdateSetting"
+            @pickImage="(path) => openPicker('image', path)"
+            @selectCategory="(path) => openPicker('category', path)"
+            @selectProduct="(path) => openPicker('product', path)"
           />
         </template>
 
@@ -41,6 +39,9 @@
               :value-path="valuePath"
               :getSettingValue="getSettingValue"
               @update-setting="onUpdateSetting"
+              @pickImage="(path) => openPicker('image', path)"
+              @selectCategory="(path) => openPicker('category', path)"
+              @selectProduct="(path) => openPicker('product', path)"
             />
           </template>
         </template>
@@ -49,10 +50,7 @@
     </div>
 
     <footer class="flex-none border-t border-gray-300">
-      <button
-        class="flex w-full text-left py-3 px-4 hover:bg-gray-100"
-        @click="onRemoveBlock"
-      >
+      <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100" @click="onRemoveBlock">
         <mdicon name="trash-can-outline" class="inline mr-2" />
         Remove block
       </button>
@@ -103,8 +101,7 @@ export default defineComponent({
     });
 
     const valuePath = computed(
-      () =>
-        `sections.${root.$route.params.sectionId}.blocks.${root.$route.params.blockId}.settings`
+      () => `sections.${root.$route.params.sectionId}.blocks.${root.$route.params.blockId}.settings`
     );
 
     function getSettingValue(settingId: string) {
@@ -116,11 +113,12 @@ export default defineComponent({
     }
 
     function onRemoveBlock() {
-      store.removeSectionBlock(
-        root.$route.params.sectionId,
-        root.$route.params.blockId
-      );
+      store.removeSectionBlock(root.$route.params.sectionId, root.$route.params.blockId);
       root.$router.back();
+    }
+
+    function openPicker(type: string, path: string) {
+      store.openPicker(type as any, path);
     }
 
     return {
@@ -132,6 +130,7 @@ export default defineComponent({
       getSettingValue,
       onUpdateSetting,
       onRemoveBlock,
+      openPicker,
     };
   },
 });

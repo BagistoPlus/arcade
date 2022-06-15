@@ -9,6 +9,10 @@ import { History } from "stateshot";
 import { defineStore } from "pinia";
 import { ThemeData, Setting, Section, Block } from "./types";
 
+interface Models {
+  products: Record<string, object>;
+  categories: Record<string, object>;
+}
 interface State {
   theme: { code: string; name: string; storefrontUrl: string };
   themesIndex: string;
@@ -18,9 +22,10 @@ interface State {
   availableSections: Record<string, Section>;
   canPublishTheme: boolean;
   templates: Template[];
-  imagePickerActive: boolean;
-  imagePickerValuePath: string;
-  imagePickerDefaultValue: any;
+  activePicker: "image" | "category" | "product" | "link" | null;
+  activePickerValuePath: string | null;
+  activePickerValue: string | number | boolean | null;
+  models: Models;
 }
 
 let previewIframe: HTMLIFrameElement | null = null;
@@ -33,38 +38,33 @@ function refreshPreviewer(html: string) {
   notifyPreviewIframe("refresh", html);
 }
 
-const persistThemeData = debounce(
-  (themeCode, themeData, skipHistory = false) => {
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    headers.append(
-      "X-CSRF-Token",
-      (
-        document.querySelector('meta[name="csrf-token"]') as Element
-      ).getAttribute("content") as string
-    );
+const persistThemeData = debounce((themeCode, themeData, skipHistory = false) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append(
+    "X-CSRF-Token",
+    (document.querySelector('meta[name="csrf-token"]') as Element).getAttribute("content") as string
+  );
 
-    NProgress.start();
+  NProgress.start();
 
-    fetch(`/admin/arcade/themes/editor/${themeCode}/persist`, {
-      headers,
-      method: "POST",
-      body: JSON.stringify(themeData),
+  fetch(`/admin/arcade/themes/editor/${themeCode}/persist`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify(themeData),
+  })
+    .then((res) => res.text())
+    .then((html) => {
+      refreshPreviewer(html);
+      NProgress.done();
+      if (!skipHistory) {
+        themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
+      }
     })
-      .then((res) => res.text())
-      .then((html) => {
-        refreshPreviewer(html);
-        NProgress.done();
-        if (!skipHistory) {
-          themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
-        }
-      })
-      .catch((e) => {
-        NProgress.done();
-      });
-  },
-  500
-);
+    .catch((e) => {
+      NProgress.done();
+    });
+}, 500);
 
 const themeDataStack = ref(new History());
 
@@ -82,9 +82,13 @@ export const useStore = defineStore("main", {
     availableSections: {},
     canPublishTheme: false,
     templates: [],
-    imagePickerActive: false,
-    imagePickerValuePath: "",
-    imagePickerDefaultValue: null,
+    activePicker: null,
+    activePickerValuePath: null,
+    activePickerValue: null,
+    models: {
+      products: {},
+      categories: {},
+    },
   }),
 
   getters: {
@@ -125,6 +129,10 @@ export const useStore = defineStore("main", {
     hasRedo: (state) => {
       return state.themeData && themeDataStack.value.hasRedo;
     },
+
+    getModel: (state) => (modelName: string, id: number | string) => {
+      return state.models[modelName as keyof Models][id];
+    },
   },
 
   actions: {
@@ -145,6 +153,14 @@ export const useStore = defineStore("main", {
       this.templates = templates;
     },
 
+    setModels(models: Models) {
+      this.models = models;
+    },
+
+    registerModel(modelName: string, model: Record<string, any>) {
+      this.models[modelName as keyof Models][model.id] = model;
+    },
+
     activateSection(sectionId: string, notify = false) {
       this.activeSectionId = sectionId;
       if (notify) {
@@ -163,15 +179,15 @@ export const useStore = defineStore("main", {
       this.availableSections = availableSections;
     },
 
-    openImagePicker(valuePath: string) {
-      this.imagePickerActive = true;
-      this.imagePickerValuePath = valuePath;
-      this.imagePickerDefaultValue = this.themeDataValue(valuePath);
+    openPicker(type: State["activePicker"], valuePath: string) {
+      this.activePicker = type;
+      this.activePickerValuePath = valuePath;
+      this.activePickerValue = this.themeDataValue(valuePath);
     },
 
-    closeImagePicker() {
-      this.imagePickerActive = false;
-      this.imagePickerValuePath = "";
+    closeActivePicker() {
+      this.activePicker = null;
+      this.activePickerValuePath = null;
     },
 
     persistThemeData(skipHistory = false) {
@@ -216,8 +232,7 @@ export const useStore = defineStore("main", {
     },
 
     toggleSection(sectionId: string) {
-      this.themeData!.sections[sectionId].disabled =
-        !this.themeData!.sections[sectionId].disabled;
+      this.themeData!.sections[sectionId].disabled = !this.themeData!.sections[sectionId].disabled;
 
       this.persistThemeData();
     },
@@ -226,22 +241,15 @@ export const useStore = defineStore("main", {
       const section = this.themeData!.sections[sectionId];
 
       delete section.blocks[blockId];
-      section.blocks_order = section.blocks_order.filter(
-        (id) => id !== blockId
-      );
+      section.blocks_order = section.blocks_order.filter((id) => id !== blockId);
 
       this.persistThemeData();
     },
 
     toggleSectionBlock(sectionId: string, blockId: string) {
-      const currentState = this.themeDataValue(
-        `sections.${sectionId}.blocks.${blockId}.disabled`
-      );
+      const currentState = this.themeDataValue(`sections.${sectionId}.blocks.${blockId}.disabled`);
 
-      this.updateThemeDataValue(
-        `sections.${sectionId}.blocks.${blockId}.disabled`,
-        !currentState
-      );
+      this.updateThemeDataValue(`sections.${sectionId}.blocks.${blockId}.disabled`, !currentState);
 
       this.persistThemeData();
     },
@@ -281,9 +289,9 @@ export const useStore = defineStore("main", {
       headers.append("Content-Type", "application/json");
       headers.append(
         "X-CSRF-Token",
-        (
-          document.querySelector('meta[name="csrf-token"]') as Element
-        ).getAttribute("content") as string
+        (document.querySelector('meta[name="csrf-token"]') as Element).getAttribute(
+          "content"
+        ) as string
       );
 
       NProgress.start();
@@ -296,9 +304,7 @@ export const useStore = defineStore("main", {
           this.canPublishTheme = false;
           NProgress.done();
           themeDataStack.value.reset();
-          themeDataStack.value.pushSync(
-            JSON.parse(JSON.stringify(this.themeData))
-          );
+          themeDataStack.value.pushSync(JSON.parse(JSON.stringify(this.themeData)));
         })
         .catch((e) => {
           NProgress.done();

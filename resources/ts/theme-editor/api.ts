@@ -1,7 +1,8 @@
 import { createFetch } from "@vueuse/core";
+import type { Ref } from "@vue/composition-api";
+import { ref } from "@vue/composition-api";
 
 const useFetch = createFetch({
-  baseUrl: "/admin/arcade",
   options: {
     beforeFetch({ options }) {
       if (!options.headers) {
@@ -22,9 +23,32 @@ const useFetch = createFetch({
 });
 
 export function useFetchImages() {
-  return useFetch("images").get().json();
+  return useFetch("/admin/arcade/images").get().json();
 }
 
 export function useImportImage(formData: FormData) {
-  return useFetch("images").post(formData).json();
+  return useFetch("/admin/arcade/images").post(formData).json();
+}
+
+export function useFetchCategories() {
+  return useFetch("/api/categories?pagination=0").get().json();
+}
+
+export function useFetchProducts() {
+  const url = ref("/api/products");
+  const { data, execute: run, ...rest } = useFetch(url, { refetch: true }).get().json();
+
+  function execute(params?: { search: string }) {
+    if (params) {
+      url.value = `/api/products?${new URLSearchParams(params).toString()}`;
+    } else {
+      url.value = "/api/products";
+    }
+  }
+
+  return {
+    data,
+    execute,
+    ...rest,
+  };
 }

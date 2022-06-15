@@ -20,17 +20,17 @@ class Hero extends BladeSection
 
             SelectType::make('height', 'Height')
                 ->options([
-                    ['label' => 'Small', 'value' => 'small'],
-                    ['label' => 'Medium', 'value' => 'medium'],
-                    ['label' => 'Large', 'value' => 'large'],
+                    'small' => 'Small',
+                    'medium' => 'Medium',
+                    'large' => 'Large',
                 ])
                 ->default('medium'),
 
             SelectType::make('content_position', 'Content position')
                 ->options([
-                    ['label' => 'Top', 'value' => 'top'],
-                    ['label' => 'Middle', 'value' => 'middle'],
-                    ['label' => 'Bottom', 'value' => 'bottom'],
+                    'top' => 'Top',
+                    'middle' => 'Middle',
+                    'bottom' => 'Bottom',
                 ])
                 ->default('middle')
                 ->group('content'),
@@ -61,9 +61,9 @@ class Hero extends BladeSection
 
                     SelectType::make('size', 'Heading size')
                         ->options([
-                            ['label' => 'Small', 'value' => 'small'],
-                            ['label' => 'Medium', 'value' => 'medium'],
-                            ['label' => 'Large', 'value' => 'large'],
+                            'small' => 'Small',
+                            'medium' => 'Medium',
+                            'large' => 'Large',
                         ])
                         ->default('medium'),
                 ]),
@@ -90,8 +90,8 @@ class Hero extends BladeSection
                     SelectType::make('style', 'Style')
                         ->type('select')
                         ->options([
-                            ['label' => 'Primary', 'value' => 'primary'],
-                            ['label' => 'Secondary', 'value' => 'secondary'],
+                            'primary' => 'Primary',
+                            'secondary' => 'Secondary',
                         ])
                         ->default('primary'),
                 ]),

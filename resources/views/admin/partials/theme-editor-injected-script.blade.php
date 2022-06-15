@@ -34,9 +34,10 @@
 </div>
 
 <script type="text/javascript">
-  window.themeData = @json($themeData);
-  window.availableSections = @json($sections);
-  window.templates = @json($templates);
+  window.themeData = @js($themeData);
+  window.availableSections = @js($sections);
+  window.templates = @js($templates);
+  window.initialState = @js($initialState);
 
   if (window.Livewire) {
     window.Livewire.addHeaders({

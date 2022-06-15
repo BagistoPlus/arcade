@@ -9,12 +9,19 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Symfony\Component\Yaml\Yaml;
+use Webkul\API\Http\Resources\Catalog\Category as CategoryResource;
+use Webkul\API\Http\Resources\Catalog\Product as ProductResource;
 
 class SectionDataCollector
 {
     protected $files;
 
     protected $sectionsData;
+
+    protected $editorInitialStore = [
+        'products' => [],
+        'categories' => [],
+    ];
 
     public function __construct(Filesystem $files)
     {
@@ -30,6 +37,11 @@ class SectionDataCollector
     public function getSectionData($id)
     {
         return $this->sectionsData->get($id);
+    }
+
+    public function getEditorInitialStore()
+    {
+        return $this->editorInitialStore;
     }
 
     public function collectSectionData($id, $path = null)
@@ -93,6 +105,36 @@ class SectionDataCollector
 
         $this->sectionsData->get($id)->put('section', new SectionData($id, $data));
 
+        if (arcadeEditor()->inDesignMode()) {
+            collect($data['settings'])
+                ->each(function ($value, $key) use ($section) {
+                    $setting = collect($section->settings)->filter(function ($setting) use ($key) {
+                        return $setting->id === $key;
+                    })->first();
+
+                    if ($setting && in_array($setting->type, ['product', 'category'])) {
+                        $this->populateInitalStore($setting->type, $value);
+                    }
+                });
+
+            collect($data['blocks'])
+                ->each(function ($blockData, $id) use ($section) {
+                    $block = collect($section->blocks)->filter(function ($block) use ($blockData) {
+                        return $block->type === $blockData['type'];
+                    })->first();
+
+                    collect($blockData['settings'])->each(function ($value, $key) use ($block) {
+                        $setting = collect($block->settings)->filter(function ($setting) use ($key) {
+                            return $setting->id === $key;
+                        })->first();
+
+                        if ($setting && in_array($setting->type, ['product', 'category'])) {
+                            $this->populateInitalStore($setting->type, $value);
+                        }
+                    });
+                });
+        }
+
         return $this->sectionsData->get($id);
     }
 
@@ -125,6 +167,22 @@ class SectionDataCollector
             return json_decode($this->files->get($path), true);
         } else {
             return Yaml::parseFile($path);
+        }
+    }
+
+    protected function populateInitalStore($modelType, $modelId)
+    {
+        switch ($modelType) {
+            case 'product':
+                $model = new ProductResource(arcade_get_product($modelId));
+                $this->editorInitialStore['products'][$modelId] = $model;
+
+                break;
+            case 'category':
+                $model = new CategoryResource(arcade_get_category($modelId));
+                $this->editorInitialStore['categories'][$modelId] = $model;
+
+                break;
         }
     }
 }

@@ -70,7 +70,7 @@
                 name="subscriber_email"
                 value="{{ old('subscriber_email') }}"
                 class="block w-full border-gray-200" >
-              <button type="submit" class="absolute right-0 top-0 h-full px-3">
+              <button type="submit" aria-label="submit" class="absolute right-0 top-0 h-full px-3">
                 <x-heroicon-o-arrow-sm-right class="w-5 h-5" />
               </button>
               @error('subscriber_email')

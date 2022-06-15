@@ -24,7 +24,7 @@
           @foreach($this->cartItems as $item)
             <div class="border p-4 lg:flex lg:flex-wrap lg:items-center">
               <div class="text-center flex-none">
-                <img src="{{ $item->smallImage }}" alt="{{ $item->product->name }}" class="inline w-32 h-32">
+                <img src="{{ $item->smallImage }}" alt="{{ $item->product->name }}" class="inline w-32 h-32 object-cover">
               </div>
 
               <div class="lg:flex-1 lg:ml-2">

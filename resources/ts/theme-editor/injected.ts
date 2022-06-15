@@ -6,6 +6,7 @@ declare global {
     themeData: any;
     availableSections: any;
     templates: any;
+    initialState: any;
   }
 }
 
@@ -21,10 +22,12 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  console.log(window.initialState);
   editor.postMessage("init", {
     themeData: window.themeData,
     availableSections: window.availableSections,
     templates: window.templates,
+    models: window.initialState,
   });
 
   window.addEventListener("message", (event) => {
@@ -54,20 +57,12 @@ class Editor {
   activeSectionId: string | null = null;
 
   init() {
-    this.sectionOverlay = document.querySelector(
-      "#section-overlay"
-    ) as HTMLElement;
+    this.sectionOverlay = document.querySelector("#section-overlay") as HTMLElement;
 
     document.querySelectorAll(".arcade-section").forEach((section) => {
-      section.addEventListener(
-        "mouseover",
-        this.onSectionHover.bind(this, section as HTMLElement)
-      );
+      section.addEventListener("mouseover", this.onSectionHover.bind(this, section as HTMLElement));
 
-      section.addEventListener(
-        "mouseleave",
-        this.onSectionBlur.bind(this, section as HTMLElement)
-      );
+      section.addEventListener("mouseleave", this.onSectionBlur.bind(this, section as HTMLElement));
     });
 
     this.sectionOverlay.querySelectorAll(".btn").forEach((btn) => {

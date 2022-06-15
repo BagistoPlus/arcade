@@ -1,6 +1,7 @@
 @props([
   'label' => '',
-  'value' => 1
+  'value' => 1,
+  'id' => 'quantity-selector',
 ])
 
 <div
@@ -15,17 +16,19 @@
   {{ $attributes }}
 >
   @if($label)
-    <label class="block mb-1 font-medium">{{ $label }}</label>
+    <label for="{{ $id }}" class="block mb-1 font-medium">{{ $label }}</label>
+  @else
+    <label for="{{ $id }}" class="sr-only	">{{ __('Quantity') }}</label>
   @endif
 
   <div class="flex">
-    <button type="button" class="border p-3" x-on:click="quantity > 1 && quantity--">
+    <button type="button" aria-label="decrement" class="border p-3" x-on:click="quantity > 1 && quantity--">
       <x-heroicon-s-minus class="w-4 h-4" />
     </button>
 
-    <input x-model="quantity" class="border w-16 text-center">
+    <input id="{{ $id }}" x-model="quantity" class="border w-16 text-center">
 
-    <button type="button" class="border p-3" x-on:click="quantity++">
+    <button type="button" aria-label="increment" class="border p-3" x-on:click="quantity++">
       <x-heroicon-o-plus class="w-4 h-4" />
     </button>
   </div>

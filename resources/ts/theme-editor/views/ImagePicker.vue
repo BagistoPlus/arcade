@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="absolute overflow-y-hidden top-0 left-0 h-full w-full flex flex-col border bg-white"
-  >
+  <div class="h-full flex flex-col bg-white">
     <div class="flex-none flex justify-between border-b pl-4 pr-2 py-3">
       <h3 class="text-lg font-medium">Images</h3>
       <button
@@ -13,37 +11,21 @@
     </div>
 
     <div class="flex-1 overflow-y-auto">
-      <input
-        type="file"
-        class="hidden"
-        ref="fileInput"
-        accept="image/*"
-        @change="onFileChange"
-      />
+      <input type="file" class="hidden" ref="fileInput" accept="image/*" @change="onFileChange" />
 
       <div class="grid grid-cols-2 gap-4 p-4">
         <button
           class="relative block w-full aspect-w-1 aspect-h-1 rounded border border-dashed hover:border-primary"
           @click="$refs.fileInput.click()"
         >
-          <div
-            class="absolute w-full h-full flex flex-col items-center justify-center"
-          >
+          <div class="absolute w-full h-full flex flex-col items-center justify-center">
             <mdicon name="upload" class="text-gray-600" />
             Import
           </div>
         </button>
 
-        <div
-          v-if="isImporting"
-          class="w-full rounded border flex items-center justify-center"
-        >
-          <mdicon
-            name="loading"
-            width="48"
-            height="48"
-            class="animate-spin text-primary"
-          />
+        <div v-if="isImporting" class="w-full rounded border flex items-center justify-center">
+          <mdicon name="loading" width="48" height="48" class="animate-spin text-primary" />
         </div>
 
         <button
@@ -71,9 +53,7 @@
       <button
         class="px-4 py-2 rounded block w-full"
         :class="
-          selectedImage
-            ? 'bg-primary text-white'
-            : 'bg-gray-100 text-gray-500 pointer-events-none'
+          selectedImage ? 'bg-primary text-white' : 'bg-gray-100 text-gray-500 pointer-events-none'
         "
         @click="onSelectImage"
       >
@@ -95,7 +75,7 @@ export default defineComponent({
     const selectedImage = ref("");
     const { data: images } = useFetchImages();
 
-    function onFileChange(event: InputEvent) {
+    function onFileChange(event: Event) {
       if ((event.target as HTMLInputElement).files!.length > 0) {
         const file = (event.target as HTMLInputElement).files![0];
         const formData = new FormData();
@@ -114,22 +94,19 @@ export default defineComponent({
 
     function onImageClick(path: string) {
       selectedImage.value = path;
-      if (store.imagePickerValuePath) {
-        store.updateThemeDataValue(store.imagePickerValuePath, path);
+      if (store.activePickerValuePath) {
+        store.updateThemeDataValue(store.activePickerValuePath, path);
       }
     }
 
     function onCancel() {
-      store.updateThemeDataValue(
-        store.imagePickerValuePath,
-        store.imagePickerDefaultValue
-      );
-      store.imagePickerDefaultValue = null;
-      store.closeImagePicker();
+      store.updateThemeDataValue(store.activePickerValuePath as string, store.activePickerValue);
+      store.activePickerValue = null;
+      store.closeActivePicker();
     }
 
     function onSelectImage() {
-      store.closeImagePicker();
+      store.closeActivePicker();
     }
 
     return {

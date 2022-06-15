@@ -20,9 +20,7 @@
     />
 
     <div v-else-if="setting.type === 'textarea'">
-      <label v-if="setting.label" class="block font-medium mb-1">{{
-        setting.label
-      }}</label>
+      <label v-if="setting.label" class="block font-medium mb-1">{{ setting.label }}</label>
       <textarea
         class="block w-full rounded border-gray-300"
         :rows="setting.rows"
@@ -59,12 +57,12 @@
       >
         <option v-if="setting.placeholder">{{ setting.placeholder }}</option>
         <option
-          v-for="option in setting.options"
-          :value="option.value"
-          :key="option.value"
-          :selected="value === option.value"
+          v-for="(label, value) in setting.options"
+          :value="value"
+          :key="value"
+          :selected="value === value"
         >
-          {{ option.label }}
+          {{ label }}
         </option>
       </select>
     </div>
@@ -75,6 +73,28 @@
       :value="value"
       @input="$emit('input', $event)"
       @pickImage="$emit('pickImage')"
+    />
+
+    <model-type
+      v-else-if="setting.type === 'category'"
+      :label="setting.label"
+      :value="value"
+      model-name="categories"
+      button-label="Select category"
+      edit-button-label="Update category"
+      @input="$emit('input', $event)"
+      @select="$emit('selectCategory')"
+    />
+
+    <model-type
+      v-else-if="setting.type === 'product'"
+      :label="setting.label"
+      :value="value"
+      model-name="products"
+      button-label="Select product"
+      edit-button-label="Update product"
+      @input="$emit('input', $event)"
+      @select="$emit('selectProduct')"
     />
 
     <div v-else-if="setting.type === 'range'">
@@ -96,11 +116,7 @@
     </div>
 
     <div v-else-if="setting.type === 'color'" class="flex items-start">
-      <color-picker
-        class="flex-none rounded"
-        :value="value"
-        @input="$emit('input', $event)"
-      />
+      <color-picker class="flex-none rounded" :value="value" @input="$emit('input', $event)" />
       <div class="flex-1 ml-3 -mt-1">
         <label class="block text-base font-medium">{{ setting.label }}</label>
         <p class="text-xs">{{ value }}</p>
@@ -112,7 +128,7 @@
       v-html="setting.info"
       class="text-xs text-gray-600"
       :class="{ 'ml-6': setting.type === 'checkbox' }"
-    />
+    ></p>
   </div>
 </template>
 
@@ -123,6 +139,7 @@ import TextType from "./Types/TextType.vue";
 import CheckboxType from "./Types/CheckboxType.vue";
 import RadioGroupType from "./Types/RadioGroupType.vue";
 import ImageType from "./Types/ImageType.vue";
+import ModelType from "./Types/ModelType.vue";
 
 import { Setting as SettingType } from "../types";
 
@@ -132,6 +149,7 @@ export default defineComponent({
     CheckboxType,
     RadioGroupType,
     ImageType,
+    ModelType,
     Slider,
   },
 

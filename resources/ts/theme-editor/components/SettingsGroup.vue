@@ -6,10 +6,7 @@
       @click="opened = !opened"
     >
       {{ name }}
-      <mdicon
-        :name="opened ? 'chevron-up' : 'chevron-down'"
-        class="absolute right-2 top-2"
-      />
+      <mdicon :name="opened ? 'chevron-up' : 'chevron-down'" class="absolute right-2 top-2" />
     </button>
     <div v-show="opened" class="p-2 space-y-3">
       <setting
@@ -19,6 +16,8 @@
         :value="getSettingValue(setting.id)"
         @input="(value) => $emit('update-setting', value, setting.id)"
         @pickImage="$emit('pickImage', `${valuePath}.${setting.id}`)"
+        @selectCategory="$emit('selectCategory', `${valuePath}.${setting.id}`)"
+        @selectProduct="$emit('selectProduct', `${valuePath}.${setting.id}`)"
       />
     </div>
   </div>
@@ -26,6 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "@vue/composition-api";
+import { PropType } from "vue";
 import { Setting as SettingType } from "../types";
 import Setting from "./Setting.vue";
 
@@ -49,8 +49,8 @@ export default defineComponent({
     },
 
     getSettingValue: {
-      type: Function,
-      default: () => () => null,
+      type: Function as () => any,
+      default: () => (path: string) => null,
     },
   },
 

@@ -23,7 +23,14 @@
         class="relative w-80 flex-none shadow bg-white h-full"
       >
         <router-view @add-section="sectionModalActive = true" />
-        <image-picker v-if="imagePickerActive" />
+        <div
+          v-if="activePicker"
+          class="absolute overflow-y-hidden top-0 left-0 h-full w-full border bg-white"
+        >
+          <image-picker v-if="activePicker === 'image'" />
+          <category-picker v-if="activePicker === 'category'" />
+          <product-picker v-if="activePicker === 'product'" />
+        </div>
       </div>
 
       <div class="flex-1 h-full flex justify-center items-center p-4">
@@ -33,7 +40,7 @@
           class="transition-all shadow bg-white"
           :style="iframeStyle"
           :src="url"
-        />
+        ></iframe>
       </div>
     </div>
 
@@ -46,19 +53,18 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-} from "@vue/composition-api";
+import { computed, defineComponent, onMounted, ref } from "@vue/composition-api";
 import { useStore } from "./store";
 import NProgress from "nprogress";
 
 import Header from "./components/Header.vue";
 import AddSectionModal from "./components/AddSectionModal.vue";
 import ImagePicker from "./views/ImagePicker.vue";
+import CategoryPicker from "./views/CategoryPicker.vue";
+import ProductPicker from "./views/ProductPicker.vue";
+
 import { Section, ViewMode } from "./types";
+import { useRouter } from "vue2-helpers/vue-router";
 
 export default defineComponent({
   components: {
@@ -66,10 +72,13 @@ export default defineComponent({
     AddSectionModal,
 
     ImagePicker,
+    CategoryPicker,
+    ProductPicker,
   },
 
   setup() {
     const store = useStore();
+    const router = useRouter();
     const url = store.theme.storefrontUrl;
     const iframe = ref<HTMLIFrameElement | null>(null);
     const sectionModalActive = ref(false);
@@ -86,7 +95,12 @@ export default defineComponent({
         store.setThemeData(data.themeData);
         store.setAvailableSections(data.availableSections);
         store.setTemplates(data.templates);
+        store.setModels(data.models);
         NProgress.done();
+
+        if (router.currentRoute.name !== "sections") {
+          router.replace({ name: "sections" });
+        }
       },
 
       activateSection: store.activateSection,
@@ -148,7 +162,7 @@ export default defineComponent({
       sections: computed(() => Object.values(store.availableSections)),
       templates: computed(() => store.templates),
       currentTemplate: computed(() => store.themeData?.template),
-      imagePickerActive: computed(() => store.imagePickerActive),
+      activePicker: computed(() => store.activePicker),
 
       onExit,
       onAddSection,

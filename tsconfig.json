@@ -11,7 +11,11 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "jsx": "preserve"
+  },
+  "vueCompilerOptions": {
+    "target": 2
   },
   "include": ["resources/ts/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

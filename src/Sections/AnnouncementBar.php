@@ -23,9 +23,9 @@ class AnnouncementBar extends BladeSection
 
             SelectType::make('position', 'Position')
                 ->options([
-                    ['label' => 'Left', 'value' => 'left'],
-                    ['label' => 'Center', 'value' => 'center'],
-                    ['label' => 'Right', 'value' => 'right'],
+                    'left' => 'Left',
+                    'center' => 'Center',
+                    'right' => 'Right',
                 ])
                 ->default('center')
                 ->info('The announcement bar position'),

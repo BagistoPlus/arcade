@@ -2,9 +2,9 @@
 
 namespace EldoMagan\BagistoArcade\Sections;
 
-use EldoMagan\BagistoArcade\SettingTypes\ProductType;
 use EldoMagan\BagistoArcade\SettingTypes\RadioType;
 use EldoMagan\BagistoArcade\SettingTypes\RangeType;
+use EldoMagan\BagistoArcade\SettingTypes\SettingType;
 use EldoMagan\BagistoArcade\SettingTypes\TextType;
 use Webkul\Product\Repositories\ProductFlatRepository;
 
@@ -17,9 +17,12 @@ class FeaturedProducts extends BladeSection
     public function getProducts()
     {
         if (count($this->section->blocks) > 0) {
-            return $this->section->blocks->map(function ($block) {
-                return arcade_get_product($block->settings->product);
-            });
+            return $this->section->blocks
+                ->map(function ($block) {
+                    return arcade_get_product($block->settings->product);
+                })
+                ->filter()
+            ;
         }
 
         if ($this->section->settings->product_type === 'featured') {
@@ -80,10 +83,11 @@ class FeaturedProducts extends BladeSection
 
             RadioType::make('product_type', 'Product type')
                 ->options([
-                    'featured' => 'Featured products',
                     'new' => 'New products',
+                    'featured' => 'Featured products',
                 ])
-                ->default('grid'),
+                ->default('new')
+                ->info('Applicable only when there are no product blocks added'),
         ];
     }
 
@@ -92,7 +96,7 @@ class FeaturedProducts extends BladeSection
         return [
             Block::make('product', 'Product')
                 ->settings([
-                    ProductType::make('product', 'Product'),
+                    SettingType::make('product', 'Product')->type('product'),
                 ]),
         ];
     }
