@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Sections\Concerns;
 
+use ArrayObject;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -28,7 +29,7 @@ class SectionData extends BlockData
     {
         parent::__construct($id, $data);
 
-        $blocks = $data['blocks'] ?? [];
+        $blocks = $data['blocks'] ?? new ArrayObject();
         $this->blocksOrder = $data['blocks_order'] ?? array_keys($blocks);
 
         $this->allBlocks = collect($this->blocksOrder)

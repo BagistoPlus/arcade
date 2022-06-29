@@ -93,6 +93,7 @@ export default defineComponent({
     const messageHandlers: Record<string, Function> = {
       init(data: any) {
         store.setThemeData(data.themeData);
+        store.setThemeSettings(data.themeSettings);
         store.setAvailableSections(data.availableSections);
         store.setTemplates(data.templates);
         store.setModels(data.models);
@@ -103,7 +104,19 @@ export default defineComponent({
         }
       },
 
+      editSection(sectionId: string) {
+        if (router.currentRoute.name === "sections") {
+          router.push({ name: "edit_section", params: { sectionId } });
+        } else {
+          router.replace({ name: "edit_section", params: { sectionId } });
+        }
+      },
+
       activateSection: store.activateSection,
+      toggleSection: store.toggleSection,
+      moveSectionUp: store.moveSectionUp,
+      moveSectionDown: store.moveSectionDown,
+      removeSection: store.removeSection,
     };
 
     window.addEventListener("message", (event) => {

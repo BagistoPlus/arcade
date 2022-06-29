@@ -47,6 +47,7 @@ export interface ThemeData {
   afterContentSectionsOrder: string[];
   sectionsOrder: string[];
   sections: Record<string, SectionData>;
+  settings: Record<string, unknown>;
 }
 
 export interface Template {

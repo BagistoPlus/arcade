@@ -104,6 +104,7 @@ class ThemePersister
     {
         $content = [
             'sections' => [],
+            'settings' => $themeData['settings'],
         ];
 
         foreach (array_merge($themeData['beforeContentSectionsOrder'], $themeData['afterContentSectionsOrder']) as $id) {

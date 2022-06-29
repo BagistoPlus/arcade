@@ -77,7 +77,7 @@ class SupportSectionData
                 return;
             }
 
-            $data = Arcade::sectionDataCollector()
+            $data = Arcade::themeDataCollector()
                 ->getSectionData($component->arcadeId)
                 ->filter(function ($value) {
                     return is_scalar($value)

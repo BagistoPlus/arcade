@@ -10,8 +10,9 @@ use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Facades\ThemeEditor;
 use EldoMagan\BagistoArcade\Middlewares\StorefrontTheme;
 use EldoMagan\BagistoArcade\Sections;
-use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
+use EldoMagan\BagistoArcade\Sections\Concerns\SettingValues;
 use EldoMagan\BagistoArcade\Sections\SectionRepository;
+use EldoMagan\BagistoArcade\ThemeDataCollector;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -187,12 +188,12 @@ class CoreServiceProvider extends ServiceProvider
             return new SectionRepository();
         });
 
-        $this->app->singleton(SectionDataCollector::class, function ($app) {
-            return new SectionDataCollector($app['files']);
+        $this->app->singleton(ThemeDataCollector::class, function ($app) {
+            return new ThemeDataCollector($app['files']);
         });
 
         $this->app->singleton(ArcadeManager::class, function ($app) {
-            return new ArcadeManager($app[SectionDataCollector::class]);
+            return new ArcadeManager($app[ThemeDataCollector::class]);
         });
 
         $this->callAfterResolving(Factory::class, function (Factory $factory) {
@@ -263,6 +264,19 @@ class CoreServiceProvider extends ServiceProvider
             $tree->items = core()->sortItems($tree->items);
 
             $view->with('menu', $tree);
+        });
+
+        view()->composer('shop::*', function ($view) {
+            $theme = $this->app->get('themes')->current();
+
+            if ($theme->isArcadeTheme) {
+                $view->with('theme', (object)[
+                    'code' => $theme->code,
+                    'name' => $theme->name,
+                    'version' => $theme->version,
+                    'settings' => new SettingValues(arcade()->themeDataCollector()->getThemeSettings()),
+                ]);
+            }
         });
     }
 }

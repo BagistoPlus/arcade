@@ -18,6 +18,7 @@ interface State {
   themesIndex: string;
   activeViewMode: "desktop" | "mobile" | "fullscreen";
   themeData: ThemeData | null;
+  themeSettings: Setting[];
   activeSectionId: string | null;
   availableSections: Record<string, Section>;
   canPublishTheme: boolean;
@@ -78,6 +79,7 @@ export const useStore = defineStore("main", {
     themesIndex: Arcade.themesIndex,
     activeViewMode: "desktop",
     themeData: null,
+    themeSettings: [],
     activeSectionId: null,
     availableSections: {},
     canPublishTheme: false,
@@ -147,6 +149,10 @@ export const useStore = defineStore("main", {
     setThemeData(themeData: any) {
       this.themeData = themeData;
       themeDataStack.value.pushSync(JSON.parse(JSON.stringify(themeData)));
+    },
+
+    setThemeSettings(settings: Setting[]) {
+      this.themeSettings = settings;
     },
 
     setTemplates(templates: Template[]) {
@@ -232,6 +238,7 @@ export const useStore = defineStore("main", {
     },
 
     toggleSection(sectionId: string) {
+      console.log(sectionId);
       this.themeData!.sections[sectionId].disabled = !this.themeData!.sections[sectionId].disabled;
 
       this.persistThemeData();
@@ -251,6 +258,29 @@ export const useStore = defineStore("main", {
 
       this.updateThemeDataValue(`sections.${sectionId}.blocks.${blockId}.disabled`, !currentState);
 
+      this.persistThemeData();
+    },
+
+    moveSectionUp(sectionId: string) {
+      const index = this.themeData!.sectionsOrder.indexOf(sectionId);
+      if (index === 0) {
+        return;
+      }
+
+      this.themeData!.sectionsOrder.splice(index, 1);
+      this.themeData!.sectionsOrder.splice(index - 1, 0, sectionId);
+      this.persistThemeData();
+    },
+
+    moveSectionDown(sectionId: string) {
+      const index = this.themeData!.sectionsOrder.indexOf(sectionId);
+
+      if (index === this.themeData!.sectionsOrder.length - 1) {
+        return;
+      }
+
+      this.themeData!.sectionsOrder.splice(index, 1);
+      this.themeData!.sectionsOrder.splice(index + 1, 0, sectionId);
       this.persistThemeData();
     },
 

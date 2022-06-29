@@ -25,7 +25,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "@vue/composition-api";
-import { PropType } from "vue";
 import { Setting as SettingType } from "../types";
 import Setting from "./Setting.vue";
 
@@ -50,7 +49,7 @@ export default defineComponent({
 
     getSettingValue: {
       type: Function as () => any,
-      default: () => (path: string) => null,
+      default: () => (path: string) => undefined,
     },
   },
 

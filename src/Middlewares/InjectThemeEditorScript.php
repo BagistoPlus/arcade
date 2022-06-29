@@ -3,9 +3,9 @@
 namespace EldoMagan\BagistoArcade\Middlewares;
 
 use Closure;
-use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Facades\Sections;
-use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
+use EldoMagan\BagistoArcade\Theme\ThemeManager;
+use EldoMagan\BagistoArcade\ThemeDataCollector;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -17,16 +17,19 @@ class InjectThemeEditorScript
 {
     protected $themeEditor;
 
-    protected $sectionDataCollector;
+    protected $themeDataCollector;
+
+    protected $themeManager;
 
     protected $categoryRepository;
 
     protected $productRepository;
 
-    public function __construct(ThemeEditor $themeEditor, SectionDataCollector $sectionDataCollector, CategoryRepository $categoryRepository, ProductRepository $productRepository)
+    public function __construct(ThemeEditor $themeEditor, ThemeDataCollector $themeDataCollector, ThemeManager $themeManager, CategoryRepository $categoryRepository, ProductRepository $productRepository)
     {
         $this->themeEditor = $themeEditor;
-        $this->sectionDataCollector = $sectionDataCollector;
+        $this->themeDataCollector = $themeDataCollector;
+        $this->themeManager = $themeManager;
         $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
     }
@@ -39,7 +42,7 @@ class InjectThemeEditorScript
 
         $response = $next($request);
 
-        if ($response instanceof StreamedResponse || $response instanceof BinaryFileResponse) {
+        if ($response instanceof StreamedResponse || $response instanceof BinaryFileResponse || Route::currentRouteName() === 'imagecache') {
             return $response;
         }
 
@@ -68,7 +71,8 @@ class InjectThemeEditorScript
 
                 'sectionsOrder' => $renderedSections->where('group', 'content')->pluck('id'),
 
-                'sections' => Arcade::sectionDataCollector()
+                'settings' => $this->themeDataCollector->getThemeSettings(),
+                'sections' => $this->themeDataCollector
                     ->getSectionsData()
                     ->pluck('section')
                     ->groupBy(function ($section) {
@@ -79,12 +83,15 @@ class InjectThemeEditorScript
                     }),
             ];
 
+            $theme = $this->themeManager->find($this->themeEditor->editorTheme());
+
             $editorContent = view('arcade::admin.partials.theme-editor-injected-script', [
                 'theme' => $this->themeEditor->editorTheme(),
                 'themeData' => $themeData,
                 'sections' => Sections::all(),
                 'templates' => array_values($this->themeEditor->getTemplates()),
-                'initialState' => $this->sectionDataCollector->getEditorInitialStore(),
+                'themeSettings' => $theme->settings,
+                'initialState' => $this->themeDataCollector->getEditorInitialStore(),
             ]);
         } else {
             $editorContent = "<script type='text/javascript'>

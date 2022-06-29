@@ -51,19 +51,38 @@
           @editSection="onEditSection"
         />
       </template>
+      <template v-else>
+        <div class="-mx-[14px] -mt-3">
+          <template v-for="(settings, group) in groupedThemeSettings">
+            <settings-group
+              value-path="themeSettings"
+              :key="group"
+              :name="group"
+              :settings="settings"
+              :getSettingValue="getSettingValue"
+              @update-setting="onUpdateSetting"
+            />
+          </template>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from "@vue/composition-api";
-import SectionList from "../components/SectionList.vue";
-import { useStore } from "../store";
 import { useRouter } from "vue2-helpers/vue-router";
+
+import { useStore } from "../store";
+import { groupSettings } from "../utils";
+
+import SectionList from "../components/SectionList.vue";
+import SettingsGroup from "../components/SettingsGroup.vue";
 
 export default defineComponent({
   components: {
     SectionList,
+    SettingsGroup,
   },
 
   setup() {
@@ -99,9 +118,8 @@ export default defineComponent({
       afterContentSections: computed(() => store.afterContentSections),
       contentSections: computed(() => store.contentSections),
       activeSectionId: computed(() => store.activeSectionId),
-      contentSectionsOrder: computed(() =>
-        store.themeDataValue("sectionsOrder")
-      ),
+      contentSectionsOrder: computed(() => store.themeDataValue("sectionsOrder")),
+      groupedThemeSettings: computed(() => groupSettings(store.themeSettings)),
 
       activateSection,
       deactivateSection,
@@ -111,6 +129,14 @@ export default defineComponent({
 
       getSectionByType(type: string) {
         return store.sectionByType(type);
+      },
+
+      getSettingValue(settingId: string) {
+        return store.themeDataValue(`settings.${settingId}`);
+      },
+
+      onUpdateSetting(value: any, settingId: string) {
+        store.updateThemeDataValue(`settings.${settingId}`, value);
       },
     };
   },

@@ -5,40 +5,39 @@ namespace EldoMagan\BagistoArcade;
 use EldoMagan\BagistoArcade\Contracts\CreateCustomer;
 use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Sections\Section;
-use EldoMagan\BagistoArcade\Sections\SectionDataCollector;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Livewire\Livewire;
 
 class ArcadeManager
 {
-    protected SectionDataCollector $sectionDataCollector;
+    protected ThemeDataCollector $themeDataCollector;
 
     protected $customerRegistrationValidationRules = [];
 
-    public function __construct(SectionDataCollector $sectionDataCollector)
+    public function __construct(ThemeDataCollector $themeDataCollector)
     {
-        $this->sectionDataCollector = $sectionDataCollector;
+        $this->themeDataCollector = $themeDataCollector;
     }
 
-    public function sectionDataCollector(): SectionDataCollector
+    public function themeDataCollector(): ThemeDataCollector
     {
-        return $this->sectionDataCollector;
+        return $this->themeDataCollector;
     }
 
     public function collectSectionData($id, $path = null)
     {
-        return $this->sectionDataCollector->collectSectionData($id, $path);
+        return $this->themeDataCollector->collectSectionData($id, $path);
     }
 
     public function collectSectionGlobals($id, Collection $globals)
     {
-        return $this->sectionDataCollector->collectSectionGlobals($id, $globals);
+        return $this->themeDataCollector->collectSectionGlobals($id, $globals);
     }
 
     public function isSectionEnabled($sectionId)
     {
-        return ! $this->sectionDataCollector()->getSectionData($sectionId)->get('section')->disabled;
+        return ! $this->themeDataCollector()->getSectionData($sectionId)->get('section')->disabled;
     }
 
     public function registerSection($sectionClass, $prefix)

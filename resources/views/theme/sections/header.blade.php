@@ -97,6 +97,7 @@
         x-transition:leave="transition ease-in-out duration-300 transform"
         x-transition:leave-start="translate-x-0"
         x-transition:leave-end="-translate-x-full">
+          @include('shop::partials.mobile-nav')
       </div>
     </div>
   </header>

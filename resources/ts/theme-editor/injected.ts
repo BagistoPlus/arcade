@@ -4,6 +4,7 @@ declare global {
   interface Window {
     Livewire: any;
     themeData: any;
+    themeSettings: any;
     availableSections: any;
     templates: any;
     initialState: any;
@@ -22,9 +23,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  console.log(window.initialState);
   editor.postMessage("init", {
     themeData: window.themeData,
+    themeSettings: window.themeSettings,
     availableSections: window.availableSections,
     templates: window.templates,
     models: window.initialState,
@@ -62,7 +63,16 @@ class Editor {
     document.querySelectorAll(".arcade-section").forEach((section) => {
       section.addEventListener("mouseover", this.onSectionHover.bind(this, section as HTMLElement));
 
-      section.addEventListener("mouseleave", this.onSectionBlur.bind(this, section as HTMLElement));
+      section.addEventListener("mouseleave", ((event: Event) => {
+        if (
+          (event as any).toElement &&
+          (event as any).toElement.parentElement?.id === "section-overlay"
+        ) {
+          return;
+        }
+
+        this.onSectionBlur.call(this, section as HTMLElement);
+      }) as EventListener);
     });
 
     this.sectionOverlay.querySelectorAll(".btn").forEach((btn) => {
@@ -85,7 +95,7 @@ class Editor {
 
     this.sectionOverlay
       .querySelector("#disable")
-      ?.addEventListener("click", this.onDisableActiveSection.bind(this));
+      ?.addEventListener("click", this.onToggleSection.bind(this));
 
     this.sectionOverlay
       .querySelector("#remove")
@@ -137,8 +147,9 @@ class Editor {
     this.postMessage("editSection", this.activeSectionId);
   }
 
-  onDisableActiveSection() {
-    this.postMessage("disableSection", this.activeSectionId);
+  onToggleSection() {
+    console.log(this.activeSectionId);
+    this.postMessage("toggleSection", this.activeSectionId);
   }
 
   onRemoveActiveSection() {

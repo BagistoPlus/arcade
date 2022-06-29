@@ -30,6 +30,13 @@ class Theme extends BagistoTheme
         $this->attributes['isArcadeTheme'] = $attributes['arcade_theme'] ?? false;
     }
 
+    public function setAttribute($name, $value)
+    {
+        $this->attributes[$name] = $value;
+
+        return $this;
+    }
+
     public function __get($attr)
     {
         $snakeCasedAttr = Str::snake($attr);

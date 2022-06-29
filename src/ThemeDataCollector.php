@@ -1,7 +1,8 @@
 <?php
 
-namespace EldoMagan\BagistoArcade\Sections;
+namespace EldoMagan\BagistoArcade;
 
+use ArrayObject;
 use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Facades\ThemeEditor;
 use EldoMagan\BagistoArcade\Sections\Concerns\SectionData;
@@ -12,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 use Webkul\API\Http\Resources\Catalog\Category as CategoryResource;
 use Webkul\API\Http\Resources\Catalog\Product as ProductResource;
 
-class SectionDataCollector
+class ThemeDataCollector
 {
     protected $files;
 
@@ -37,6 +38,19 @@ class SectionDataCollector
     public function getSectionData($id)
     {
         return $this->sectionsData->get($id);
+    }
+
+    public function getThemeSettings()
+    {
+        if (ThemeEditor::active()) {
+            $path = sprintf("%s/themes/%s/editor/theme.json", config('arcade.data_path'), themes()->current()->code);
+        } else {
+            $path = sprintf("%s/themes/%s/live/theme.json", config('arcade.data_path'), themes()->current()->code);
+        }
+
+        $data = $this->loadFileContent($path);
+
+        return $data['settings'] ?? new ArrayObject();
     }
 
     public function getEditorInitialStore()
@@ -117,7 +131,7 @@ class SectionDataCollector
                     }
                 });
 
-            collect($data['blocks'])
+            collect($data['blocks'] ?? [])
                 ->each(function ($blockData, $id) use ($section) {
                     $block = collect($section->blocks)->filter(function ($block) use ($blockData) {
                         return $block->type === $blockData['type'];

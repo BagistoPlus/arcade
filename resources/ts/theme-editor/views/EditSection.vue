@@ -117,6 +117,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "@vue/composition-api";
+import { useRoute, useRouter } from "vue2-helpers/vue-router";
+
 import { groupSettings } from "../utils";
 import { useStore } from "../store";
 
@@ -129,18 +131,21 @@ import { Block, BlockData } from "../types";
 export default defineComponent({
   components: { SettingsGroup, BlockList, Popover },
 
-  setup(_, { root }) {
+  setup() {
     const store = useStore();
+    const router = useRouter();
 
     const sectionData = computed(() =>
-      store.themeDataValue(`sections.${root.$route.params.sectionId}`)
+      store.themeDataValue(`sections.${router.currentRoute.params.sectionId}`)
     );
 
     const section = computed(() =>
       sectionData.value ? store.sectionByType(sectionData.value.type) : null
     );
 
-    const isRemovable = computed(() => store.canRemoveSection(root.$route.params.sectionId));
+    const isRemovable = computed(() =>
+      store.canRemoveSection(router.currentRoute.params.sectionId)
+    );
 
     const valuePath = computed(() =>
       sectionData.value ? `sections.${sectionData.value.id}.settings` : ""
@@ -189,20 +194,20 @@ export default defineComponent({
     }
 
     function onEditBlock(blockId: string) {
-      root.$router.push({ name: "edit_block", params: { blockId } });
+      router.push({ name: "edit_block", params: { blockId } });
     }
 
     function onToggleBlock(blockId: string) {
-      store.toggleSectionBlock(root.$route.params.sectionId, blockId);
+      store.toggleSectionBlock(router.currentRoute.params.sectionId, blockId);
     }
 
     function onRemoveSection() {
-      store.removeSection(root.$route.params.sectionId);
-      root.$router.back();
+      store.removeSection(router.currentRoute.params.sectionId);
+      router.back();
     }
 
     function onAddBlock(block: Block) {
-      store.addSectionBlock(root.$route.params.sectionId, block);
+      store.addSectionBlock(router.currentRoute.params.sectionId, block);
     }
 
     function openPicker(type: string, path: string) {

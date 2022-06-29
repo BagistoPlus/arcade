@@ -74,7 +74,7 @@ class ThemeManager extends Themes
     {
         $result = parent::set($themeName);
 
-        if ($this->activeTheme->isArcadeTheme) {
+        if ($this->activeTheme instanceof Theme && $this->activeTheme->isArcadeTheme) {
             app('view')->prependNamespace('shop', __DIR__ . '/../../resources/views/theme');
             app('view')->prependNamespace('core', __DIR__ . '/../../resources/views/webkul/core');
             app('view')->prependNamespace('paypal', __DIR__ . '/../../resources/views/webkul/paypal');

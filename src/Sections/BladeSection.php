@@ -22,7 +22,7 @@ abstract class BladeSection extends Component implements SectionInterface
     public function __construct($arcadeId)
     {
         $this->arcadeId = $arcadeId;
-        $this->context = Arcade::sectionDataCollector()->getSectionData($this->arcadeId);
+        $this->context = Arcade::themeDataCollector()->getSectionData($this->arcadeId);
         $this->section = $this->context->get('section');
     }
 
