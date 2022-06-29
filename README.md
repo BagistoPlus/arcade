@@ -5,6 +5,8 @@
     <a href="https://packagist.org/packages/eldomagan/bagisto-arcade"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/eldomagan/bagisto-arcade.svg?style=flat-square"></a>
 </p>
 
+# THIS IS A WORK IN PROGRESS DON'T USE IT IN PRODUCTION (YET)
+
 # Bagisto Arcade
 
 A theme framework and theme editor for Bagisto e-commerce framework.
