@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
+use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\Theme\ThemeManager;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\ServiceProvider;
@@ -91,6 +92,7 @@ abstract class ThemeServiceProvider extends ServiceProvider
                 'support_url' => $this->supportUrl,
                 'views_path' => '',
                 'arcade_theme' => true,
+                'settings' => $this->settings()
             ];
         }
 
@@ -98,12 +100,6 @@ abstract class ThemeServiceProvider extends ServiceProvider
     }
 
     public function boot()
-    {
-        $theme = app(ThemeManager::class)->find($this->code);
-        $theme->setAttribute('settings', $this->settings());
-    }
-
-    public function register()
     {
         $this->mergeConfigFromArray('themes.themes', [
             $this->code => $this->getThemeConfig(),

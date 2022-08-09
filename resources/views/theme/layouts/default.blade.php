@@ -10,7 +10,7 @@
   <head>
     @include('shop::partials.head')
   </head>
-  <body class="{{ $direction }} text-gray-700" style="scroll-behavior: smooth;">
+  <body class="{{ $direction }} bg-background text-on-background" style="scroll-behavior: smooth;">
 
     <arcade:section name="arcade-announcement-bar" />
     <arcade:section name="arcade-header" />

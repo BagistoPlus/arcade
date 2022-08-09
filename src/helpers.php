@@ -5,6 +5,7 @@ use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductFlatRepository;
+use Spatie\Color\Hex;
 
 if (! function_exists('arcade')) {
     function arcade()
@@ -46,5 +47,13 @@ if (! function_exists('arcade_clear_inline_styles')) {
     function arcade_clear_inline_styles($html)
     {
         return preg_replace('#(<[a-z0-6 ]*)(style=("|\')(.*?)("|\'))([a-z ]*>)#', '\\1\\6', $html);
+    }
+}
+
+if (! function_exists('arcade_color_rbg_vars')) {
+    function arcade_color_rbg_vars($hexColor) {
+        $color = Hex::fromString($hexColor)->toRgb();
+
+        return $color->red() . ',' . $color->green() . ',' . $color->blue();
     }
 }

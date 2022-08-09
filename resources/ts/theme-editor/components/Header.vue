@@ -1,15 +1,12 @@
 <template>
   <div class="h-16 flex items-center shadow bg-white">
     <div class="w-80 h-full items-center flex-none flex">
-      <button
-        class="hover:bg-gray-100 px-6 focus:outline-none h-full"
-        @click="$emit('exit')"
-      >
+      <button class="hover:bg-gray-100 px-6 focus:outline-none h-full" @click="$emit('exit')">
         <mdicon name="exit-to-app" class="transform rotate-180 block" />
       </button>
 
       <div class="flex-1 px-4 border-l border-r">
-        <h1 class="font-medium">Theme Editor</h1>
+        <h1 class="font-medium">{{ t("app_title") }}</h1>
         <h2 class="text-gray-700">{{ themeName }}</h2>
       </div>
     </div>
@@ -37,9 +34,7 @@
       </div>
 
       <div class="flex-1 items-center justify-end flex px-4">
-        <div
-          class="border-l border-r h-16 flex items-center mx-4 px-4 space-x-2"
-        >
+        <div class="border-l border-r h-16 flex items-center mx-4 px-4 space-x-2">
           <button
             title="Undo"
             class="p-2 rounded hover:bg-gray-100"
@@ -68,7 +63,7 @@
           "
           @click="$emit('publish')"
         >
-          Publish
+          {{ t("publish") }}
         </button>
       </div>
     </div>
@@ -78,6 +73,7 @@
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
 import TemplateSelector from "./TemplateSelector.vue";
+import { useLang } from "../lang";
 
 export default defineComponent({
   components: {
@@ -122,13 +118,14 @@ export default defineComponent({
   },
 
   setup() {
+    const { t } = useLang();
     const viewModes = [
       { mode: "desktop", icon: "desktop-mac", text: "Desktop" },
       { mode: "mobile", icon: "cellphone", text: "Mobile" },
       { mode: "fullscreen", icon: "arrow-expand", text: "Fullscreen" },
     ];
 
-    return { viewModes };
+    return { t, viewModes };
   },
 });
 </script>

@@ -16,12 +16,12 @@
           @click="$emit('pickImage')"
         >
           <mdicon width="16" height="16" name="pencil" class="inline mr-2" />
-          Update Image
+          {{ t("Update Image") }}
         </button>
       </div>
       <div v-else class="p-4 rounded bg-gray-100 text-center">
         <button class="bg-white rounded border px-3 py-2" @click="$emit('pickImage')">
-          Select Image
+          {{ t("Select Image") }}
         </button>
       </div>
     </div>
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
+import { useLang } from "../../lang";
 
 export default defineComponent({
   props: {
@@ -45,6 +46,7 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
+    const { t } = useLang();
     function imageUrl(path: string) {
       return Arcade.imagesBaseUrl + path;
     }
@@ -54,6 +56,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       imageUrl,
       removeImage,
     };

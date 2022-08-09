@@ -1,7 +1,7 @@
 <template>
   <div class="absolute overflow-y-hidden top-0 left-0 h-full w-full flex flex-col border bg-white">
     <div class="flex-none flex justify-between border-b pl-4 pr-2 py-3">
-      <h3 class="text-lg font-medium">Select product</h3>
+      <h3 class="text-lg font-medium">{{ t("Select product") }}</h3>
       <button
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
         @click="onCancel"
@@ -64,7 +64,7 @@
         "
         @click="onSelectProduct"
       >
-        Select this product
+        {{ t("Select this product") }}
       </button>
     </div>
   </div>
@@ -75,10 +75,12 @@ import { defineComponent, ref, computed } from "@vue/composition-api";
 import debounce from "lodash/debounce";
 import { useFetchProducts } from "../api";
 import { useStore } from "../store";
+import { useLang } from "../lang";
 
 export default defineComponent({
   setup() {
     const store = useStore();
+    const { t } = useLang();
     const selectedProduct = ref<any>(store.activePickerValue);
     const search = ref("");
     const { data, isFetching, execute } = useFetchProducts();
@@ -113,6 +115,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       search,
       selectedProduct,
       isFetching,

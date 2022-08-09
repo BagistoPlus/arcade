@@ -1,4 +1,4 @@
-<footer class="bg-gray-100">
+<footer class="bg-surface-variant text-on-surface-variant">
   <div class="container py-10">
     <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       @foreach($section->blocks as $block)

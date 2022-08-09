@@ -1,6 +1,6 @@
 <div x-data="{ searchFormOpen: window.innerWidth >= 992, mobileMenuOpen: false }">
-  <header>
-    <nav class="relative border-b">
+  <header class="bg-surface text-on-surface">
+    <nav class="relative">
       <div class="lg:container flex items-center">
         <button class="flex-none p-4 lg:hidden" x-on:click="mobileMenuOpen = true">
           <x-heroicon-o-menu class="w-5 h-5" />
@@ -18,8 +18,9 @@
         </div>
 
         <form
+          x-cloak
           x-show="searchFormOpen"
-          class="flex absolute inset-0 w-full h-full bg-white z-20 lg:static lg:w-auto lg:h-auto"
+          class="flex absolute inset-0 w-full h-full bg-surface text-on-surface z-20 lg:static lg:w-auto lg:h-auto focus-within:ring-2 focus-within:ring-primary md:focus-within:ring-0"
           action="{{ route('shop.search.index') }}">
           @preserve_query_string
           <button type="button" aria-label="back" class="p-4 flex-none lg:hidden" x-on:click="searchFormOpen = false">
@@ -28,12 +29,13 @@
 
           <input
             x-ref="mobileSearchInput"
-            class="flex-1 focus:outline-none lg:px-4 lg:ml-10 lg:w-96 lg:border"
+            type="text"
+            class="flex-1 border-transparent md:border-outline/20 focus:ring-0 focus:border-0 md:focus:ring-1 md:focus:border lg:px-4 lg:ml-10 lg:w-96 lg:rounded-r-none"
             placeholder="Search our store"
             name="term"
             value="{{ request('term') }}">
 
-          <button type="submit" aria-label="search" class="p-4 lg:p-2 flex-none text-primary lg:text-gray-500 lg:border lg:border-l-0">
+          <button type="submit" aria-label="search" class="p-4 lg:p-2 lg:-ml-1 lg:pl-4 flex-none lg:rounded lg:rounded-l-none lg:border border-outline/20 lg:border-l-0 focus:outline-primary">
             <x-heroicon-o-search class="w-5 h-5" />
           </button>
         </form>
@@ -57,10 +59,10 @@
           @arcade_slot('bagisto.shop.layout.header.cart-item.after')
         </div>
       </div>
-      <div class="hidden lg:block bg-gray-100 border-t">
+      <div class="hidden lg:block bg-surface-variant/50 text-on-surface-variant">
         <div class="container flex space-x-1">
           @foreach($categories as $category)
-            <a href="{{ url()->to($category->translations[0]->url_path) }}" class="flex items-center px-4 py-3 font-medium border-b-2 border-transparent hover:border-black">
+            <a href="{{ url()->to($category->translations[0]->url_path) }}" class="flex items-center px-4 py-3 font-medium border-b-2 border-transparent hover:border-on-background">
               {{ $category->name }}
             </a>
           @endforeach

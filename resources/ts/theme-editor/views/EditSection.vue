@@ -14,7 +14,7 @@
 
     <div class="flex-1 p-3 overflow-y-auto">
       <section v-if="Object.keys(groupedSettings).length > 0" class="space-y-3">
-        <h3 class="font-medium">Settings</h3>
+        <h3 class="font-medium">{{ t("Settings") }}</h3>
         <template v-if="groupedSettings.default">
           <settings-group
             :settings="groupedSettings.default"
@@ -44,12 +44,12 @@
         </template>
       </section>
 
-      <p v-else>This section has no configuration</p>
+      <p v-else>{{ t("This section has no configuration") }}</p>
 
       <template v-if="section.blocks.length > 0">
         <hr class="-mx-3 my-4 border-gray-300" />
         <section class="">
-          <h3 class="font-semibold">Blocks</h3>
+          <h3 class="font-semibold">{{ t("Blocks") }}</h3>
 
           <block-list
             class="mt-2"
@@ -67,7 +67,7 @@
               class="block w-full border bg-primary bg-opacity-75 text-white p-2 rounded hover:bg-opacity-90 focus:outline-none"
               @click="onAddBlock(remainingBlocks[0])"
             >
-              Add {{ remainingBlocks[0].name }}
+              {{ t("Add") }} {{ remainingBlocks[0].name }}
             </button>
             <div v-else>
               <popover
@@ -80,7 +80,7 @@
                     type="button"
                     class="block w-full rounded px-3 py-2 bg-primary text-white"
                   >
-                    Add a block
+                    {{ t("Add a block") }}
                   </button>
                 </template>
                 <template v-slot="{ close }">
@@ -109,7 +109,7 @@
     <footer v-if="isRemovable" class="flex-none border-t border-gray-300">
       <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100" @click="onRemoveSection">
         <mdicon name="trash-can-outline" class="inline mr-2" />
-        Remove section
+        {{ t("Remove section") }}
       </button>
     </footer>
   </div>
@@ -117,10 +117,11 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "@vue/composition-api";
-import { useRoute, useRouter } from "vue2-helpers/vue-router";
+import { useRouter } from "vue2-helpers/vue-router";
 
 import { groupSettings } from "../utils";
 import { useStore } from "../store";
+import { useLang } from "../lang";
 
 import SettingsGroup from "../components/SettingsGroup.vue";
 import BlockList from "../components/BlockList.vue";
@@ -134,6 +135,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const { t } = useLang();
 
     const sectionData = computed(() =>
       store.themeDataValue(`sections.${router.currentRoute.params.sectionId}`)
@@ -216,6 +218,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       section,
       sectionData,
       isRemovable,

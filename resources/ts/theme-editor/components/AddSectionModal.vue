@@ -36,7 +36,7 @@
           class="flex flex-col bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-full max-w-2xl h-[90%]"
         >
           <div class="px-4 py-4 flex-none flex border-b rounded-t bg-gray-50">
-            <h3 class="flex-1 text-xl">Add a new section</h3>
+            <h3 class="flex-1 text-xl">{{ t("Add a new section") }}</h3>
             <button
               class="flex-none w-7 h-7 ml-4 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
               @click="opened = false"
@@ -56,14 +56,8 @@
               />
             </div>
             <div class="flex-1 p-6 overflow-y-auto">
-              <div
-                v-for="(sections, vendor) in groupedByVendor"
-                :key="vendor"
-                class="mb-4"
-              >
-                <h4 class="sticky capitalize mb-2 font-medium">
-                  From {{ vendor }}
-                </h4>
+              <div v-for="(sections, vendor) in groupedByVendor" :key="vendor" class="mb-4">
+                <h4 class="sticky capitalize mb-2 font-medium">{{ t("From") }} {{ vendor }}</h4>
                 <div class="grid grid-cols-2 gap-6">
                   <div
                     v-for="section in sections"
@@ -92,8 +86,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "@vue/composition-api";
 import sortBy from "lodash/sortBy";
+import { computed, defineComponent, ref, watch } from "@vue/composition-api";
+import { useLang } from "../lang";
 import { Section } from "../types";
 import TextInput from "./Types/TextType.vue";
 
@@ -112,12 +107,11 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
+    const { t } = useLang();
     const opened = ref(props.active);
     const search = ref("");
 
-    const allSections = computed(() =>
-      sortBy(props.sections, ["label"], ["asc"])
-    );
+    const allSections = computed(() => sortBy(props.sections, ["label"], ["asc"]));
 
     const filteredSections = computed(() => {
       if (!search.value) {
@@ -169,6 +163,7 @@ export default defineComponent({
     );
 
     return {
+      t,
       opened,
       search,
       groupedByVendor,

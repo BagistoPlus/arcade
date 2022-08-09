@@ -5,6 +5,7 @@ namespace EldoMagan\BagistoArcade\Http\Controllers\Admin;
 use EldoMagan\BagistoArcade\Http\Controllers\Controller;
 use EldoMagan\BagistoArcade\ThemePersister;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 
 class ThemeController extends Controller
@@ -34,6 +35,7 @@ class ThemeController extends Controller
             'theme' => $theme,
             'storefrontUrl' => url('/') . '?' . http_build_query(['designMode' => $code]),
             'imagesBaseUrl' => Storage::disk(config('arcade.images_storage'))->url(''),
+            'messages' => Lang::get('arcade::theme-editor')
         ]);
     }
 

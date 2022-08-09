@@ -20,6 +20,7 @@ Vue.use(ColorPanel);
 Vue.config.productionTip = false;
 
 const pinia = createPinia();
+
 new Vue({
   pinia,
   router,

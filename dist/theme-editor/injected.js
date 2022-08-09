@@ -1,1 +1,1018 @@
-(()=>{"use strict";var e;var t="undefined"==typeof document?void 0:document,n=!!t&&"content"in t.createElement("template"),i=!!t&&t.createRange&&"createContextualFragment"in t.createRange();function o(o){return o=o.trim(),n?function(e){var n=t.createElement("template");return n.innerHTML=e,n.content.childNodes[0]}(o):i?function(n){return e||(e=t.createRange()).selectNode(t.body),e.createContextualFragment(n).childNodes[0]}(o):function(e){var n=t.createElement("body");return n.innerHTML=e,n.childNodes[0]}(o)}function a(e,t){var n,i,o=e.nodeName,a=t.nodeName;return o===a||(n=o.charCodeAt(0),i=a.charCodeAt(0),n<=90&&i>=97?o===a.toUpperCase():i<=90&&n>=97&&a===o.toUpperCase())}function r(e,t,n){e[n]!==t[n]&&(e[n]=t[n],e[n]?e.setAttribute(n,""):e.removeAttribute(n))}var c={OPTION:function(e,t){var n=e.parentNode;if(n){var i=n.nodeName.toUpperCase();"OPTGROUP"===i&&(i=(n=n.parentNode)&&n.nodeName.toUpperCase()),"SELECT"!==i||n.hasAttribute("multiple")||(e.hasAttribute("selected")&&!t.selected&&(e.setAttribute("selected","selected"),e.removeAttribute("selected")),n.selectedIndex=-1)}r(e,t,"selected")},INPUT:function(e,t){r(e,t,"checked"),r(e,t,"disabled"),e.value!==t.value&&(e.value=t.value),t.hasAttribute("value")||e.removeAttribute("value")},TEXTAREA:function(e,t){var n=t.value;e.value!==n&&(e.value=n);var i=e.firstChild;if(i){var o=i.nodeValue;if(o==n||!n&&o==e.placeholder)return;i.nodeValue=n}},SELECT:function(e,t){if(!t.hasAttribute("multiple")){for(var n,i,o=-1,a=0,r=e.firstChild;r;)if("OPTGROUP"===(i=r.nodeName&&r.nodeName.toUpperCase()))r=(n=r).firstChild;else{if("OPTION"===i){if(r.hasAttribute("selected")){o=a;break}a++}!(r=r.nextSibling)&&n&&(r=n.nextSibling,n=null)}e.selectedIndex=o}}};function l(){}function s(e){if(e)return e.getAttribute&&e.getAttribute("id")||e.id}var d=function(e){return function(n,i,r){if(r||(r={}),"string"==typeof i)if("#document"===n.nodeName||"HTML"===n.nodeName||"BODY"===n.nodeName){var d=i;(i=t.createElement("html")).innerHTML=d}else i=o(i);var u=r.getNodeKey||s,v=r.onBeforeNodeAdded||l,f=r.onNodeAdded||l,h=r.onBeforeElUpdated||l,p=r.onElUpdated||l,m=r.onBeforeNodeDiscarded||l,y=r.onNodeDiscarded||l,S=r.onBeforeElChildrenUpdated||l,b=!0===r.childrenOnly,w=Object.create(null),g=[];function A(e){g.push(e)}function N(e,t){if(1===e.nodeType)for(var n=e.firstChild;n;){var i=void 0;t&&(i=u(n))?A(i):(y(n),n.firstChild&&N(n,t)),n=n.nextSibling}}function E(e,t,n){!1!==m(e)&&(t&&t.removeChild(e),y(e),N(e,n))}function O(e){f(e);for(var t=e.firstChild;t;){var n=t.nextSibling,i=u(t);if(i){var o=w[i];o&&a(t,o)?(t.parentNode.replaceChild(o,t),T(o,t)):O(t)}else O(t);t=n}}function T(n,i,o){var r=u(i);if(r&&delete w[r],!o){if(!1===h(n,i))return;if(e(n,i),p(n),!1===S(n,i))return}"TEXTAREA"!==n.nodeName?function(e,n){var i,o,r,l,s,d=n.firstChild,f=e.firstChild;e:for(;d;){for(l=d.nextSibling,i=u(d);f;){if(r=f.nextSibling,d.isSameNode&&d.isSameNode(f)){d=l,f=r;continue e}o=u(f);var h=f.nodeType,p=void 0;if(h===d.nodeType&&(1===h?(i?i!==o&&((s=w[i])?r===s?p=!1:(e.insertBefore(s,f),o?A(o):E(f,e,!0),f=s):p=!1):o&&(p=!1),(p=!1!==p&&a(f,d))&&T(f,d)):3!==h&&8!=h||(p=!0,f.nodeValue!==d.nodeValue&&(f.nodeValue=d.nodeValue))),p){d=l,f=r;continue e}o?A(o):E(f,e,!0),f=r}if(i&&(s=w[i])&&a(s,d))e.appendChild(s),T(s,d);else{var m=v(d);!1!==m&&(m&&(d=m),d.actualize&&(d=d.actualize(e.ownerDocument||t)),e.appendChild(d),O(d))}d=l,f=r}!function(e,t,n){for(;t;){var i=t.nextSibling;(n=u(t))?A(n):E(t,e,!0),t=i}}(e,f,o);var y=c[e.nodeName];y&&y(e,n)}(n,i):c.TEXTAREA(n,i)}!function e(t){if(1===t.nodeType||11===t.nodeType)for(var n=t.firstChild;n;){var i=u(n);i&&(w[i]=n),e(n),n=n.nextSibling}}(n);var C,k,I=n,x=I.nodeType,L=i.nodeType;if(!b)if(1===x)1===L?a(n,i)||(y(n),I=function(e,t){for(var n=e.firstChild;n;){var i=n.nextSibling;t.appendChild(n),n=i}return t}(n,(C=i.nodeName,(k=i.namespaceURI)&&"http://www.w3.org/1999/xhtml"!==k?t.createElementNS(k,C):t.createElement(C)))):I=i;else if(3===x||8===x){if(L===x)return I.nodeValue!==i.nodeValue&&(I.nodeValue=i.nodeValue),I;I=i}if(I===i)y(n);else{if(i.isSameNode&&i.isSameNode(I))return;if(T(I,i,b),g)for(var M=0,U=g.length;M<U;M++){var D=w[g[M]];D&&E(D,D.parentNode,!1)}}return!b&&I!==n&&n.parentNode&&(I.actualize&&(I=I.actualize(n.ownerDocument||t)),n.parentNode.replaceChild(I,n)),I}}((function(e,t){var n,i,o,a,r=t.attributes;if(11!==t.nodeType&&11!==e.nodeType){for(var c=r.length-1;c>=0;c--)i=(n=r[c]).name,o=n.namespaceURI,a=n.value,o?(i=n.localName||i,e.getAttributeNS(o,i)!==a&&("xmlns"===n.prefix&&(i=n.name),e.setAttributeNS(o,i,a))):e.getAttribute(i)!==a&&e.setAttribute(i,a);for(var l=e.attributes,s=l.length-1;s>=0;s--)i=(n=l[s]).name,(o=n.namespaceURI)?(i=n.localName||i,t.hasAttributeNS(o,i)||e.removeAttributeNS(o,i)):t.hasAttribute(i)||e.removeAttribute(i)}}));const u=d;function v(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}function f(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}window.addEventListener("DOMContentLoaded",(function(){var e=new h;e.init(),Object.keys(window.themeData.sections).forEach((function(e){var t=window.themeData.sections[e];Array.isArray(t.blocks)&&(t.blocks={},t.blocks_order=[])})),e.postMessage("init",{themeData:window.themeData,themeSettings:window.themeSettings,availableSections:window.availableSections,templates:window.templates,models:window.initialState}),window.addEventListener("message",(function(t){switch(t.data.type){case"activateSection":var n=document.querySelector('[data-section-id="'.concat(t.data.data,'"]'));e.activateSection(n),n.scrollIntoView({behavior:"smooth"});break;case"clearActiveSection":e.clearActiveSection();break;case"refresh":e.refreshPreviewer(t.data.data)}}))}));var h=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),f(this,"sectionOverlay",void 0),f(this,"activeSectionId",null)}var t,n,i;return t=e,(n=[{key:"init",value:function(){var e,t,n,i,o,a=this;this.sectionOverlay=document.querySelector("#section-overlay"),document.querySelectorAll(".arcade-section").forEach((function(e){e.addEventListener("mouseover",a.onSectionHover.bind(a,e)),e.addEventListener("mouseleave",(function(t){var n;t.toElement&&"section-overlay"===(null===(n=t.toElement.parentElement)||void 0===n?void 0:n.id)||a.onSectionBlur.call(a,e)}))})),this.sectionOverlay.querySelectorAll(".btn").forEach((function(e){e.addEventListener("mouseenter",(function(){a.sectionOverlay.style.display="block"}))})),null===(e=this.sectionOverlay.querySelector("#move-up"))||void 0===e||e.addEventListener("click",this.onMoveActiveSectionUp.bind(this)),null===(t=this.sectionOverlay.querySelector("#move-down"))||void 0===t||t.addEventListener("click",this.onMoveActiveSectionDown.bind(this)),null===(n=this.sectionOverlay.querySelector("#edit"))||void 0===n||n.addEventListener("click",this.onEditActiveSection.bind(this)),null===(i=this.sectionOverlay.querySelector("#disable"))||void 0===i||i.addEventListener("click",this.onToggleSection.bind(this)),null===(o=this.sectionOverlay.querySelector("#remove"))||void 0===o||o.addEventListener("click",this.onRemoveActiveSection.bind(this))}},{key:"postMessage",value:function(e,t){window.parent.postMessage({type:e,data:t},window.origin)}},{key:"activateSection",value:function(e){this.activeSectionId=e.dataset.sectionId,this.sectionOverlay.style.width=e.offsetWidth+"px",this.sectionOverlay.style.height=e.offsetHeight+"px",this.sectionOverlay.style.left=e.offsetLeft+"px",this.sectionOverlay.style.top=e.offsetTop+"px",this.sectionOverlay.style.display="block"}},{key:"clearActiveSection",value:function(){this.activeSectionId=null,this.sectionOverlay.style.display="none"}},{key:"onSectionHover",value:function(e){this.activeSectionId!==e.dataset.sectionId&&(this.activateSection(e),this.postMessage("activateSection",e.dataset.sectionId))}},{key:"onSectionBlur",value:function(e){this.activeSectionId===e.dataset.sectionId&&this.clearActiveSection()}},{key:"onMoveActiveSectionUp",value:function(){this.postMessage("moveSectionUp",this.activeSectionId)}},{key:"onMoveActiveSectionDown",value:function(){this.postMessage("moveSectionDown",this.activeSectionId)}},{key:"onEditActiveSection",value:function(){this.postMessage("editSection",this.activeSectionId)}},{key:"onToggleSection",value:function(){console.log(this.activeSectionId),this.postMessage("toggleSection",this.activeSectionId)}},{key:"onRemoveActiveSection",value:function(){this.postMessage("removeSection",this.activeSectionId)}},{key:"refreshPreviewer",value:function(e){var t=(new DOMParser).parseFromString(e,"text/html");u(document.querySelector("body"),t.querySelector("body")),window.Livewire&&window.Livewire.rescan(),window.Alpine&&window.Alpine.initTree(document.body)}}])&&v(t.prototype,n),i&&v(t,i),Object.defineProperty(t,"prototype",{writable:!1}),e}()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./node_modules/morphdom/dist/morphdom-esm.js":
+/*!****************************************************!*\
+  !*** ./node_modules/morphdom/dist/morphdom-esm.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var DOCUMENT_FRAGMENT_NODE = 11;
+
+function morphAttrs(fromNode, toNode) {
+    var toNodeAttrs = toNode.attributes;
+    var attr;
+    var attrName;
+    var attrNamespaceURI;
+    var attrValue;
+    var fromValue;
+
+    // document-fragments dont have attributes so lets not do anything
+    if (toNode.nodeType === DOCUMENT_FRAGMENT_NODE || fromNode.nodeType === DOCUMENT_FRAGMENT_NODE) {
+      return;
+    }
+
+    // update attributes on original DOM element
+    for (var i = toNodeAttrs.length - 1; i >= 0; i--) {
+        attr = toNodeAttrs[i];
+        attrName = attr.name;
+        attrNamespaceURI = attr.namespaceURI;
+        attrValue = attr.value;
+
+        if (attrNamespaceURI) {
+            attrName = attr.localName || attrName;
+            fromValue = fromNode.getAttributeNS(attrNamespaceURI, attrName);
+
+            if (fromValue !== attrValue) {
+                if (attr.prefix === 'xmlns'){
+                    attrName = attr.name; // It's not allowed to set an attribute with the XMLNS namespace without specifying the `xmlns` prefix
+                }
+                fromNode.setAttributeNS(attrNamespaceURI, attrName, attrValue);
+            }
+        } else {
+            fromValue = fromNode.getAttribute(attrName);
+
+            if (fromValue !== attrValue) {
+                fromNode.setAttribute(attrName, attrValue);
+            }
+        }
+    }
+
+    // Remove any extra attributes found on the original DOM element that
+    // weren't found on the target element.
+    var fromNodeAttrs = fromNode.attributes;
+
+    for (var d = fromNodeAttrs.length - 1; d >= 0; d--) {
+        attr = fromNodeAttrs[d];
+        attrName = attr.name;
+        attrNamespaceURI = attr.namespaceURI;
+
+        if (attrNamespaceURI) {
+            attrName = attr.localName || attrName;
+
+            if (!toNode.hasAttributeNS(attrNamespaceURI, attrName)) {
+                fromNode.removeAttributeNS(attrNamespaceURI, attrName);
+            }
+        } else {
+            if (!toNode.hasAttribute(attrName)) {
+                fromNode.removeAttribute(attrName);
+            }
+        }
+    }
+}
+
+var range; // Create a range object for efficently rendering strings to elements.
+var NS_XHTML = 'http://www.w3.org/1999/xhtml';
+
+var doc = typeof document === 'undefined' ? undefined : document;
+var HAS_TEMPLATE_SUPPORT = !!doc && 'content' in doc.createElement('template');
+var HAS_RANGE_SUPPORT = !!doc && doc.createRange && 'createContextualFragment' in doc.createRange();
+
+function createFragmentFromTemplate(str) {
+    var template = doc.createElement('template');
+    template.innerHTML = str;
+    return template.content.childNodes[0];
+}
+
+function createFragmentFromRange(str) {
+    if (!range) {
+        range = doc.createRange();
+        range.selectNode(doc.body);
+    }
+
+    var fragment = range.createContextualFragment(str);
+    return fragment.childNodes[0];
+}
+
+function createFragmentFromWrap(str) {
+    var fragment = doc.createElement('body');
+    fragment.innerHTML = str;
+    return fragment.childNodes[0];
+}
+
+/**
+ * This is about the same
+ * var html = new DOMParser().parseFromString(str, 'text/html');
+ * return html.body.firstChild;
+ *
+ * @method toElement
+ * @param {String} str
+ */
+function toElement(str) {
+    str = str.trim();
+    if (HAS_TEMPLATE_SUPPORT) {
+      // avoid restrictions on content for things like `<tr><th>Hi</th></tr>` which
+      // createContextualFragment doesn't support
+      // <template> support not available in IE
+      return createFragmentFromTemplate(str);
+    } else if (HAS_RANGE_SUPPORT) {
+      return createFragmentFromRange(str);
+    }
+
+    return createFragmentFromWrap(str);
+}
+
+/**
+ * Returns true if two node's names are the same.
+ *
+ * NOTE: We don't bother checking `namespaceURI` because you will never find two HTML elements with the same
+ *       nodeName and different namespace URIs.
+ *
+ * @param {Element} a
+ * @param {Element} b The target element
+ * @return {boolean}
+ */
+function compareNodeNames(fromEl, toEl) {
+    var fromNodeName = fromEl.nodeName;
+    var toNodeName = toEl.nodeName;
+    var fromCodeStart, toCodeStart;
+
+    if (fromNodeName === toNodeName) {
+        return true;
+    }
+
+    fromCodeStart = fromNodeName.charCodeAt(0);
+    toCodeStart = toNodeName.charCodeAt(0);
+
+    // If the target element is a virtual DOM node or SVG node then we may
+    // need to normalize the tag name before comparing. Normal HTML elements that are
+    // in the "http://www.w3.org/1999/xhtml"
+    // are converted to upper case
+    if (fromCodeStart <= 90 && toCodeStart >= 97) { // from is upper and to is lower
+        return fromNodeName === toNodeName.toUpperCase();
+    } else if (toCodeStart <= 90 && fromCodeStart >= 97) { // to is upper and from is lower
+        return toNodeName === fromNodeName.toUpperCase();
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Create an element, optionally with a known namespace URI.
+ *
+ * @param {string} name the element name, e.g. 'div' or 'svg'
+ * @param {string} [namespaceURI] the element's namespace URI, i.e. the value of
+ * its `xmlns` attribute or its inferred namespace.
+ *
+ * @return {Element}
+ */
+function createElementNS(name, namespaceURI) {
+    return !namespaceURI || namespaceURI === NS_XHTML ?
+        doc.createElement(name) :
+        doc.createElementNS(namespaceURI, name);
+}
+
+/**
+ * Copies the children of one DOM element to another DOM element
+ */
+function moveChildren(fromEl, toEl) {
+    var curChild = fromEl.firstChild;
+    while (curChild) {
+        var nextChild = curChild.nextSibling;
+        toEl.appendChild(curChild);
+        curChild = nextChild;
+    }
+    return toEl;
+}
+
+function syncBooleanAttrProp(fromEl, toEl, name) {
+    if (fromEl[name] !== toEl[name]) {
+        fromEl[name] = toEl[name];
+        if (fromEl[name]) {
+            fromEl.setAttribute(name, '');
+        } else {
+            fromEl.removeAttribute(name);
+        }
+    }
+}
+
+var specialElHandlers = {
+    OPTION: function(fromEl, toEl) {
+        var parentNode = fromEl.parentNode;
+        if (parentNode) {
+            var parentName = parentNode.nodeName.toUpperCase();
+            if (parentName === 'OPTGROUP') {
+                parentNode = parentNode.parentNode;
+                parentName = parentNode && parentNode.nodeName.toUpperCase();
+            }
+            if (parentName === 'SELECT' && !parentNode.hasAttribute('multiple')) {
+                if (fromEl.hasAttribute('selected') && !toEl.selected) {
+                    // Workaround for MS Edge bug where the 'selected' attribute can only be
+                    // removed if set to a non-empty value:
+                    // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+                    fromEl.setAttribute('selected', 'selected');
+                    fromEl.removeAttribute('selected');
+                }
+                // We have to reset select element's selectedIndex to -1, otherwise setting
+                // fromEl.selected using the syncBooleanAttrProp below has no effect.
+                // The correct selectedIndex will be set in the SELECT special handler below.
+                parentNode.selectedIndex = -1;
+            }
+        }
+        syncBooleanAttrProp(fromEl, toEl, 'selected');
+    },
+    /**
+     * The "value" attribute is special for the <input> element since it sets
+     * the initial value. Changing the "value" attribute without changing the
+     * "value" property will have no effect since it is only used to the set the
+     * initial value.  Similar for the "checked" attribute, and "disabled".
+     */
+    INPUT: function(fromEl, toEl) {
+        syncBooleanAttrProp(fromEl, toEl, 'checked');
+        syncBooleanAttrProp(fromEl, toEl, 'disabled');
+
+        if (fromEl.value !== toEl.value) {
+            fromEl.value = toEl.value;
+        }
+
+        if (!toEl.hasAttribute('value')) {
+            fromEl.removeAttribute('value');
+        }
+    },
+
+    TEXTAREA: function(fromEl, toEl) {
+        var newValue = toEl.value;
+        if (fromEl.value !== newValue) {
+            fromEl.value = newValue;
+        }
+
+        var firstChild = fromEl.firstChild;
+        if (firstChild) {
+            // Needed for IE. Apparently IE sets the placeholder as the
+            // node value and vise versa. This ignores an empty update.
+            var oldValue = firstChild.nodeValue;
+
+            if (oldValue == newValue || (!newValue && oldValue == fromEl.placeholder)) {
+                return;
+            }
+
+            firstChild.nodeValue = newValue;
+        }
+    },
+    SELECT: function(fromEl, toEl) {
+        if (!toEl.hasAttribute('multiple')) {
+            var selectedIndex = -1;
+            var i = 0;
+            // We have to loop through children of fromEl, not toEl since nodes can be moved
+            // from toEl to fromEl directly when morphing.
+            // At the time this special handler is invoked, all children have already been morphed
+            // and appended to / removed from fromEl, so using fromEl here is safe and correct.
+            var curChild = fromEl.firstChild;
+            var optgroup;
+            var nodeName;
+            while(curChild) {
+                nodeName = curChild.nodeName && curChild.nodeName.toUpperCase();
+                if (nodeName === 'OPTGROUP') {
+                    optgroup = curChild;
+                    curChild = optgroup.firstChild;
+                } else {
+                    if (nodeName === 'OPTION') {
+                        if (curChild.hasAttribute('selected')) {
+                            selectedIndex = i;
+                            break;
+                        }
+                        i++;
+                    }
+                    curChild = curChild.nextSibling;
+                    if (!curChild && optgroup) {
+                        curChild = optgroup.nextSibling;
+                        optgroup = null;
+                    }
+                }
+            }
+
+            fromEl.selectedIndex = selectedIndex;
+        }
+    }
+};
+
+var ELEMENT_NODE = 1;
+var DOCUMENT_FRAGMENT_NODE$1 = 11;
+var TEXT_NODE = 3;
+var COMMENT_NODE = 8;
+
+function noop() {}
+
+function defaultGetNodeKey(node) {
+  if (node) {
+      return (node.getAttribute && node.getAttribute('id')) || node.id;
+  }
+}
+
+function morphdomFactory(morphAttrs) {
+
+    return function morphdom(fromNode, toNode, options) {
+        if (!options) {
+            options = {};
+        }
+
+        if (typeof toNode === 'string') {
+            if (fromNode.nodeName === '#document' || fromNode.nodeName === 'HTML' || fromNode.nodeName === 'BODY') {
+                var toNodeHtml = toNode;
+                toNode = doc.createElement('html');
+                toNode.innerHTML = toNodeHtml;
+            } else {
+                toNode = toElement(toNode);
+            }
+        }
+
+        var getNodeKey = options.getNodeKey || defaultGetNodeKey;
+        var onBeforeNodeAdded = options.onBeforeNodeAdded || noop;
+        var onNodeAdded = options.onNodeAdded || noop;
+        var onBeforeElUpdated = options.onBeforeElUpdated || noop;
+        var onElUpdated = options.onElUpdated || noop;
+        var onBeforeNodeDiscarded = options.onBeforeNodeDiscarded || noop;
+        var onNodeDiscarded = options.onNodeDiscarded || noop;
+        var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
+        var childrenOnly = options.childrenOnly === true;
+
+        // This object is used as a lookup to quickly find all keyed elements in the original DOM tree.
+        var fromNodesLookup = Object.create(null);
+        var keyedRemovalList = [];
+
+        function addKeyedRemoval(key) {
+            keyedRemovalList.push(key);
+        }
+
+        function walkDiscardedChildNodes(node, skipKeyedNodes) {
+            if (node.nodeType === ELEMENT_NODE) {
+                var curChild = node.firstChild;
+                while (curChild) {
+
+                    var key = undefined;
+
+                    if (skipKeyedNodes && (key = getNodeKey(curChild))) {
+                        // If we are skipping keyed nodes then we add the key
+                        // to a list so that it can be handled at the very end.
+                        addKeyedRemoval(key);
+                    } else {
+                        // Only report the node as discarded if it is not keyed. We do this because
+                        // at the end we loop through all keyed elements that were unmatched
+                        // and then discard them in one final pass.
+                        onNodeDiscarded(curChild);
+                        if (curChild.firstChild) {
+                            walkDiscardedChildNodes(curChild, skipKeyedNodes);
+                        }
+                    }
+
+                    curChild = curChild.nextSibling;
+                }
+            }
+        }
+
+        /**
+         * Removes a DOM node out of the original DOM
+         *
+         * @param  {Node} node The node to remove
+         * @param  {Node} parentNode The nodes parent
+         * @param  {Boolean} skipKeyedNodes If true then elements with keys will be skipped and not discarded.
+         * @return {undefined}
+         */
+        function removeNode(node, parentNode, skipKeyedNodes) {
+            if (onBeforeNodeDiscarded(node) === false) {
+                return;
+            }
+
+            if (parentNode) {
+                parentNode.removeChild(node);
+            }
+
+            onNodeDiscarded(node);
+            walkDiscardedChildNodes(node, skipKeyedNodes);
+        }
+
+        // // TreeWalker implementation is no faster, but keeping this around in case this changes in the future
+        // function indexTree(root) {
+        //     var treeWalker = document.createTreeWalker(
+        //         root,
+        //         NodeFilter.SHOW_ELEMENT);
+        //
+        //     var el;
+        //     while((el = treeWalker.nextNode())) {
+        //         var key = getNodeKey(el);
+        //         if (key) {
+        //             fromNodesLookup[key] = el;
+        //         }
+        //     }
+        // }
+
+        // // NodeIterator implementation is no faster, but keeping this around in case this changes in the future
+        //
+        // function indexTree(node) {
+        //     var nodeIterator = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT);
+        //     var el;
+        //     while((el = nodeIterator.nextNode())) {
+        //         var key = getNodeKey(el);
+        //         if (key) {
+        //             fromNodesLookup[key] = el;
+        //         }
+        //     }
+        // }
+
+        function indexTree(node) {
+            if (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE$1) {
+                var curChild = node.firstChild;
+                while (curChild) {
+                    var key = getNodeKey(curChild);
+                    if (key) {
+                        fromNodesLookup[key] = curChild;
+                    }
+
+                    // Walk recursively
+                    indexTree(curChild);
+
+                    curChild = curChild.nextSibling;
+                }
+            }
+        }
+
+        indexTree(fromNode);
+
+        function handleNodeAdded(el) {
+            onNodeAdded(el);
+
+            var curChild = el.firstChild;
+            while (curChild) {
+                var nextSibling = curChild.nextSibling;
+
+                var key = getNodeKey(curChild);
+                if (key) {
+                    var unmatchedFromEl = fromNodesLookup[key];
+                    // if we find a duplicate #id node in cache, replace `el` with cache value
+                    // and morph it to the child node.
+                    if (unmatchedFromEl && compareNodeNames(curChild, unmatchedFromEl)) {
+                        curChild.parentNode.replaceChild(unmatchedFromEl, curChild);
+                        morphEl(unmatchedFromEl, curChild);
+                    } else {
+                      handleNodeAdded(curChild);
+                    }
+                } else {
+                  // recursively call for curChild and it's children to see if we find something in
+                  // fromNodesLookup
+                  handleNodeAdded(curChild);
+                }
+
+                curChild = nextSibling;
+            }
+        }
+
+        function cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey) {
+            // We have processed all of the "to nodes". If curFromNodeChild is
+            // non-null then we still have some from nodes left over that need
+            // to be removed
+            while (curFromNodeChild) {
+                var fromNextSibling = curFromNodeChild.nextSibling;
+                if ((curFromNodeKey = getNodeKey(curFromNodeChild))) {
+                    // Since the node is keyed it might be matched up later so we defer
+                    // the actual removal to later
+                    addKeyedRemoval(curFromNodeKey);
+                } else {
+                    // NOTE: we skip nested keyed nodes from being removed since there is
+                    //       still a chance they will be matched up later
+                    removeNode(curFromNodeChild, fromEl, true /* skip keyed nodes */);
+                }
+                curFromNodeChild = fromNextSibling;
+            }
+        }
+
+        function morphEl(fromEl, toEl, childrenOnly) {
+            var toElKey = getNodeKey(toEl);
+
+            if (toElKey) {
+                // If an element with an ID is being morphed then it will be in the final
+                // DOM so clear it out of the saved elements collection
+                delete fromNodesLookup[toElKey];
+            }
+
+            if (!childrenOnly) {
+                // optional
+                if (onBeforeElUpdated(fromEl, toEl) === false) {
+                    return;
+                }
+
+                // update attributes on original DOM element first
+                morphAttrs(fromEl, toEl);
+                // optional
+                onElUpdated(fromEl);
+
+                if (onBeforeElChildrenUpdated(fromEl, toEl) === false) {
+                    return;
+                }
+            }
+
+            if (fromEl.nodeName !== 'TEXTAREA') {
+              morphChildren(fromEl, toEl);
+            } else {
+              specialElHandlers.TEXTAREA(fromEl, toEl);
+            }
+        }
+
+        function morphChildren(fromEl, toEl) {
+            var curToNodeChild = toEl.firstChild;
+            var curFromNodeChild = fromEl.firstChild;
+            var curToNodeKey;
+            var curFromNodeKey;
+
+            var fromNextSibling;
+            var toNextSibling;
+            var matchingFromEl;
+
+            // walk the children
+            outer: while (curToNodeChild) {
+                toNextSibling = curToNodeChild.nextSibling;
+                curToNodeKey = getNodeKey(curToNodeChild);
+
+                // walk the fromNode children all the way through
+                while (curFromNodeChild) {
+                    fromNextSibling = curFromNodeChild.nextSibling;
+
+                    if (curToNodeChild.isSameNode && curToNodeChild.isSameNode(curFromNodeChild)) {
+                        curToNodeChild = toNextSibling;
+                        curFromNodeChild = fromNextSibling;
+                        continue outer;
+                    }
+
+                    curFromNodeKey = getNodeKey(curFromNodeChild);
+
+                    var curFromNodeType = curFromNodeChild.nodeType;
+
+                    // this means if the curFromNodeChild doesnt have a match with the curToNodeChild
+                    var isCompatible = undefined;
+
+                    if (curFromNodeType === curToNodeChild.nodeType) {
+                        if (curFromNodeType === ELEMENT_NODE) {
+                            // Both nodes being compared are Element nodes
+
+                            if (curToNodeKey) {
+                                // The target node has a key so we want to match it up with the correct element
+                                // in the original DOM tree
+                                if (curToNodeKey !== curFromNodeKey) {
+                                    // The current element in the original DOM tree does not have a matching key so
+                                    // let's check our lookup to see if there is a matching element in the original
+                                    // DOM tree
+                                    if ((matchingFromEl = fromNodesLookup[curToNodeKey])) {
+                                        if (fromNextSibling === matchingFromEl) {
+                                            // Special case for single element removals. To avoid removing the original
+                                            // DOM node out of the tree (since that can break CSS transitions, etc.),
+                                            // we will instead discard the current node and wait until the next
+                                            // iteration to properly match up the keyed target element with its matching
+                                            // element in the original tree
+                                            isCompatible = false;
+                                        } else {
+                                            // We found a matching keyed element somewhere in the original DOM tree.
+                                            // Let's move the original DOM node into the current position and morph
+                                            // it.
+
+                                            // NOTE: We use insertBefore instead of replaceChild because we want to go through
+                                            // the `removeNode()` function for the node that is being discarded so that
+                                            // all lifecycle hooks are correctly invoked
+                                            fromEl.insertBefore(matchingFromEl, curFromNodeChild);
+
+                                            // fromNextSibling = curFromNodeChild.nextSibling;
+
+                                            if (curFromNodeKey) {
+                                                // Since the node is keyed it might be matched up later so we defer
+                                                // the actual removal to later
+                                                addKeyedRemoval(curFromNodeKey);
+                                            } else {
+                                                // NOTE: we skip nested keyed nodes from being removed since there is
+                                                //       still a chance they will be matched up later
+                                                removeNode(curFromNodeChild, fromEl, true /* skip keyed nodes */);
+                                            }
+
+                                            curFromNodeChild = matchingFromEl;
+                                        }
+                                    } else {
+                                        // The nodes are not compatible since the "to" node has a key and there
+                                        // is no matching keyed node in the source tree
+                                        isCompatible = false;
+                                    }
+                                }
+                            } else if (curFromNodeKey) {
+                                // The original has a key
+                                isCompatible = false;
+                            }
+
+                            isCompatible = isCompatible !== false && compareNodeNames(curFromNodeChild, curToNodeChild);
+                            if (isCompatible) {
+                                // We found compatible DOM elements so transform
+                                // the current "from" node to match the current
+                                // target DOM node.
+                                // MORPH
+                                morphEl(curFromNodeChild, curToNodeChild);
+                            }
+
+                        } else if (curFromNodeType === TEXT_NODE || curFromNodeType == COMMENT_NODE) {
+                            // Both nodes being compared are Text or Comment nodes
+                            isCompatible = true;
+                            // Simply update nodeValue on the original node to
+                            // change the text value
+                            if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
+                                curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                            }
+
+                        }
+                    }
+
+                    if (isCompatible) {
+                        // Advance both the "to" child and the "from" child since we found a match
+                        // Nothing else to do as we already recursively called morphChildren above
+                        curToNodeChild = toNextSibling;
+                        curFromNodeChild = fromNextSibling;
+                        continue outer;
+                    }
+
+                    // No compatible match so remove the old node from the DOM and continue trying to find a
+                    // match in the original DOM. However, we only do this if the from node is not keyed
+                    // since it is possible that a keyed node might match up with a node somewhere else in the
+                    // target tree and we don't want to discard it just yet since it still might find a
+                    // home in the final DOM tree. After everything is done we will remove any keyed nodes
+                    // that didn't find a home
+                    if (curFromNodeKey) {
+                        // Since the node is keyed it might be matched up later so we defer
+                        // the actual removal to later
+                        addKeyedRemoval(curFromNodeKey);
+                    } else {
+                        // NOTE: we skip nested keyed nodes from being removed since there is
+                        //       still a chance they will be matched up later
+                        removeNode(curFromNodeChild, fromEl, true /* skip keyed nodes */);
+                    }
+
+                    curFromNodeChild = fromNextSibling;
+                } // END: while(curFromNodeChild) {}
+
+                // If we got this far then we did not find a candidate match for
+                // our "to node" and we exhausted all of the children "from"
+                // nodes. Therefore, we will just append the current "to" node
+                // to the end
+                if (curToNodeKey && (matchingFromEl = fromNodesLookup[curToNodeKey]) && compareNodeNames(matchingFromEl, curToNodeChild)) {
+                    fromEl.appendChild(matchingFromEl);
+                    // MORPH
+                    morphEl(matchingFromEl, curToNodeChild);
+                } else {
+                    var onBeforeNodeAddedResult = onBeforeNodeAdded(curToNodeChild);
+                    if (onBeforeNodeAddedResult !== false) {
+                        if (onBeforeNodeAddedResult) {
+                            curToNodeChild = onBeforeNodeAddedResult;
+                        }
+
+                        if (curToNodeChild.actualize) {
+                            curToNodeChild = curToNodeChild.actualize(fromEl.ownerDocument || doc);
+                        }
+                        fromEl.appendChild(curToNodeChild);
+                        handleNodeAdded(curToNodeChild);
+                    }
+                }
+
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+            }
+
+            cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey);
+
+            var specialElHandler = specialElHandlers[fromEl.nodeName];
+            if (specialElHandler) {
+                specialElHandler(fromEl, toEl);
+            }
+        } // END: morphChildren(...)
+
+        var morphedNode = fromNode;
+        var morphedNodeType = morphedNode.nodeType;
+        var toNodeType = toNode.nodeType;
+
+        if (!childrenOnly) {
+            // Handle the case where we are given two DOM nodes that are not
+            // compatible (e.g. <div> --> <span> or <div> --> TEXT)
+            if (morphedNodeType === ELEMENT_NODE) {
+                if (toNodeType === ELEMENT_NODE) {
+                    if (!compareNodeNames(fromNode, toNode)) {
+                        onNodeDiscarded(fromNode);
+                        morphedNode = moveChildren(fromNode, createElementNS(toNode.nodeName, toNode.namespaceURI));
+                    }
+                } else {
+                    // Going from an element node to a text node
+                    morphedNode = toNode;
+                }
+            } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) { // Text or comment node
+                if (toNodeType === morphedNodeType) {
+                    if (morphedNode.nodeValue !== toNode.nodeValue) {
+                        morphedNode.nodeValue = toNode.nodeValue;
+                    }
+
+                    return morphedNode;
+                } else {
+                    // Text node to something else
+                    morphedNode = toNode;
+                }
+            }
+        }
+
+        if (morphedNode === toNode) {
+            // The "to node" was not compatible with the "from node" so we had to
+            // toss out the "from node" and use the "to node"
+            onNodeDiscarded(fromNode);
+        } else {
+            if (toNode.isSameNode && toNode.isSameNode(morphedNode)) {
+                return;
+            }
+
+            morphEl(morphedNode, toNode, childrenOnly);
+
+            // We now need to loop over any keyed nodes that might need to be
+            // removed. We only do the removal if we know that the keyed node
+            // never found a match. When a keyed node is matched up we remove
+            // it out of fromNodesLookup and we use fromNodesLookup to determine
+            // if a keyed node has been matched up or not
+            if (keyedRemovalList) {
+                for (var i=0, len=keyedRemovalList.length; i<len; i++) {
+                    var elToRemove = fromNodesLookup[keyedRemovalList[i]];
+                    if (elToRemove) {
+                        removeNode(elToRemove, elToRemove.parentNode, false);
+                    }
+                }
+            }
+        }
+
+        if (!childrenOnly && morphedNode !== fromNode && fromNode.parentNode) {
+            if (morphedNode.actualize) {
+                morphedNode = morphedNode.actualize(fromNode.ownerDocument || doc);
+            }
+            // If we had to swap out the from node with a new node because the old
+            // node was not compatible with the target node then we need to
+            // replace the old DOM node in the original DOM tree. This is only
+            // possible if the original DOM node was part of a DOM tree which
+            // we know is the case if it has a parent node.
+            fromNode.parentNode.replaceChild(morphedNode, fromNode);
+        }
+
+        return morphedNode;
+    };
+}
+
+var morphdom = morphdomFactory(morphAttrs);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (morphdom);
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!***********************************************!*\
+  !*** ./resources/ts/theme-editor/injected.ts ***!
+  \***********************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var morphdom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! morphdom */ "./node_modules/morphdom/dist/morphdom-esm.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+window.addEventListener("DOMContentLoaded", function () {
+  var editor = new Editor();
+  editor.init();
+  Object.keys(window.themeData.sections).forEach(function (sectionId) {
+    var section = window.themeData.sections[sectionId];
+
+    if (Array.isArray(section.blocks)) {
+      section.blocks = {};
+      section.blocks_order = [];
+    }
+  });
+  editor.postMessage("init", {
+    themeData: window.themeData,
+    themeSettings: window.themeSettings,
+    availableSections: window.availableSections,
+    templates: window.templates,
+    models: window.initialState
+  });
+  window.addEventListener("message", function (event) {
+    switch (event.data.type) {
+      case "activateSection":
+        var section = document.querySelector("[data-section-id=\"".concat(event.data.data, "\"]"));
+        editor.activateSection(section);
+        section.scrollIntoView({
+          behavior: "smooth"
+        });
+        break;
+
+      case "clearActiveSection":
+        editor.clearActiveSection();
+        break;
+
+      case "refresh":
+        editor.refreshPreviewer(event.data.data);
+        break;
+    }
+  });
+});
+
+var Editor = /*#__PURE__*/function () {
+  function Editor() {
+    _classCallCheck(this, Editor);
+
+    _defineProperty(this, "sectionOverlay", void 0);
+
+    _defineProperty(this, "activeSectionId", null);
+  }
+
+  _createClass(Editor, [{
+    key: "init",
+    value: function init() {
+      var _this = this,
+          _this$sectionOverlay$,
+          _this$sectionOverlay$2,
+          _this$sectionOverlay$3,
+          _this$sectionOverlay$4,
+          _this$sectionOverlay$5;
+
+      this.sectionOverlay = document.querySelector("#section-overlay");
+      document.querySelectorAll(".arcade-section").forEach(function (section) {
+        section.addEventListener("mouseover", _this.onSectionHover.bind(_this, section));
+        section.addEventListener("mouseleave", function (event) {
+          var _event$toElement$pare;
+
+          if (event.toElement && ((_event$toElement$pare = event.toElement.parentElement) === null || _event$toElement$pare === void 0 ? void 0 : _event$toElement$pare.id) === "section-overlay") {
+            return;
+          }
+
+          _this.onSectionBlur.call(_this, section);
+        });
+      });
+      this.sectionOverlay.querySelectorAll(".btn").forEach(function (btn) {
+        btn.addEventListener("mouseenter", function () {
+          _this.sectionOverlay.style.display = "block";
+        });
+      });
+      (_this$sectionOverlay$ = this.sectionOverlay.querySelector("#move-up")) === null || _this$sectionOverlay$ === void 0 ? void 0 : _this$sectionOverlay$.addEventListener("click", this.onMoveActiveSectionUp.bind(this));
+      (_this$sectionOverlay$2 = this.sectionOverlay.querySelector("#move-down")) === null || _this$sectionOverlay$2 === void 0 ? void 0 : _this$sectionOverlay$2.addEventListener("click", this.onMoveActiveSectionDown.bind(this));
+      (_this$sectionOverlay$3 = this.sectionOverlay.querySelector("#edit")) === null || _this$sectionOverlay$3 === void 0 ? void 0 : _this$sectionOverlay$3.addEventListener("click", this.onEditActiveSection.bind(this));
+      (_this$sectionOverlay$4 = this.sectionOverlay.querySelector("#disable")) === null || _this$sectionOverlay$4 === void 0 ? void 0 : _this$sectionOverlay$4.addEventListener("click", this.onToggleSection.bind(this));
+      (_this$sectionOverlay$5 = this.sectionOverlay.querySelector("#remove")) === null || _this$sectionOverlay$5 === void 0 ? void 0 : _this$sectionOverlay$5.addEventListener("click", this.onRemoveActiveSection.bind(this));
+    }
+  }, {
+    key: "postMessage",
+    value: function postMessage(type, data) {
+      window.parent.postMessage({
+        type: type,
+        data: data
+      }, window.origin);
+    }
+  }, {
+    key: "activateSection",
+    value: function activateSection(section) {
+      this.activeSectionId = section.dataset.sectionId;
+      this.sectionOverlay.style.width = section.offsetWidth + "px";
+      this.sectionOverlay.style.height = section.offsetHeight + "px";
+      this.sectionOverlay.style.left = section.offsetLeft + "px";
+      this.sectionOverlay.style.top = section.offsetTop + "px";
+      this.sectionOverlay.style.display = "block";
+    }
+  }, {
+    key: "clearActiveSection",
+    value: function clearActiveSection() {
+      this.activeSectionId = null;
+      this.sectionOverlay.style.display = "none";
+    }
+  }, {
+    key: "onSectionHover",
+    value: function onSectionHover(section) {
+      if (this.activeSectionId === section.dataset.sectionId) {
+        return;
+      }
+
+      this.activateSection(section);
+      this.postMessage("activateSection", section.dataset.sectionId);
+    }
+  }, {
+    key: "onSectionBlur",
+    value: function onSectionBlur(section) {
+      if (this.activeSectionId === section.dataset.sectionId) {
+        this.clearActiveSection();
+      }
+    }
+  }, {
+    key: "onMoveActiveSectionUp",
+    value: function onMoveActiveSectionUp() {
+      this.postMessage("moveSectionUp", this.activeSectionId);
+    }
+  }, {
+    key: "onMoveActiveSectionDown",
+    value: function onMoveActiveSectionDown() {
+      this.postMessage("moveSectionDown", this.activeSectionId);
+    }
+  }, {
+    key: "onEditActiveSection",
+    value: function onEditActiveSection() {
+      this.postMessage("editSection", this.activeSectionId);
+    }
+  }, {
+    key: "onToggleSection",
+    value: function onToggleSection() {
+      console.log(this.activeSectionId);
+      this.postMessage("toggleSection", this.activeSectionId);
+    }
+  }, {
+    key: "onRemoveActiveSection",
+    value: function onRemoveActiveSection() {
+      this.postMessage("removeSection", this.activeSectionId);
+    }
+  }, {
+    key: "refreshPreviewer",
+    value: function refreshPreviewer(html) {
+      console.log("refresh");
+      var htmlDocument = new DOMParser().parseFromString(html, "text/html");
+      (0,morphdom__WEBPACK_IMPORTED_MODULE_0__["default"])(document.querySelector("html"), htmlDocument.querySelector("html"));
+
+      if (window.Livewire) {
+        window.Livewire.rescan();
+      }
+
+      if (window.Alpine) {
+        window.Alpine.initTree(document.body);
+      }
+    }
+  }]);
+
+  return Editor;
+}();
+})();
+
+/******/ })()
+;

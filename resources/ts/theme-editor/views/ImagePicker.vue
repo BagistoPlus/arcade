@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col bg-white">
     <div class="flex-none flex justify-between border-b pl-4 pr-2 py-3">
-      <h3 class="text-lg font-medium">Images</h3>
+      <h3 class="text-lg font-medium">{{ t("images") }}</h3>
       <button
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
         @click="onCancel"
@@ -20,7 +20,7 @@
         >
           <div class="absolute w-full h-full flex flex-col items-center justify-center">
             <mdicon name="upload" class="text-gray-600" />
-            Import
+            {{ t("import") }}
           </div>
         </button>
 
@@ -57,7 +57,7 @@
         "
         @click="onSelectImage"
       >
-        Select this image
+        {{ t("Select this image") }}
       </button>
     </div>
   </div>
@@ -67,10 +67,12 @@
 import { defineComponent, ref } from "@vue/composition-api";
 import { useFetchImages, useImportImage } from "../api";
 import { useStore } from "../store";
+import { useLang } from "../lang";
 
 export default defineComponent({
   setup() {
     const store = useStore();
+    const { t } = useLang();
     const isImporting = ref(false);
     const selectedImage = ref("");
     const { data: images } = useFetchImages();
@@ -110,6 +112,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       images,
       isImporting,
       selectedImage,

@@ -157,11 +157,12 @@ class Editor {
   }
 
   refreshPreviewer(html: string) {
+    console.log("refresh");
     const htmlDocument = new DOMParser().parseFromString(html, "text/html");
 
     morphdom(
-      document.querySelector("body") as HTMLElement,
-      htmlDocument.querySelector("body") as HTMLElement
+      document.querySelector("html") as HTMLElement,
+      htmlDocument.querySelector("html") as HTMLElement
     );
 
     // Let Alpine & Livewire do their things again

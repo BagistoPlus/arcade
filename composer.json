@@ -31,6 +31,7 @@
     "illuminate/contracts": "^8.0",
     "livewire/livewire": "^2.8",
     "rappasoft/laravel-livewire-tables": "^2.6",
+    "spatie/color": "^1.5",
     "symfony/yaml": "^5.0"
   },
   "require-dev": {

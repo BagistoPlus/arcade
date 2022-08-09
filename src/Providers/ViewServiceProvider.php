@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
+use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\LivewireFeatures;
 use EldoMagan\BagistoArcade\Theme\ThemeManager;
 use EldoMagan\BagistoArcade\View\ArcadeTagsCompiler;
@@ -31,12 +32,8 @@ class ViewServiceProvider extends ServiceProvider
         $this->registerLivewireSectionFeatures();
         $this->registerMiddlewaresForLivewire();
 
-        $this->app->booted(function () {
-            // We do it in the boot method to make sur we override
-            // the bagisto one
-            $this->app->singleton('themes', function () {
-                return new ThemeManager();
-            });
+        $this->app->singleton('themes', function () {
+            return new ThemeManager();
         });
     }
 

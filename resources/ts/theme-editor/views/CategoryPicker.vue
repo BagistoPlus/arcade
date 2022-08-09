@@ -1,7 +1,7 @@
 <template>
   <div class="absolute overflow-y-hidden top-0 left-0 h-full w-full flex flex-col border bg-white">
     <div class="flex-none flex justify-between border-b pl-4 pr-2 py-3">
-      <h3 class="text-lg font-medium">Select Category</h3>
+      <h3 class="text-lg font-medium">{{ t("Select Category") }}</h3>
       <button
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
         @click="onCancel"
@@ -59,7 +59,7 @@
         "
         @click="onSelectCategory"
       >
-        Select this category
+        {{ t("Select this category") }}
       </button>
     </div>
   </div>
@@ -69,10 +69,13 @@
 import { defineComponent, ref, computed } from "@vue/composition-api";
 import { useFetchCategories } from "../api";
 import { useStore } from "../store";
+import { useLang } from "../lang";
 
 export default defineComponent({
   setup() {
     const store = useStore();
+    const { t } = useLang();
+
     const isImporting = ref(false);
     const selectedCategory = ref<number>(store.activePickerValue as number);
     const search = ref("");
@@ -102,6 +105,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       search,
       selectedCategory,
       categories: computed(() => {

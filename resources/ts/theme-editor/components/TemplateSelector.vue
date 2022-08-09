@@ -4,10 +4,7 @@
     content-class="w-80 max-h-[300px] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 bg-white"
   >
     <template #trigger="{ on, opened }">
-      <button
-        v-on="on"
-        class="relative w-80 rounded-md h-10 px-3 py-2 text-left border"
-      >
+      <button v-on="on" class="relative w-80 rounded-md h-10 px-3 py-2 text-left border">
         {{ activeTemplate && activeTemplate.label }}
         <mdicon
           :name="opened ? 'chevron-up' : 'chevron-down'"

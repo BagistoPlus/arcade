@@ -4,7 +4,6 @@ namespace EldoMagan\BagistoArcade\Middlewares;
 
 use Closure;
 use EldoMagan\BagistoArcade\Facades\Sections;
-use EldoMagan\BagistoArcade\Theme\ThemeManager;
 use EldoMagan\BagistoArcade\ThemeDataCollector;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +18,14 @@ class InjectThemeEditorScript
 
     protected $themeDataCollector;
 
-    protected $themeManager;
-
     protected $categoryRepository;
 
     protected $productRepository;
 
-    public function __construct(ThemeEditor $themeEditor, ThemeDataCollector $themeDataCollector, ThemeManager $themeManager, CategoryRepository $categoryRepository, ProductRepository $productRepository)
+    public function __construct(ThemeEditor $themeEditor, ThemeDataCollector $themeDataCollector, CategoryRepository $categoryRepository, ProductRepository $productRepository)
     {
         $this->themeEditor = $themeEditor;
         $this->themeDataCollector = $themeDataCollector;
-        $this->themeManager = $themeManager;
         $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
     }
@@ -83,7 +79,7 @@ class InjectThemeEditorScript
                     }),
             ];
 
-            $theme = $this->themeManager->find($this->themeEditor->editorTheme());
+            $theme = themes()->find($this->themeEditor->editorTheme());
 
             $editorContent = view('arcade::admin.partials.theme-editor-injected-script', [
                 'theme' => $this->themeEditor->editorTheme(),

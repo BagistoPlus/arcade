@@ -10,10 +10,7 @@
     @mouseenter="$emit('activate')"
     @mouseleave="$emit('deactivate')"
   >
-    <button
-      v-if="!fixed"
-      class="-ml-3 -my-2 mr-1 py-2 cursor-move rounded hover:bg-gray-200"
-    >
+    <button v-if="!fixed" class="-ml-3 -my-2 mr-1 py-2 cursor-move rounded hover:bg-gray-200">
       <mdicon name="drag-vertical" />
     </button>
     <div class="flex-1">
@@ -25,11 +22,7 @@
       :title="disabled ? 'Enable' : 'Disable'"
       @click.stop="$emit('toggle')"
     >
-      <mdicon
-        :name="disabled ? 'eye-outline' : 'eye-off-outline'"
-        width="20"
-        height="20"
-      />
+      <mdicon :name="disabled ? 'eye-outline' : 'eye-off-outline'" width="20" height="20" />
     </button>
   </div>
 </template>

@@ -29,7 +29,7 @@ class SectionData extends BlockData
     {
         parent::__construct($id, $data);
 
-        $blocks = $data['blocks'] ?? new ArrayObject();
+        $blocks = $data['blocks'] ?? [];
         $this->blocksOrder = $data['blocks_order'] ?? array_keys($blocks);
 
         $this->allBlocks = collect($this->blocksOrder)

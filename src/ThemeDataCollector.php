@@ -42,6 +42,10 @@ class ThemeDataCollector
 
     public function getThemeSettings()
     {
+        if (null === themes()->current()) {
+            return new ArrayObject();
+        }
+
         if (ThemeEditor::active()) {
             $path = sprintf("%s/themes/%s/editor/theme.json", config('arcade.data_path'), themes()->current()->code);
         } else {
@@ -50,7 +54,15 @@ class ThemeDataCollector
 
         $data = $this->loadFileContent($path);
 
-        return $data['settings'] ?? new ArrayObject();
+        $settings = $data['settings'] ?? new ArrayObject();
+        // dd($settings, $path);
+        foreach (themes()->current()->settings as $setting) {
+            if (!isset($settings[$setting->id])) {
+                $settings[$setting->id] = $setting->default;
+            }
+        }
+
+        return $settings;
     }
 
     public function getEditorInitialStore()

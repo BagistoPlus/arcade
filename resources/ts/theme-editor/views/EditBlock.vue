@@ -16,7 +16,7 @@
 
     <div class="flex-1 p-3 overflow-y-auto">
       <section v-if="Object.keys(groupedSettings).length > 0" class="space-y-3">
-        <h3 class="font-semibold">Settings</h3>
+        <h3 class="font-semibold">{{ t("Settings") }}</h3>
 
         <template v-if="groupedSettings.default">
           <settings-group
@@ -46,13 +46,13 @@
           </template>
         </template>
       </section>
-      <p v-else>This block has no configuration</p>
+      <p v-else>{{ t("This block has no configuration") }}</p>
     </div>
 
     <footer class="flex-none border-t border-gray-300">
       <button class="flex w-full text-left py-3 px-4 hover:bg-gray-100" @click="onRemoveBlock">
         <mdicon name="trash-can-outline" class="inline mr-2" />
-        Remove block
+        {{ t("Remove block") }}
       </button>
     </footer>
   </div>
@@ -61,6 +61,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "@vue/composition-api";
 import { useStore } from "../store";
+import { useLang } from "../lang";
 import { groupSettings } from "../utils";
 
 import SettingsGroup from "../components/SettingsGroup.vue";
@@ -70,6 +71,8 @@ export default defineComponent({
 
   setup(_, { root }) {
     const store = useStore();
+    const { t } = useLang();
+
     const sectionData = computed(() => {
       return store.themeDataValue(`sections.${root.$route.params.sectionId}`);
     });
@@ -122,6 +125,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       block,
       blockData,
       groupedSettings,

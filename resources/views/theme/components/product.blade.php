@@ -1,7 +1,7 @@
-<div class="group relative border overflow-hidden">
+<div class="group relative shadow rounded overflow-hidden bg-on-surface/5 text-on-surface-variant">
   <div class="absolute z-10 top-1 left-1">
     @if ($product->new)
-      <span class="bg-primary text-white text-sm font-medium  px-2 py-0.5 rounded">
+      <span class="bg-tertiary text-on-tertiary text-sm font-medium  px-2 py-0.5 rounded">
         {{ __('shop::app.products.new') }}
       </span>
     @endif

@@ -1,7 +1,7 @@
 <div>
   @foreach($filters as $filter)
     <x-arcade::accordion class="mb-4" :defaultOpen="$loop->first ? '0' : 'null'">
-      <x-arcade::accordion.item :title="$filter->name">
+      <x-arcade::accordion.item :title="$filter->name" class="rounded border">
         @if($filter->type === 'price')
           <div class="px-6 py-4">
             @if($attributes->has('wire'))

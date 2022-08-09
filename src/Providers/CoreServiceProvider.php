@@ -157,6 +157,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../../routes/shop.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'arcade');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'arcade');
 
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
@@ -168,6 +169,7 @@ class CoreServiceProvider extends ServiceProvider
         Arcade::registerSections($this->sections, 'arcade');
 
         $this->app->booted(function () {
+            Arcade::runBootedCallbacks();
             Route::getRoutes()->refreshNameLookups();
 
             foreach ($this->templates() as $route => $template) {

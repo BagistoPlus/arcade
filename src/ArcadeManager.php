@@ -2,6 +2,7 @@
 
 namespace EldoMagan\BagistoArcade;
 
+use Closure;
 use EldoMagan\BagistoArcade\Contracts\CreateCustomer;
 use EldoMagan\BagistoArcade\Facades\Sections;
 use EldoMagan\BagistoArcade\Sections\Section;
@@ -12,6 +13,7 @@ use Livewire\Livewire;
 class ArcadeManager
 {
     protected ThemeDataCollector $themeDataCollector;
+    protected $bootedCallbacks = [];
 
     protected $customerRegistrationValidationRules = [];
 
@@ -74,5 +76,19 @@ class ArcadeManager
     public function createCustomerUsing($creator)
     {
         app()->bind(CreateCustomer::class, $creator);
+    }
+
+    public function booted(Closure $callback)
+    {
+        $this->bootedCallbacks[] = $callback;
+    }
+
+    public function runBootedCallbacks()
+    {
+        foreach ($this->bootedCallbacks as $callback) {
+            $callback();
+        }
+
+       $this->bootedCallbacks = [];
     }
 }

@@ -13,10 +13,10 @@
     </div>
 
     <div class="flex-1 p-3 overflow-y-auto">
-      <template v-if="activeTab === 'Page'">
+      <template v-if="activeTab === tabs[0]">
         <section-list
           fixed
-          title="Layout sections"
+          :title="t('Layout sections')"
           :sections="beforeContentSections"
           :activeSectionId="activeSectionId"
           :getSectionByType="getSectionByType"
@@ -26,7 +26,7 @@
         />
 
         <section-list
-          title="Content"
+          :title="t('Content')"
           class="mt-4"
           :sections="contentSections"
           :order="contentSectionsOrder"
@@ -42,7 +42,7 @@
 
         <section-list
           fixed
-          title="Layout sections"
+          :title="t('Layout sections')"
           class="mt-4"
           :sections="afterContentSections"
           :getSectionByType="getSectionByType"
@@ -74,6 +74,7 @@ import { computed, defineComponent, ref } from "@vue/composition-api";
 import { useRouter } from "vue2-helpers/vue-router";
 
 import { useStore } from "../store";
+import { useLang } from "../lang";
 import { groupSettings } from "../utils";
 
 import SectionList from "../components/SectionList.vue";
@@ -86,10 +87,12 @@ export default defineComponent({
   },
 
   setup() {
-    const tabs = ["Page", "Theme Settings"];
-    const activeTab = ref(tabs[0]);
     const store = useStore();
     const router = useRouter();
+    const { t } = useLang();
+
+    const tabs = [t("Page"), t("Theme Settings")];
+    const activeTab = ref(tabs[0]);
 
     function activateSection(id: string) {
       store.activateSection(id, true);
@@ -112,6 +115,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       tabs,
       activeTab,
       beforeContentSections: computed(() => store.beforeContentSections),

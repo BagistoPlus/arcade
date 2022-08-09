@@ -65,6 +65,7 @@ import ProductPicker from "./views/ProductPicker.vue";
 
 import { Section, ViewMode } from "./types";
 import { useRouter } from "vue2-helpers/vue-router";
+import { useLang } from "./lang";
 
 export default defineComponent({
   components: {
@@ -79,6 +80,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const { t } = useLang();
+
     const url = store.theme.storefrontUrl;
     const iframe = ref<HTMLIFrameElement | null>(null);
     const sectionModalActive = ref(false);
@@ -163,6 +166,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       url,
       iframe,
       iframeStyle,

@@ -27,6 +27,7 @@
         themesIndex: "{{ route('arcade.admin.themes.index') }}",
         imagesBaseUrl: "{{ $imagesBaseUrl }}",
       }
+      window.messages = @json($messages);
     </script>
 
     <div id="app"></div>

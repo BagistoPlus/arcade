@@ -24,13 +24,14 @@
       @click="$emit('add-section')"
     >
       <mdicon name="plus" class="" />
-      Ajouter une section
+      {{ t("Add a section") }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@vue/composition-api";
+import { useLang } from "../lang";
 import { SectionData } from "../types";
 import SectionListItem from "./SectionListItem.vue";
 
@@ -72,6 +73,7 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
+    const { t } = useLang();
     const sortable = ref<HTMLElement>();
 
     onMounted(() => {
@@ -92,6 +94,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       sortable,
       sectionLabel,
     };

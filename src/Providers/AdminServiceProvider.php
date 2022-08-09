@@ -20,8 +20,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/admin.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'arcade');
 
-        $this->bootMiddlewares();
         $this->bootRequestMacros();
+        $this->bootMiddlewares();
         $this->bootViewEventListeners();
 
         if ($this->app->runningInConsole()) {
@@ -73,6 +73,7 @@ class AdminServiceProvider extends ServiceProvider
         Request::macro('inDesignMode', function () {
             return ThemeEditor::inDesignMode();
         });
+
         Request::macro('inPreviewMode', function () {
             return ThemeEditor::inPreviewMode();
         });

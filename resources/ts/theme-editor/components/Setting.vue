@@ -80,8 +80,8 @@
       :label="setting.label"
       :value="value"
       model-name="categories"
-      button-label="Select category"
-      edit-button-label="Update category"
+      :button-label="t('Select category')"
+      :edit-button-label="t('Update category')"
       @input="$emit('input', $event)"
       @select="$emit('selectCategory')"
     />
@@ -91,8 +91,8 @@
       :label="setting.label"
       :value="value"
       model-name="products"
-      button-label="Select product"
-      edit-button-label="Update product"
+      :button-label="t('Select product')"
+      :edit-button-label="t('Update product')"
       @input="$emit('input', $event)"
       @select="$emit('selectProduct')"
     />
@@ -116,9 +116,13 @@
     </div>
 
     <div v-else-if="setting.type === 'color'" class="flex items-start">
-      <color-picker class="flex-none rounded" :value="value" @input="$emit('input', $event)" />
+      <color-picker
+        class="flex-none rounded border"
+        :value="value"
+        @input="$emit('input', $event)"
+      />
       <div class="flex-1 ml-3 -mt-1">
-        <label class="block text-base font-medium">{{ setting.label }}</label>
+        <label class="block text-sm">{{ setting.label }}</label>
         <p class="text-xs">{{ value }}</p>
       </div>
     </div>
@@ -135,6 +139,7 @@
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
 import Slider from "@vueform/slider/dist/slider.vue2.js";
+import { useLang } from "../lang";
 import TextType from "./Types/TextType.vue";
 import CheckboxType from "./Types/CheckboxType.vue";
 import RadioGroupType from "./Types/RadioGroupType.vue";
@@ -167,7 +172,10 @@ export default defineComponent({
 
   emits: ["input"],
 
-  setup() {},
+  setup() {
+    const { t } = useLang();
+    return { t };
+  },
 });
 </script>
 
