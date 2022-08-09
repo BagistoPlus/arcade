@@ -89,6 +89,6 @@ class ArcadeManager
             $callback();
         }
 
-       $this->bootedCallbacks = [];
+        $this->bootedCallbacks = [];
     }
 }

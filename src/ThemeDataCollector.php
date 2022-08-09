@@ -57,7 +57,7 @@ class ThemeDataCollector
         $settings = $data['settings'] ?? new ArrayObject();
         // dd($settings, $path);
         foreach (themes()->current()->settings as $setting) {
-            if (!isset($settings[$setting->id])) {
+            if (! isset($settings[$setting->id])) {
                 $settings[$setting->id] = $setting->default;
             }
         }

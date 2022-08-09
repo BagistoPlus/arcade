@@ -2,8 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
-use EldoMagan\BagistoArcade\Facades\Arcade;
-use EldoMagan\BagistoArcade\Theme\ThemeManager;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\ServiceProvider;
 use ReflectionClass;
@@ -92,7 +90,7 @@ abstract class ThemeServiceProvider extends ServiceProvider
                 'support_url' => $this->supportUrl,
                 'views_path' => '',
                 'arcade_theme' => true,
-                'settings' => $this->settings()
+                'settings' => $this->settings(),
             ];
         }
 
