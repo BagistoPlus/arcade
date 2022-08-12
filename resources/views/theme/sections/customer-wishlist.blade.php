@@ -3,7 +3,7 @@
 <x-account-layout :title="__('shop::app.customer.account.wishlist.title')">
   <x-slot name="actions">
     @unless ($items->isEmpty())
-      <form method="POST" action="{{ route('customer.wishlist.removeall') }}"
+      <form method="POST" action="{{ route('customer.wishlist.removeall') }}">
         @csrf
         @method('DELETE')
         <button type="submit" class="px-4 py-1 text-white bg-primary">

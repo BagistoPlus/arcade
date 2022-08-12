@@ -69,34 +69,35 @@ class FeaturedProducts extends BladeSection
     public static function settings(): array
     {
         return [
-            TextType::make('heading', 'Heading')
-                ->default('Featured Products'),
+            TextType::make('heading', __('arcade::app.sections.featured-products.heading'))
+                ->default(__('arcade::app.sections.featured-products.heading')),
 
-            TextType::make('subheading', 'Subheading')
-                ->default('Use this section to show off a few of your favourite products'),
+            TextType::make('subheading', __('arcade::app.sections.featured-products.subheading'))
+                ->default(__('arcade::app.sections.featured-products.default-subheading')),
 
-            RangeType::make('nb_products', 'Number of products')
+            RangeType::make('nb_products', __('arcade::app.sections.featured-products.nb-products'))
                 ->default(4)
                 ->min(4)
                 ->max(16)
-                ->info('The number of products to display when no product block is added'),
+                ->info(__('arcade::app.sections.featured-products.nb-info')),
 
-            RadioType::make('product_type', 'Product type')
+            RadioType::make('product_type', __('arcade::app.sections.featured-products.product-type'))
                 ->options([
-                    'new' => 'New products',
-                    'featured' => 'Featured products',
+                    'new' => __('arcade::app.sections.featured-products.product-type-new'),
+                    'featured' => __('arcade::app.sections.featured-products.product-type-featured'),
                 ])
                 ->default('new')
-                ->info('Applicable only when there are no product blocks added'),
+                ->info(__('arcade::app.sections.featured-products.product-type-info')),
         ];
     }
 
     public static function blocks(): array
     {
         return [
-            Block::make('product', 'Product')
+            Block::make('product', __('arcade::app.sections.featured-products.blocks.product.title'))
                 ->settings([
-                    SettingType::make('product', 'Product')->type('product'),
+                    SettingType::make('product', __('arcade::app.sections.featured-products.blocks.product.title'))
+                        ->type('product'),
                 ]),
         ];
     }

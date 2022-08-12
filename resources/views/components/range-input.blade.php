@@ -1,6 +1,6 @@
 @props([
-  'fromLabel' => 'from',
-  'toLabel' => 'to'
+  'fromLabel' => __('arcade::app.shop.from'),
+  'toLabel' => __('arcade::app.shop.to'),
 ])
 
 <div

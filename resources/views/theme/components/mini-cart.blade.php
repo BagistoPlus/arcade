@@ -5,7 +5,9 @@
       <span class="absolute lg:hidden flex -top-1 -right-1 px-1 rounded-full bg-red-500 text-white text-xs font-medium">
         {{ $this->itemsCount }}
       </span>
-      <span class="sr-only">items in cart, view bag</span>
+      <span class="sr-only">
+        {{ __('arcade::app.shop.cart-description') }}
+      </span>
       <span class="hidden lg:inline text-sm font-medium">
         {{ __('shop::app.header.cart') }} ({{ $this->itemsCount }})
       </span>
@@ -20,10 +22,10 @@
     @if($this->isCartEmpty)
       <div class="flex flex-col items-center p-4">
         <p class="text-center mt-4">
-          Your cart is empty
+          {{ __('arcade::app.shop.cart-empty') }}
         </p>
         <a href="{{ route('shop.search.index') }}" class="block w-full text-center font-semibold text-white bg-black py-2 mt-4">
-          Browse products
+          {{ __('arcade::app.shop.browse-products') }}
         </a>
       </div>
     @else

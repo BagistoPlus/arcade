@@ -1,9 +1,9 @@
 <div class="max-w-2xl">
   @guest('customer')
     <p class="mb-4">
-      Vous avez un compte ?
+      {{ __('arcade::app.sections.checkout-page.customer-has-account') }}
       <a href="{{ route('customer.session.index', ['redirect' => route('shop.checkout.onepage.index')]) }}" class="underline text-primary">
-        Connectez-vous.
+        {{ __('arcade::app.sections.checkout-page.login-text') }}
       </a>
     </p>
   @endguest

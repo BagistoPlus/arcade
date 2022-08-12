@@ -43,13 +43,13 @@ class FeaturedCategory extends BladeSection
     public static function settings(): array
     {
         return [
-            SettingType::make('category', 'Category')
+            SettingType::make('category', __('arcade::app.sections.featured-category.title'))
                 ->type('category'),
 
-            TextType::make('heading', 'Heading')
-                ->default('Featured Category'),
+            TextType::make('heading', __('arcade::app.sections.featured-category.heading'))
+                ->default(__('arcade::app.sections.featured-category.default-heading')),
 
-            TextType::make('products_to_show', 'Products to show')
+            TextType::make('products_to_show', __('arcade::app.sections.featured-category.products-to-show'))
                 ->type('number')
                 ->default(6),
         ];

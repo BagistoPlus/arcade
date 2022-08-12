@@ -8,27 +8,30 @@ use EldoMagan\BagistoArcade\SettingTypes\TextType;
 
 class AnnouncementBar extends BladeSection
 {
-    protected static string $description = 'You can show your announcements here';
+    public static function description(): string
+    {
+        return __('arcade::app.sections.annoucement-bar.description');
+    }
 
     public static function settings(): array
     {
         return [
-            CheckboxType::make('show_announcement', 'Show Announcement')
+            CheckboxType::make('show_announcement', __('arcade::app.sections.annoucement-bar.show_annoucement'))
                 ->default(true)
-                ->info('You can toggle the announcement bar using this checkbox'),
+                ->info(__('arcade::app.sections.announcement-bar.show_announcement_info')),
 
-            TextType::make('announcement', 'Announcement')
-                ->default('Announcement text')
-                ->info('The announcement text'),
+            TextType::make('announcement', __('arcade::app.sections.annoucement-bar.title'))
+                ->default(__('arcade::app.sections.annoucement-bar.default-content'))
+                ->info(__('arcade::app.sections.annoucement-bar.content-info')),
 
-            SelectType::make('position', 'Position')
+            SelectType::make('position', __('arcade::app.sections.annoucement-bar.position'))
                 ->options([
-                    'left' => 'Left',
-                    'center' => 'Center',
-                    'right' => 'Right',
+                    'left' => __('arcade::app.sections.annoucement-bar.position-left'),
+                    'center' => __('arcade::app.sections.annoucement-bar.position-center'),
+                    'right' => __('arcade::app.sections.annoucement-bar.position-right'),
                 ])
                 ->default('center')
-                ->info('The announcement bar position'),
+                ->info(__('arcade::app.sections.annoucement-bar.position-info')),
         ];
     }
 

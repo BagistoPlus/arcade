@@ -51,23 +51,34 @@ class ProductDetails extends LivewireSection
     public static function blocks(): array
     {
         return [
-            Block::make('title', 'Title')->limit(1),
-            Block::make('price', 'Price')->limit(1),
-            Block::make('stock', 'Stock')->limit(1),
-            Block::make('short_description', 'Short Description')->limit(1),
-            Block::make('quantity_selector', 'Quantity selector')->limit(1),
-            Block::make('buy_buttons', 'Buy buttons')
+            Block::make('title', __('arcade::app.sections.product-details.blocks.title.title'))
+                ->limit(1),
+            Block::make('price', __('arcade::app.sections.product-details.blocks.price.title'))
+                ->limit(1),
+            Block::make('stock', __('arcade::app.sections.product-details.blocks.stock.title'))
+                ->limit(1),
+            Block::make('short_description', __('arcade::app.sections.product-details.blocks.short-description.title'))
+                ->limit(1),
+            Block::make('quantity_selector', __('arcade::app.sections.product-details.blocks.quantity-selector.title'))
+                ->limit(1),
+            Block::make('buy_buttons', __('arcade::app.sections.product-details.blocks.buy-buttons.title'))
                 ->limit(1)
                 ->settings([
-                    CheckboxType::make('show_buy_now', 'Show buy now button')
+                    CheckboxType::make('show_buy_now', __('arcade::app.sections.product-details.blocks.buy-buttons.show-buy-now'))
                         ->default(true),
                 ]),
-            Block::make('description', 'Description')->limit(1),
-            Block::make('attributes', 'Attributes')->limit(1),
-            Block::make('variant_picker', 'Variant Picker')->limit(1),
-            Block::make('downloadable_options', 'Downloadable options')->limit(1),
-            Block::make('grouped_options', 'Grouped products')->limit(1),
-            Block::make('bundle_options', 'Bundle options')->limit(1),
+            Block::make('description', __('arcade::app.sections.product-details.blocks.description.title'))
+                ->limit(1),
+            Block::make('attributes', __('arcade::app.sections.product-details.blocks.attributes.title'))
+                ->limit(1),
+            Block::make('variant_picker', __('arcade::app.sections.product-details.blocks.variant-picker.title'))
+                ->limit(1),
+            Block::make('downloadable_options', __('arcade::app.sections.product-details.blocks.downloadable-options.title'))
+                ->limit(1),
+            Block::make('grouped_options', __('arcade::app.sections.product-details.blocks.grouped-products.title'))
+                ->limit(1),
+            Block::make('bundle_options', __('arcade::app.sections.product-details.blocks.bundle-options.title'))
+                ->limit(1),
         ];
     }
 }

@@ -1,14 +1,14 @@
 @extends('admin::layouts.content')
 
 @section('page_title')
-  Arcade - Themes
+  {{ __('arcade::theme-editor.themes.page-title') }}
 @stop
 
 @section('content')
   <div class="content max-w-3xl mx-auto">
     <div class="page-header">
       <div class="page-title">
-        <h1>Themes</h1>
+        <h1>{{ __('arcade::theme-editor.themes.title') }}</h1>
       </div>
     </div>
 
@@ -20,14 +20,18 @@
             <h3 class="font-semibold text-2xl">{{ $theme['name'] }}</h3>
 
             <div class="space-x-4">
-              <a href="{{ route('arcade.admin.themes.editor', ['theme' => $code]) }}" class="btn btn-lg btn-primary">Customize</a>
-              <a href="{{ route('shop.home.index', ['previewMode' => $code]) }}" target="_blank" class="btn btn-secondary btn-lg">Preview</a>
+              <a href="{{ route('arcade.admin.themes.editor', ['theme' => $code]) }}" class="btn btn-lg btn-primary">
+                {{ __('arcade::theme-editor.themes.customize') }}
+              </a>
+              <a href="{{ route('shop.home.index', ['previewMode' => $code]) }}" target="_blank" class="btn btn-secondary btn-lg">
+                {{ __('arcade::theme-editor.themes.preview') }}
+              </a>
             </div>
           </div>
         </div>
       @empty
         <div class="card">
-          No themes found.
+          {{ __('arcade::theme-editor.themes.no-themes') }}
         </div>
       @endforelse
     </div>

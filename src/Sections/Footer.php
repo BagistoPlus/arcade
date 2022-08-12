@@ -20,11 +20,11 @@ class Footer extends BladeSection
     public static function settings(): array
     {
         return [
-            CheckboxType::make('show_payment_methods', 'Show Payment Methods')
+            CheckboxType::make('show_payment_methods', __('arcade::app.sections.footer.show-payment-methods'))
                 ->default(true),
-            CheckboxType::make('show_shipping_methods', 'Show Shipping Methods')
+            CheckboxType::make('show_shipping_methods', __('arcade::app.sections.footer.show-shipping-methods'))
                 ->default(true),
-            CheckboxType::make('show_locale_selector', 'Show language selector')
+            CheckboxType::make('show_locale_selector', __('arcade::app.sections.footer.show-locale-selector'))
                 ->default(true),
         ];
     }
@@ -32,31 +32,31 @@ class Footer extends BladeSection
     public static function blocks(): array
     {
         return [
-            Block::make('about', 'About')
+            Block::make('about', __('arcade::app.sections.footer.blocks.about.title'))
                 ->limit(1)
                 ->settings([
-                    TextType::make('heading', 'Heading')
-                        ->default('About our store'),
-                    TextType::make('content', 'Content')
+                    TextType::make('heading', __('arcade::app.sections.footer.blocks.about.heading'))
+                        ->default(__('arcade::app.sections.footer.blocks.about.heading-default')),
+                    TextType::make('content', __('arcade::app.sections.footer.blocks.about.content'))
                         ->type('textarea')
-                        ->default('Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.'),
+                        ->default(__('arcade::app.sections.footer.blocks.about.content-default')),
                 ]),
 
-            Block::make('quick-links', 'Quick Links')
+            Block::make('quick-links', __('arcade::app.sections.footer.blocks.quick-links.title'))
                 ->limit(1)
                 ->settings([
-                    TextType::make('heading', 'Heading')
-                        ->default('Quick Links'),
+                    TextType::make('heading', __('arcade::app.sections.footer.blocks.quick-links.heading'))
+                        ->default(__('arcade::app.sections.footer.blocks.quick-links.heading-default')),
                 ]),
 
-            Block::make('newsletter', 'Newsletter')
+            Block::make('newsletter', __('arcade::app.sections.footer.blocks.newsletter.title'))
                 ->limit(1)
                 ->settings([
-                    TextType::make('heading', 'Heading')
-                        ->default('Newsletter'),
-                    TextType::make('content', 'Content')
+                    TextType::make('heading', __('arcade::app.sections.footer.blocks.newsletter.heading'))
+                        ->default(__('arcade::app.sections.footer.blocks.newsletter.heading-default')),
+                    TextType::make('content', __('arcade::app.sections.footer.blocks.newsletter.content'))
                         ->type('textarea')
-                        ->default('A short sentence describing what someone will receive by subscribing'),
+                        ->default(__('arcade::app.sections.footer.blocks.newsletter.content-default')),
                 ]),
         ];
     }

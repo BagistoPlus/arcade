@@ -30,5 +30,13 @@ return [
     'Update category' => 'Update category',
     'Select product' => 'Select product',
     'Update product' => 'Update product',
-    'Content' => 'Content'
+    'Content' => 'Content',
+
+    'themes' => [
+        'page-title' => 'Arcade - Themes',
+        'title' => 'Themes',
+        'customize' => 'Customize',
+        'preview' => 'Preview',
+        'no-themes' => 'No themes found'
+    ]
 ];

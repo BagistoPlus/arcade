@@ -2,7 +2,9 @@
   <x-slot name="trigger">
     <button class="text-center leading-3">
       <x-heroicon-o-user class="w-5 h-5 inline" />
-      <span class="hidden lg:inline text-sm font-medium">Profile</span>
+      <span class="hidden lg:inline text-sm font-medium">
+        {{ __('arcade::app.shop.profile') }}
+      </span>
     </button>
   </x-slot>
   <div

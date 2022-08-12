@@ -5,7 +5,7 @@
         {{ $section->settings->heading ?: $category->name . ' collection' }}
       </h2>
       <a href="{{ url()->to($category->translations[0]->url_path) }}" class="hover:underline">
-        View all
+        {{ __('arcade::app.sections.featured-category.view-all') }}
         <x-heroicon-o-arrow-right class="inline w-4 h-4"/>
       </a>
     </div>
