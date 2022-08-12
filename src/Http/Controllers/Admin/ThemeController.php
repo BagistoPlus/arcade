@@ -35,7 +35,7 @@ class ThemeController extends Controller
             'theme' => $theme,
             'storefrontUrl' => url('/') . '?' . http_build_query(['designMode' => $code]),
             'imagesBaseUrl' => Storage::disk(config('arcade.images_storage'))->url(''),
-            'messages' => Lang::get('arcade::theme-editor')
+            'messages' => Lang::get('arcade::theme-editor'),
         ]);
     }
 

@@ -2,7 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\Providers;
 
-use EldoMagan\BagistoArcade\Facades\Arcade;
 use EldoMagan\BagistoArcade\LivewireFeatures;
 use EldoMagan\BagistoArcade\Theme\ThemeManager;
 use EldoMagan\BagistoArcade\View\ArcadeTagsCompiler;

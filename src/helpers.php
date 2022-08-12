@@ -3,9 +3,9 @@
 use EldoMagan\BagistoArcade\ArcadeManager;
 use EldoMagan\BagistoArcade\ThemeEditor;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Color\Hex;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductFlatRepository;
-use Spatie\Color\Hex;
 
 if (! function_exists('arcade')) {
     function arcade()
@@ -51,7 +51,8 @@ if (! function_exists('arcade_clear_inline_styles')) {
 }
 
 if (! function_exists('arcade_color_rbg_vars')) {
-    function arcade_color_rbg_vars($hexColor) {
+    function arcade_color_rbg_vars($hexColor)
+    {
         $color = Hex::fromString($hexColor)->toRgb();
 
         return $color->red() . ',' . $color->green() . ',' . $color->blue();

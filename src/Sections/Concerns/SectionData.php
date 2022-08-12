@@ -2,7 +2,6 @@
 
 namespace EldoMagan\BagistoArcade\Sections\Concerns;
 
-use ArrayObject;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
